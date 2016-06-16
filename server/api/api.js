@@ -4,19 +4,13 @@ module.exports = function(server) {
     var express = require('express');
     var consulta = require("../routes/consulta");
     var incluir = require("../routes/incluir");
-    var app = express();
 
-    app.use('/consulta', consulta);
-    app.use('/incluir', incluir);
-    //app.use('/', express.static('./public/index.html'));
+    server.use('/consulta', consulta);
+    server.use('/incluir', incluir);
 
-    app.get('/', function (req, res) {
+    server.get('/', function (req, res) {
         res.type('text/html');
         res.send('');
-    });
-
-    app.listen(3000, function () {
-      console.log('Server on!');
     });
 
 };

@@ -1,8 +1,9 @@
 var express = require('express');
 var consulta = express.Router();
 
-consulta.get('/', function(req, res) {
-	res.send('');
+consulta.get('/:2', function(req, res) {
+	console.log(req);
+	res.sendStatus(200);
 });
 
 

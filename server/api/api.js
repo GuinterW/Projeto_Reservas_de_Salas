@@ -1,14 +1,22 @@
+//backend
 module.exports = function(server) {
-    // Create Express API's here
 
-    /*
-    server.post('/', function (req, res) {
-        var body = req.body;
+    var express = require('express');
+    var consulta = require("../routes/consulta");
+    var incluir = require("../routes/incluir");
+    var app = express();
 
-        res.status(200).json({
-            code: 200,
-            message: "success"
-        });
+    app.use('/consulta', consulta);
+    app.use('/incluir', incluir);
+    //app.use('/', express.static('./public/index.html'));
+
+    app.get('/', function (req, res) {
+        res.type('text/html');
+        res.send('');
     });
-    */
+
+    app.listen(3000, function () {
+      console.log('Server on!');
+    });
+
 };

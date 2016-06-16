@@ -2,6 +2,8 @@ var express = require('express');
 var bodyParser = require('body-parser');
 var cookieParser = require('cookie-parser');
 var routes = require('./routes/routes');
+var consulta = require("./routes/consulta");
+var incluir = require("./routes/incluir");
 var api = require('./api/api');
 
 function Server() {

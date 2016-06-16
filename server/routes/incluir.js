@@ -1,6 +1,6 @@
 var express = require('express');
 var incluir = express.Router();
-var mysql      = require('mysql');
+var mysql = require('mysql');
 var connection = mysql.createConnection({
     host     : 'localhost',
     user     : 'me',
@@ -14,7 +14,7 @@ var errors = {
     }
 }
 
-incluir.get('/', function(req, res) {
+incluir.post('/', function(req, res) {
     if(req.query.hasOwnProperty('Sala') && req.query.hasOwnProperty('Inicio') && req.query.hasOwnProperty('Termino') && req.query.hasOwnProperty('Data')){
         connection.query('INSERT INTO reservas SET ?', req.query, function(err, result){
             if (err) throw err;
@@ -29,6 +29,5 @@ incluir.get('/', function(req, res) {
         res.status(403).send(errors.emptyField);
     }
 });
-
 
 module.exports = incluir;

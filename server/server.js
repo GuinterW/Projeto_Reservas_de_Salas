@@ -8,7 +8,6 @@ function Server() {
     var app = express();
     var port = process.env.PORT || 9000;
 
-
     // Remove x-powered-by header (doesn't let clients know we are using Express)
     app.disable('x-powered-by');
 

@@ -6,11 +6,11 @@ var app= express();
 
 app.use('/consulta', consulta);
 app.use('/incluir', incluir);
-//app.use('/', express.static('./public/index.html'))
+//app.use('/', express.static('./public/index.html'));
 
 app.get('/', function (req, res) {
     res.type('text/html');
-    res.send();
+    res.send('');
 });
 
 app.listen(3000, function () {

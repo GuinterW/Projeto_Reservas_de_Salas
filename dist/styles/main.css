@@ -4,16 +4,6 @@
  * Copyright 2011-2015 Twitter, Inc.
  * Licensed under MIT (https://github.com/twbs/bootstrap/blob/master/LICENSE)
  */
-#tituloPrincipal {
-  color: #4db81a;
-  margin-top: 30px; }
-
-#salas {
-  width: 500px; }
-
-i {
-  color: #333333; }
-
 /*! normalize.css v3.0.3 | MIT License | github.com/necolas/normalize.css */
 html {
   font-family: sans-serif;
@@ -1093,7 +1083,8 @@ textarea {
   line-height: inherit; }
 
 a {
-  color: #337ab7;
+  /*color: $link-color;*/
+  color: #333333;
   text-decoration: none; }
   a:hover, a:focus {
     color: #23527c;
@@ -7832,5 +7823,15 @@ button.close {
 
 .fa-fonticons:before {
   content: ""; }
+
+#tituloPrincipal {
+  color: #4db81a;
+  margin-top: 30px; }
+
+#salas {
+  width: 700px; }
+
+i {
+  color: #333333; }
 
 /*# sourceMappingURL=main.css.map */

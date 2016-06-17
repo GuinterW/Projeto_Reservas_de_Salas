@@ -16,6 +16,7 @@ var errors = {
 
 incluir.post('/', function(req, res) {
     if(req.query.hasOwnProperty('Sala') && req.query.hasOwnProperty('Inicio') && req.query.hasOwnProperty('Termino') && req.query.hasOwnProperty('Data')){
+<<<<<<< daaf217361d8237eb08967452c4b432433c83f78
 <<<<<<< 5ca5a2d44708b3aae069bf66c7c554cb5bfdb86a
 <<<<<<< 2cc7f389967be24a7b1140ee05d852ef2660eb47
 <<<<<<< 9dc861cab1b6c68f9b89bba88d861a1fdb0aa179
@@ -26,6 +27,8 @@ incluir.post('/', function(req, res) {
 >>>>>>> validação
 <<<<<<< b10bea667334b0488f9129a2d87609396e9dccbe
 >>>>>>> validação incluir
+=======
+>>>>>>> ajustes pull
         var inicio = req.query.Inicio.replace(/[:-]/g, '');
         var termino = req.query.Termino.replace(/[:-]/g, '');
         var data = req.query.Data.replace(/[:-]/g, '');
@@ -68,6 +71,7 @@ incluir.post('/', function(req, res) {
             res.type('text/json');
             res.status(403).send(errors.emptyField);
         }
+<<<<<<< daaf217361d8237eb08967452c4b432433c83f78
 =======
         var inicio = req.query.Inicio.replace(/[:-.,]/g, '');
         var termino = req.query.Termino.replace(/[:-.,]/g, '');
@@ -296,6 +300,8 @@ incluir.put('/', function(req, res) {
             res.type('text/json');
             res.status(403).send(errors.emptyField);
         }
+=======
+>>>>>>> ajustes pull
     }
     else {
         console.log('Failed to insert, insuficient query');

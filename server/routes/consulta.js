@@ -1,8 +1,8 @@
 var express = require('express');
 var consulta = express.Router();
 
-consulta.get('/', function(req, res) {
-	console.log(req);
+consulta.get('/:sala', function(req, res) {
+	console.log(req.params.sala);
 	res.sendStatus(200);
 });
 

@@ -17,6 +17,7 @@ var table = {
 $(document).ready(function(){
 	start();
 	$('.links').click(function(){
+<<<<<<< 9250cdfaf6bcadbc8cdcb9922f2dfe22a3ba6e34
 		$("li[class='active activeRoom']").removeClass("active activeRoom");
 		$("li a[id='room1']").parent().addClass("active activeRoom");
 		var pagina = $(this).attr('href');
@@ -25,6 +26,12 @@ $(document).ready(function(){
 		$('.pages').hide();
 		$(pagina).show();
 		formTable (1);
+=======
+		var pagina = $(this).attr('href');
+		console.log(pagina);
+		$('.pages').hide();
+		$(pagina).show();
+>>>>>>> pages
 	});
 	$('.room').click(function(){
 		var pagina = $(this).attr('id');

@@ -35,7 +35,11 @@
             </div>
         </div>
         <ol class="nav nav-pills">
+<<<<<<< 90b9c99e06b977b01c56077a7de16fc13feb00a2
             <li class="active mainLinks"><a class="links" href="#forToday">Para hoje</a></li>
+=======
+            <li class="active oi"><a class="links" href="#forToday">Para hoje</a></li>
+>>>>>>> paginação e layout
             <li><a class="links" href="#listMeetings">Listar reuniões</a></li>
             <li><a class="links" href="#includeReservation">Incluir reserva</a></li>
             <!--<li><a class="links" href="#">Minhas reuniões</a></li> -->
@@ -52,18 +56,54 @@
             <h2><i class="fa fa-list-alt" aria-hidden="true"></i> Listar</h2>
 =======
         <div id="forToday" class="pages">
-            <h2 id="date">Aqui vai ter a data</h2>
-            <ul id="salas" class="nav nav-tabs" role="tablist">
-                <li class="active"><a href="#">Sala 1</a></li>
-                <li><a href="#">Sala 2</a></li>
-                <li><a href="#">Sala 3</a></li>
+            <h2 id="date"><i class="fa fa-calendar" aria-hidden="true"></i>DD/MM/AAAA</h2>
+            <ul class="pagination">
+                <li class="active"><a href="#tableComplete">Sala 1</a></li>
+                <li><a href="#tableComplete">Sala 2</a></li>
+                <li><a href="#tableComplete">Sala 3</a></li>
             </ul>
-            <div id="tableForToday"><p>Aqui vai ter uma tabela via js S2</p></div>
+            <div id="tableComplete">
+                <table class="table table-bordered table-striped">
+                    <thead>
+                      <tr>
+                        <th>Data</th>
+                        <th>Início</th>
+                        <th>Término</th>
+                        <th>Responsável</th>
+                        <th>Pauta</th>
+                      </tr>
+                    </thead>
+                    <tbody id="newLineComplete">
+                      <tr>
+                        <td>dd/mm/aa</td>
+                        <td>hh:mm</td>
+                        <td>hh:mm</td>
+                        <td>Doe</td>
+                        <td>Bla bla bla</td>
+                      </tr>
+                      <tr>
+                        <td>dd/mm/aa</td>
+                        <td>hh:mm</td>
+                        <td>hh:mm</td>
+                        <td>Mary</td>
+                        <td>Bla bla bla</td>
+                      </tr>
+                      <tr>
+                        <td>dd/mm/aa</td>
+                        <td>hh:mm</td>
+                        <td>hh:mm</td>
+                        <td>July</td>
+                        <td>Bla bla bla</td>
+                      </tr>
+                    </tbody>
+                  </table>
+            </div>
         </div>
         <div id="listMeetings" class="pages">
             <h2>Listar</h2>
 >>>>>>> pages
             <div class="form-group">
+<<<<<<< 90b9c99e06b977b01c56077a7de16fc13feb00a2
                 <select id="year">
                     <option>2016</option>
                 </select>
@@ -141,6 +181,52 @@
                 <li><a href="#table" id="room3" class="room">Sala 3</a></li>
             </ul>
             <div id="table"></div>
+=======
+                <div class="col-xs-2">
+                    <select id="year">2016</select>
+                </div>
+                <div class="col-xs-3">
+                    <select id="month">Escolha um mês...</select>
+                </div>
+            </div><br>
+            <ul class="pagination">
+                <li class="active"><a href="#tableForToday">Sala 1</a></li>
+                <li><a href="#tableForToday">Sala 2</a></li>
+                <li><a href="#tableForToday">Sala 3</a></li>
+            </ul>
+            <div id="tableForToday">
+                <table class="table table-bordered table-striped">
+                    <thead>
+                      <tr>
+                        <th>Início</th>
+                        <th>Término</th>
+                        <th>Responsável</th>
+                        <th>Pauta</th>
+                      </tr>
+                    </thead>
+                    <tbody id="newLineToday">
+                      <tr>
+                        <td>hh:mm</td>
+                        <td>hh:mm</td>
+                        <td>Doe</td>
+                        <td>Bla bla bla</td>
+                      </tr>
+                      <tr>
+                        <td>hh:mm</td>
+                        <td>hh:mm</td>
+                        <td>Mary</td>
+                        <td>Bla bla bla</td>
+                      </tr>
+                      <tr>
+                        <td>hh:mm</td>
+                        <td>hh:mm</td>
+                        <td>July</td>
+                        <td>Bla bla bla</td>
+                      </tr>
+                    </tbody>
+                  </table>
+            </div>
+>>>>>>> paginação e layout
         </div>
 
         <!-- Modal repetir -->
@@ -220,7 +306,6 @@
         <div id="includeReservation" class="pages">
             <h2>Incluir</h2>
             <div id="formInclude">
-                <i class="fa fa-calendar" aria-hidden="true"></i>
                 
 >>>>>>> pages
             </div>

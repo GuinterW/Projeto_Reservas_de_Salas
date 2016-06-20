@@ -1,3 +1,4 @@
+<<<<<<< 90b9c99e06b977b01c56077a7de16fc13feb00a2
 var ip = {
 	query: 'http://localhost:9000/search/'
 }
@@ -13,6 +14,9 @@ var table = {
 	forToday: '<table class="table table-bordered table-striped"><thead><tr><th>Início</th><th>Término</th><th>Responsável</th><th>Pauta</th></tr></thead><tbody class="newLine"></tbody></table>',
 	complete: '<table class="table table-bordered table-striped"><thead><tr><th>Data</th><th>Início</th><th>Término</th><th>Responsável</th><th>Pauta</th></tr></thead><tbody class="newLine"></tbody></table>'
 }
+=======
+var ip;
+>>>>>>> paginação e layout
 
 $(document).ready(function(){
 	start();
@@ -28,7 +32,9 @@ $(document).ready(function(){
 		formTable (1);
 =======
 		var pagina = $(this).attr('href');
-		console.log(pagina);
+		$("li[class='active oi']").removeClass("active oi");
+		$("li a[href='"+pagina+"']").parent().addClass("active oi");
+    	//$("li .links[href="+pagina+"]").parent().addClass("active");
 		$('.pages').hide();
 		$(pagina).show();
 >>>>>>> pages
@@ -42,15 +48,19 @@ $(document).ready(function(){
 	$('#repeat').click(function(){
 		$("#myModal").modal();
 	});
+<<<<<<< 90b9c99e06b977b01c56077a7de16fc13feb00a2
 	$('#calendar').datepicker({
         format: "dd/mm/yyyy",
         language: "pt-br"
     });
+=======
+>>>>>>> paginação e layout
 });
 
 function start (){
 	$('.pages').hide();
 	$('#forToday').show();
+<<<<<<< 90b9c99e06b977b01c56077a7de16fc13feb00a2
 	tableForToday (1);
 }
 
@@ -128,4 +138,6 @@ function dateToday (){
         year  = data.getFullYear();
     var dateComplete= '<i class="fa fa-calendar" aria-hidden="true"></i>' + [day, month, year].join('/');
    	$('#dateToday').html(dateComplete);
+=======
+>>>>>>> paginação e layout
 }

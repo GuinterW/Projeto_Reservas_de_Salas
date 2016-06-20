@@ -1,1 +1,1 @@
-$(document).ready(function(){$(".links").click(function(){var n=$(this).attr("href");console.log(n),$(".pages").hide(),$(n).show()})});
+function start(){$(".pages").hide(),$("#forToday").show()}var ip;$(document).ready(function(){start(),$(".links").click(function(){var a=$(this).attr("href");$("li[class='active oi']").removeClass("active oi"),$("li a[href='"+a+"']").parent().addClass("active oi"),$(".pages").hide(),$(a).show()})});

@@ -2,6 +2,10 @@ function Validacao () {
     this.inicio;
     this.termino;
     this.data;
+    this.ano;
+    this.mes;
+    this.dia;
+    this.paramsLength;
     this.errors = {
         errorName: {
             message: 'error'
@@ -14,7 +18,17 @@ Validacao.prototype.setError = function(res, code, messageError){
     res.status(code).send(messageError);
 };
 
-Validacao.prototype.hasAffectedRows = function(req, res, result){
+Validacao.prototype.setValues = function(req){
+    this.inicio = req.query.Inicio.replace(/[:-]/g, '');
+    this.termino = req.query.Termino.replace(/[:-]/g, '');
+    this.data = req.query.Data.replace(/[:-]/g, '');
+    this.ano = parseInt(req.params.Ano, 10);
+    this.mes = parseInt(req.params.Mes, 10);
+    this.dia = parseInt(req.params.Dia, 10);
+    this.paramsLength = req.params.length;
+};
+
+Validacao.prototype.hasAffectedRows = function(res, result){
     if(result.affectedRows>0){
         return true;
     }
@@ -22,7 +36,7 @@ Validacao.prototype.hasAffectedRows = function(req, res, result){
         this.setError(res, 404, this.errors.name);
         return false;
     }
-}
+};
 
 Validacao.prototype.hasQuery = function(req, res){
     if(req.query.hasOwnProperty('Sala') && req.query.hasOwnProperty('Inicio') && req.query.hasOwnProperty('Termino') && req.query.hasOwnProperty('Data')){
@@ -35,7 +49,41 @@ Validacao.prototype.hasQuery = function(req, res){
 };
 
 Validacao.prototype.hasParams = function(req, res){
-    if(req.params.hasOwnProperty('Sala') && req.params.hasOwnProperty('Ano')){
+    this.setValues(req);
+    switch(this.paramsLength){
+        case 2:
+            if(req.params.hasOwnProperty('Sala') && req.params.hasOwnProperty('Ano')){
+                return true;
+            }
+            else {
+                this.setError(res, 404, this.errors.name);
+                return false;
+            }
+            break;
+        case 3:
+            if(req.params.hasOwnProperty('Sala') && req.params.hasOwnProperty('Ano') && req.params.hasOwnProperty('Mes')){
+                return true;
+            }
+            else {
+                this.setError(res, 404, this.errors.name);
+                return false;
+            }
+            break;
+        case 4:
+            if(req.params.hasOwnProperty('Sala') && req.params.hasOwnProperty('Ano') && req.params.hasOwnProperty('Mes') && req.params.hasOwnProperty('Dia')){
+                return true;
+            }
+            else {
+                this.setError(res, 404, this.errors.name);
+                return false;
+            }
+            break;
+    }
+};
+
+Validacao.prototype.hasCorrectQueryFields = function(req, res){
+    this.setValues(req);
+    if(this.inicio.length>=5 && this.termino.length>=5 && this.data.length==8 && req.query.Sala.length==1 && parseInt(this.inicio, 10)!='NaN' && parseInt(this.termino, 10)!='NaN' && parseInt(this.data, 10)!='NaN' && parseInt(req.query.Sala, 10)!='NaN'){
         return true;
     }
     else {
@@ -44,20 +92,40 @@ Validacao.prototype.hasParams = function(req, res){
     }
 };
 
-Validacao.prototype.hasCorrectFields = function(req, res){
-    this.inicio = req.query.Inicio.replace(/[:-]/g, '');
-    this.termino = req.query.Termino.replace(/[:-]/g, '');
-    this.data = req.query.Data.replace(/[:-]/g, '');
-    if(this.inicio.length>=5 && this.termino.length>=5 && this.data.length==8 && req.query.Sala.length==1 && parseInt(this.inicio, 10)!='NaN' && parseInt(this.termino, 10)!='NaN' && parseInt(this.data, 10)!='NaN' && parseInt(req.query.Sala, 10)!='NaN'){
-        return true;
+Validacao.prototype.hasCorrectParamsFields = function(req, res){
+    this.setValues(req);
+    switch(this.paramsLength){
+        case 2:
+            if(this.ano.length==4 && this.ano!='NaN'){
+                return true;
+            }
+            else {
+                this.setError(res, 404, this.errors.name);
+                return false;
+            }
+            break;
+        case 3:
+            if(this.ano.length==4 && this.mes.length==2 && this.ano!='NaN' && this.mes!='NaN'){
+                return true;
+            }
+            else {
+                this.setError(res, 404, this.errors.name);
+                return false;
+            }
+            break;
+        case 4:
+            if(this.ano.length==4 && this.mes.length==2 && this.dia.length==2 && this.ano!='NaN' && this.mes!='NaN' && this.dia!='NaN'){
+                return true;
+            }
+            else {
+                this.setError(res, 404, this.errors.name);
+                return false;
+            }
+            break;
     }
-    else {
-        this.setError(res, 404, this.errors.name);
-        return false;
-    }
-}
+};
 
-Validacao.prototype.hasTimeConflict = function(req, res, result){
+Validacao.prototype.hasTimeConflict = function(res, result){
     for(var x=0;x<result.length;x++){
         var inicioReuniao = result[x].Inicio.replace(/[:-]/g, '');
         var terminoReuniao = result[x].Termino.replace(/[:-]/g, '');
@@ -77,6 +145,6 @@ Validacao.prototype.hasTimeConflict = function(req, res, result){
             return false;
         }
     }
-}
+};
 
 module.exports = new Validacao();

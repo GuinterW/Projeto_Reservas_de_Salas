@@ -27,13 +27,13 @@ function setQueryMySQL(type){
 function validacoes(req, res){
     var data = req.query.Data.replace(/[:-]/g, '');
     if(validacao.hasQuery(req, res)){
-        if(validacao.hasCorrectFields(req, res)){
+        if(validacao.hasCorrectQueryFields(req, res)){
             connection.query(selectQuery, [parseInt(req.query.Sala, 10), parseInt(data, 10)], function(err, result){
                 if (err) throw err;
-                if(!validacao.hasTimeConflict(req, res, result)){
+                if(!validacao.hasTimeConflict(res, result)){
                     connection.query(insertUpdateQuery, [req.query, req.query.ID], function(err, result){
                         if (err) throw err;
-                        if(validacao.hasAffectedRows){
+                        if(validacao.hasAffectedRows(res, result)){
                             console.log('Inserted, ID=' + result.insertId);
                             res.sendStatus(200);
                         }

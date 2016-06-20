@@ -8,13 +8,50 @@ var connection = mysql.createConnection({
     password : 'secret',
     database : 'reservas'
 });
+var selectQuery;
+var insertQuery;
+
+function setQueryMySQL(type){
+    switch(type){
+        case 'insert': 
+            selectQuery = 'SELECT * FROM reservas WHERE Sala = ? AND Data = ?';
+            insertUpdateQuery = 'INSERT INTO reservas SET ?';
+            break;
+        case 'update':
+            selectQuery = 'SELECT * FROM reservas WHERE Sala = ? AND Data = ?';
+            insertUpdateQuery = 'UPDATE reservas SET ? WHERE ID = ?';
+            break;
+    };
+}
+
+function validacoes(req, res){
+    var data = req.query.Data.replace(/[:-]/g, '');
+    if(validacao.hasQuery(req, res)){
+        if(validacao.hasCorrectFields(req, res)){
+            connection.query(selectQuery, [parseInt(req.query.Sala, 10), parseInt(data, 10)], function(err, result){
+                if (err) throw err;
+                if(!validacao.hasTimeConflict(req, res, result)){
+                    connection.query(insertUpdateQuery, [req.query, req.query.ID], function(err, result){
+                        if (err) throw err;
+                        if(validacao.hasAffectedRows){
+                            console.log('Inserted, ID=' + result.insertId);
+                            res.sendStatus(200);
+                        }
+                    });
+                }
+            });
+        }
+    }
+}
 
 incluir.post('/', function(req, res) {
-    validacao(req, res, connection, 'insert');
+    setQueryMySQL('insert');
+    validacoes(req, res);
 });
 
 incluir.put('/', function(req, res) {
-    validacao(req, res, connection, 'update');
+    setQueryMySQL('update');
+    validacoes(req, res);
 });
 
 module.exports = incluir;

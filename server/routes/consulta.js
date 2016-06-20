@@ -13,8 +13,8 @@ var connection = mysql.createConnection({
 consulta.get('/:Sala/:Ano', function(req, res){
 	console.log(req.params);
     connection.query('SELECT * FROM reservas WHERE Sala = ? AND YEAR(Data) = ?', [parseInt(req.params.Sala, 10), parseInt(req.params.Ano, 10)], function(err, result){
-	console.log(result);
-	res.sendStatus(200);
+		console.log(result);
+		TabelaConsulta(result,res);
 	});
 });
 
@@ -22,7 +22,7 @@ consulta.get('/:Sala/:Ano/:Mes', function(req, res){
 	console.log(req.params);
     connection.query('SELECT * FROM reservas WHERE Sala = ? AND YEAR(Data) = ? AND MONTH(Data) = ?', [parseInt(req.params.Sala, 10), parseInt(req.params.Ano, 10), parseInt(req.params.Mes)], function(err, result){
 		console.log(result);
-		res.sendStatus(200);
+		TabelaConsulta(result,res);
 	});
 });
 
@@ -31,8 +31,20 @@ consulta.get('/:Sala/:Ano/:Mes/:Dia', function(req, res) {
 	var Data= req.params.Ano + req.params.Mes + req.params.Dia;   
     connection.query('SELECT * FROM reservas WHERE Sala = ? AND Data = ?', [parseInt(req.params.Sala, 10), parseInt(Data, 10)], function(err, result){
 	console.log(result);
-	res.sendStatus(200);
+	TabelaConsulta(result,res);
 	});
 });
+
+function TabelaConsulta(result,res){
+	var itens= '';
+    for(var z=0;z<result.length;z++){
+		itens+= '<tr>' + '<td>' + result[z].Inicio + '</td>';
+		itens+= '<td>' + result[z].Termino + '</td>';
+		itens+= '<td>' + result[z].Resp + '</td>';
+		itens+= '<td>' + result[z].Pauta + '</td>' + '</tr>';
+	}
+		res.type('text/html');
+		res.send(itens);
+}
 
 module.exports = consulta;

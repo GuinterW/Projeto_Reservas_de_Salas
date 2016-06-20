@@ -1,4 +1,8 @@
-#tituloPrincipal {color: #4db81a; margin-top: 30px;}
-#salas {width: 700px;}
+#head {margin-top: 3%;}
+#tituloPrincipal {color: #4db81a;}
+#tableForToday, #tableComplete {margin-top: 0;}
+#tableForToday table, #tableComplete table {width: 70%;}
+
+.pagination {margin-bottom: 0;}
 
 i {color: #333333;}

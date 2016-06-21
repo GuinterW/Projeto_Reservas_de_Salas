@@ -7,8 +7,17 @@ function Validacao () {
     this.dia;
     this.paramsLength;
     this.errors = {
-        errorName: {
-            message: 'error'
+        insufficientParams: {
+            message: "Don't have enough parameters."
+        },
+        incorrectParams: {
+            message: 'Incorrect parameters value.'
+        },
+        invalidTime: {
+            message: 'Already exist a meeting in this time range.'
+        },
+        notFound: {
+            message: "Can't found a result."
         }
     };
 };
@@ -33,7 +42,7 @@ Validacao.prototype.hasAffectedRows = function(res, result){
         return true;
     }
     else {
-        this.setError(res, 404, this.errors.name);
+        this.setError(res, 404, this.erros.notFound);
         return false;
     }
 };
@@ -43,7 +52,7 @@ Validacao.prototype.hasQuery = function(req, res){
         return true;
     }
     else {
-        this.setError(res, 404, this.errors.name);
+        this.setError(res, 412, this.errors.insufficientParams);
         return false;
     }
 };
@@ -56,7 +65,7 @@ Validacao.prototype.hasParams = function(req, res){
                 return true;
             }
             else {
-                this.setError(res, 404, this.errors.name);
+                this.setError(res, 412, this.errors.insufficientParams);
                 return false;
             }
             break;
@@ -65,7 +74,7 @@ Validacao.prototype.hasParams = function(req, res){
                 return true;
             }
             else {
-                this.setError(res, 404, this.errors.name);
+                this.setError(res, 412, this.errors.insufficientParams);
                 return false;
             }
             break;
@@ -74,7 +83,7 @@ Validacao.prototype.hasParams = function(req, res){
                 return true;
             }
             else {
-                this.setError(res, 404, this.errors.name);
+                this.setError(res, 412, this.errors.insufficientParams);
                 return false;
             }
             break;
@@ -87,7 +96,7 @@ Validacao.prototype.hasCorrectQueryFields = function(req, res){
         return true;
     }
     else {
-        this.setError(res, 404, this.errors.name);
+        this.setError(res, 400, this.errors.incorrectParams);
         return false;
     }
 };
@@ -100,7 +109,7 @@ Validacao.prototype.hasCorrectParamsFields = function(req, res){
                 return true;
             }
             else {
-                this.setError(res, 404, this.errors.name);
+                this.setError(res, 400, this.errors.incorrectParams);
                 return false;
             }
             break;
@@ -109,7 +118,7 @@ Validacao.prototype.hasCorrectParamsFields = function(req, res){
                 return true;
             }
             else {
-                this.setError(res, 404, this.errors.name);
+                this.setError(res, 400, this.errors.incorrectParams);
                 return false;
             }
             break;
@@ -118,7 +127,7 @@ Validacao.prototype.hasCorrectParamsFields = function(req, res){
                 return true;
             }
             else {
-                this.setError(res, 404, this.errors.name);
+                this.setError(res, 400, this.errors.incorrectParams);
                 return false;
             }
             break;
@@ -130,15 +139,15 @@ Validacao.prototype.hasTimeConflict = function(res, result){
         var inicioReuniao = result[x].Inicio.replace(/[:-]/g, '');
         var terminoReuniao = result[x].Termino.replace(/[:-]/g, '');
         if(this.inicio>=inicioReuniao && this.inicio<terminoReuniao){
-            this.setError(res, 404, this.errors.name);
+            this.setError(res, 409, this.errors.invalidTime);
             return true;
         }
         else if(this.termino>inicioReuniao && this.termino<=terminoReuniao){
-            this.setError(res, 404, this.errors.name);
+            this.setError(res, 409, this.errors.invalidTime);
             return true;
         }
         else if(this.inicio<=inicioReuniao && this.termino>=terminoReuniao){
-            this.setError(res, 404, this.errors.name);
+            this.setError(res, 409, this.errors.invalidTime);
             return true;
         }
         else {

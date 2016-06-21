@@ -78,7 +78,11 @@ Validacao.prototype.hasQuery = function(req, res){
 };
 
 Validacao.prototype.hasParams = function(req, res){
+<<<<<<< 41d0bcbb213ac7dea0463d36bce48a65681441e7
     this.setParamsValues(req);
+=======
+    setParamsValues(req);
+>>>>>>> ajuste função setValues
     switch(this.paramsLength){
         case 2:
             if(req.params.hasOwnProperty('Sala') && req.params.hasOwnProperty('Ano')){

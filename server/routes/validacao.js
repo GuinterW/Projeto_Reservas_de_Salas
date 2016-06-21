@@ -28,9 +28,9 @@ Validacao.prototype.setError = function(res, code, messageError){
 };
 
 Validacao.prototype.setValues = function(req){
-    this.inicio = req.query.Inicio.replace(/[:-]/g, '');
+    /*this.inicio = req.query.Inicio.replace(/[:-]/g, '');
     this.termino = req.query.Termino.replace(/[:-]/g, '');
-    this.data = req.query.Data.replace(/[:-]/g, '');
+    this.data = req.query.Data.replace(/[:-]/g, '');*/
     this.ano = parseInt(req.params.Ano, 10);
     this.mes = parseInt(req.params.Mes, 10);
     this.dia = parseInt(req.params.Dia, 10);

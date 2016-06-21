@@ -1,5 +1,7 @@
 var express = require('express');
 var consulta = express.Router();
+var validacao = require('./validacao');
+var SelectQuery;
 
 //CONEXAO SERVER.
 var mysql = require('mysql');
@@ -12,27 +14,21 @@ var connection = mysql.createConnection({
 
 consulta.get('/:Sala/:Ano', function(req, res){
 	console.log(req.params);
-    connection.query('SELECT * FROM reservas WHERE Sala = ? AND YEAR(Data) = ?', [parseInt(req.params.Sala, 10), parseInt(req.params.Ano, 10)], function(err, result){
-		console.log(result);
-		TabelaConsulta(result,res);
-	});
+	setQueryMySQL('Ano');
+	Validacoes(req,res,[parseInt(req.params.Sala, 10), parseInt(req.params.Ano, 10)]);
 });
 
 consulta.get('/:Sala/:Ano/:Mes', function(req, res){
 	console.log(req.params);
-    connection.query('SELECT * FROM reservas WHERE Sala = ? AND YEAR(Data) = ? AND MONTH(Data) = ?', [parseInt(req.params.Sala, 10), parseInt(req.params.Ano, 10), parseInt(req.params.Mes)], function(err, result){
-		console.log(result);
-		TabelaConsulta(result,res);
-	});
+	setQueryMySQL('Mes');
+	Validacoes(req,res,[parseInt(req.params.Sala, 10), parseInt(req.params.Ano, 10), parseInt(req.params.Mes)]);   
 });
 
 consulta.get('/:Sala/:Ano/:Mes/:Dia', function(req, res) {
 	console.log(req.params);
-	var Data= req.params.Ano + req.params.Mes + req.params.Dia;   
-    connection.query('SELECT * FROM reservas WHERE Sala = ? AND Data = ?', [parseInt(req.params.Sala, 10), parseInt(Data, 10)], function(err, result){
-	console.log(result);
-	TabelaConsulta(result,res);
-	});
+	var Data= req.params.Ano + req.params.Mes + req.params.Dia;
+	setQueryMySQL('Dia');
+	Validacoes(req,res,[parseInt(req.params.Sala, 10), parseInt(Data, 10)]);   
 });
 
 function TabelaConsulta(result,res){
@@ -46,5 +42,33 @@ function TabelaConsulta(result,res){
 		res.type('text/html');
 		res.send(itens);
 }
+
+function Validacoes(req,res,value){
+	if (validacao.hasParams(req,res)){
+		if (validacao.hasCorrectParamsFields(req,res)){
+			connection.query(SelectQuery, value, function(err,result){
+				if (validacao.hasAffectedRows(res,result)){
+					TabelaConsulta(result,res);
+				}
+			});
+		}
+	}
+}
+
+function setQueryMySQL(type){
+	switch(type){
+		case 'Ano':
+			SelectQuery = 'SELECT * FROM reservas WHERE Sala = ? AND YEAR(Data) = ?';
+			break;
+		case 'Mes':
+			SelectQuery = 'SELECT * FROM reservas WHERE Sala = ? AND YEAR(Data) = ? AND MONTH(Data) = ?';
+			break;
+		case 'Dia':
+			SelectQuery = 'SELECT * FROM reservas WHERE Sala = ? AND Data = ?';
+			break;
+	}
+}
+
+
 
 module.exports = consulta;

@@ -20,7 +20,7 @@ $(document).ready(function(){
 		$("li a[id='"+pagina+"']").parent().addClass("active activeRoom");
 		formTable ();
 	});
-	$('#example1').datepicker({
+	$('#calendar').datepicker({
         format: "dd/mm/yyyy",
         language: "pt-br"
     });
@@ -51,9 +51,10 @@ function formTable (){
 }
 
 function tableForToday (){
+	cleanTable ();
+	$("#pagesAndTable").show();
 	var result='';
 	var list = table.forToday;
-	cleanTable ();
 	for (x=0;x<10;x++){
 		result += '<tr><td>hh:mm</td>';
 		result += '<td>hh:mm</td>';
@@ -65,9 +66,10 @@ function tableForToday (){
 }
 
 function tableComplete (){
+	cleanTable ();
+	$("#pagesAndTable").show();
 	var result='';
 	var list = table.complete;
-	cleanTable ();
 	for (x=0;x<10;x++){
 		result += '<tr><td>dd/mm/aaaa</td>';
 		result += '<td>hh:mm</td>';

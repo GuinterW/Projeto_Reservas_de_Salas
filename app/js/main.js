@@ -12,35 +12,74 @@ $(document).ready(function(){
 		$("li a[href='"+pagina+"']").parent().addClass("active mainLinks");
 		$('.pages').hide();
 		$(pagina).show();
+		formTable ();
 	});
 	$('.room').click(function(){
 		var pagina = $(this).attr('id');
-		console.log(pagina);
 		$("li[class='active activeRoom']").removeClass("active activeRoom");
 		$("li a[id='"+pagina+"']").parent().addClass("active activeRoom");
 		formTable ();
 	});
+	$('#example1').datepicker({
+        format: "dd/mm/yyyy",
+        language: "pt-br"
+    });
 });
 
 function start (){
 	$('.pages').hide();
 	$('#forToday').show();
+	tableForToday ();
+}
+
+function cleanTable (){
+	$('#table').html('');
+	$('.newLine').html('');
 }
 
 function formTable (){
 	var pagina = $("li[class='active mainLinks'] a").attr('href');
-	console.log(pagina);
-	/*if (pagina=='#forToday'){
-		console.log('hojeeeee');
+	if (pagina=='#forToday'){
+		tableForToday ();
 	}
-	else console.log ('outrooo');
+	else if (pagina=='#listMeetings'){
+		tableComplete ();
+	}
+	else {
+		formInclusion ();
+	}
+}
+
+function tableForToday (){
 	var result='';
-	$('.newLine').html('');
+	var list = table.forToday;
+	cleanTable ();
 	for (x=0;x<10;x++){
 		result += '<tr><td>hh:mm</td>';
 		result += '<td>hh:mm</td>';
 		result += '<td>Pessoa</td>';
 		result += '<td>Assunto</td></tr>';
 	}
-	$('.newLine').append(result);*/
+	$('#table').html(list);
+	$('.newLine').append(result);
+}
+
+function tableComplete (){
+	var result='';
+	var list = table.complete;
+	cleanTable ();
+	for (x=0;x<10;x++){
+		result += '<tr><td>dd/mm/aaaa</td>';
+		result += '<td>hh:mm</td>';
+		result += '<td>hh:mm</td>';
+		result += '<td>Pessoa</td>';
+		result += '<td>Assunto</td></tr>';
+	}
+	$('#table').html(list);
+	$('.newLine').append(result);
+}
+
+function formInclusion (){
+	$("#pagesAndTable").hide();
+	cleanTable ();
 }

@@ -43,6 +43,7 @@ $(document).ready(function(){
 		$("li a[href='"+pagina+"']").parent().addClass("active mainLinks");
 		$('.pages').hide();
 		$(pagina).show();
+<<<<<<< 709c01f8d933912fdc07cc1097795df4c8043720
 >>>>>>> pages
 	});
 	$('.room').click(function(){
@@ -66,24 +67,42 @@ $(document).ready(function(){
 	$('.room').click(function(){
 		var pagina = $(this).attr('id');
 		console.log(pagina);
+=======
+		formTable ();
+	});
+	$('.room').click(function(){
+		var pagina = $(this).attr('id');
+>>>>>>> calendario e formulario
 		$("li[class='active activeRoom']").removeClass("active activeRoom");
 		$("li a[id='"+pagina+"']").parent().addClass("active activeRoom");
 		formTable ();
 	});
+<<<<<<< 709c01f8d933912fdc07cc1097795df4c8043720
 >>>>>>> Identificacao links
+=======
+	$('#example1').datepicker({
+        format: "dd/mm/yyyy",
+        language: "pt-br"
+    });
+>>>>>>> calendario e formulario
 });
 
 function start (){
 	$('.pages').hide();
 	$('#forToday').show();
+<<<<<<< 709c01f8d933912fdc07cc1097795df4c8043720
 <<<<<<< 14a1f27177e15aabde17da4ec20b8b85e45731ca
 <<<<<<< 90b9c99e06b977b01c56077a7de16fc13feb00a2
 	tableForToday (1);
+=======
+	tableForToday ();
+>>>>>>> calendario e formulario
 }
 
 function cleanTable (){
 	$('#table').html('');
 	$('.newLine').html('');
+<<<<<<< 709c01f8d933912fdc07cc1097795df4c8043720
 }
 
 function changingRoom (pagina){
@@ -118,24 +137,39 @@ function tableForToday (sala){
 	var result='';
 	var list = table.forToday;
 =======
+=======
+>>>>>>> calendario e formulario
 }
 
 function formTable (){
 	var pagina = $("li[class='active mainLinks'] a").attr('href');
-	console.log(pagina);
-	/*if (pagina=='#forToday'){
-		console.log('hojeeeee');
+	if (pagina=='#forToday'){
+		tableForToday ();
 	}
-	else console.log ('outrooo');
+	else if (pagina=='#listMeetings'){
+		tableComplete ();
+	}
+	else {
+		formInclusion ();
+	}
+}
+
+function tableForToday (){
 	var result='';
+<<<<<<< 709c01f8d933912fdc07cc1097795df4c8043720
 	$('.newLine').html('');
 >>>>>>> Identificacao links
+=======
+	var list = table.forToday;
+	cleanTable ();
+>>>>>>> calendario e formulario
 	for (x=0;x<10;x++){
 		result += '<tr><td>hh:mm</td>';
 		result += '<td>hh:mm</td>';
 		result += '<td>Pessoa</td>';
 		result += '<td>Assunto</td></tr>';
 	}
+<<<<<<< 709c01f8d933912fdc07cc1097795df4c8043720
 <<<<<<< 14a1f27177e15aabde17da4ec20b8b85e45731ca
 	$('#table').html(list);
 	$('.newLine').append(result);
@@ -176,3 +210,28 @@ function dateToday (){
 	$('.newLine').append(result);*/
 }
 >>>>>>> Identificacao links
+=======
+	$('#table').html(list);
+	$('.newLine').append(result);
+}
+
+function tableComplete (){
+	var result='';
+	var list = table.complete;
+	cleanTable ();
+	for (x=0;x<10;x++){
+		result += '<tr><td>dd/mm/aaaa</td>';
+		result += '<td>hh:mm</td>';
+		result += '<td>hh:mm</td>';
+		result += '<td>Pessoa</td>';
+		result += '<td>Assunto</td></tr>';
+	}
+	$('#table').html(list);
+	$('.newLine').append(result);
+}
+
+function formInclusion (){
+	$("#pagesAndTable").hide();
+	cleanTable ();
+}
+>>>>>>> calendario e formulario

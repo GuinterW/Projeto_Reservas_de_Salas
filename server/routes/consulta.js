@@ -36,8 +36,8 @@ function TabelaConsulta(result,res){
 		itens+= '<td>' + result[z].Resp + '</td>';
 		itens+= '<td>' + result[z].Pauta + '</td>' + '</tr>';
 	}
-		res.type('text/html');
-		res.send(itens);
+	res.type('text/html');
+	res.send(itens);
 }
 
 function Validacoes(req,res,value){
@@ -63,7 +63,4 @@ function setQueryMySQL(type){
 			break;
 	}
 }
-
-
-
 module.exports = consulta;

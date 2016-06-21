@@ -13,19 +13,16 @@ var connection = mysql.createConnection({
 });
 
 consulta.get('/:Sala/:Ano', function(req, res){
-	console.log(req.params);
 	setQueryMySQL('Ano');
 	Validacoes(req,res,[parseInt(req.params.Sala, 10), parseInt(req.params.Ano, 10)]);
 });
 
 consulta.get('/:Sala/:Ano/:Mes', function(req, res){
-	console.log(req.params);
 	setQueryMySQL('Mes');
 	Validacoes(req,res,[parseInt(req.params.Sala, 10), parseInt(req.params.Ano, 10), parseInt(req.params.Mes)]);   
 });
 
 consulta.get('/:Sala/:Ano/:Mes/:Dia', function(req, res) {
-	console.log(req.params);
 	var Data= req.params.Ano + req.params.Mes + req.params.Dia;
 	setQueryMySQL('Dia');
 	Validacoes(req,res,[parseInt(req.params.Sala, 10), parseInt(Data, 10)]);   
@@ -47,9 +44,7 @@ function Validacoes(req,res,value){
 	if (validacao.hasParams(req,res)){
 		if (validacao.hasCorrectParamsFields(req,res)){
 			connection.query(SelectQuery, value, function(err,result){
-				if (validacao.hasAffectedRows(res,result)){
-					TabelaConsulta(result,res);
-				}
+				TabelaConsulta(result,res);
 			});
 		}
 	}

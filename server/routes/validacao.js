@@ -27,22 +27,42 @@ Validacao.prototype.setError = function(res, code, messageError){
     res.status(code).send(messageError);
 };
 
-Validacao.prototype.setValues = function(req){
-    /*this.inicio = req.query.Inicio.replace(/[:-]/g, '');
+Validacao.prototype.setQueryValues = function(req){
+    this.inicio = req.query.Inicio.replace(/[:-]/g, '');
     this.termino = req.query.Termino.replace(/[:-]/g, '');
-    this.data = req.query.Data.replace(/[:-]/g, '');*/
+    this.data = req.query.Data.replace(/[:-]/g, '');
+};
+
+Validacao.prototype.setParamsValues = function(req){
     this.ano = parseInt(req.params.Ano, 10);
     this.mes = parseInt(req.params.Mes, 10);
     this.dia = parseInt(req.params.Dia, 10);
-    this.paramsLength = req.params.length;
+    this.paramsLength = this.setParamsLength(req);
 };
+
+Validacao.prototype.setParamsLength = function(req){
+    var x = 0;
+    if(req.params.hasOwnProperty('Sala')){
+        x++;
+    }
+    if(req.params.hasOwnProperty('Ano')){
+        x++;
+    }
+    if(req.params.hasOwnProperty('Mes')){
+        x++;
+    }
+    if(req.params.hasOwnProperty('Dia')){
+        x++;
+    }
+    return x;
+}
 
 Validacao.prototype.hasAffectedRows = function(res, result){
     if(result.affectedRows>0){
         return true;
     }
     else {
-        this.setError(res, 404, this.erros.notFound);
+        this.setError(res, 404, this.errors.notFound);
         return false;
     }
 };
@@ -58,7 +78,7 @@ Validacao.prototype.hasQuery = function(req, res){
 };
 
 Validacao.prototype.hasParams = function(req, res){
-    this.setValues(req);
+    this.setParamsValues(req);
     switch(this.paramsLength){
         case 2:
             if(req.params.hasOwnProperty('Sala') && req.params.hasOwnProperty('Ano')){
@@ -91,7 +111,7 @@ Validacao.prototype.hasParams = function(req, res){
 };
 
 Validacao.prototype.hasCorrectQueryFields = function(req, res){
-    this.setValues(req);
+    this.setQueryValues(req);
     if(this.inicio.length>=5 && this.termino.length>=5 && this.data.length==8 && req.query.Sala.length==1 && parseInt(this.inicio, 10)!='NaN' && parseInt(this.termino, 10)!='NaN' && parseInt(this.data, 10)!='NaN' && parseInt(req.query.Sala, 10)!='NaN'){
         return true;
     }
@@ -102,10 +122,10 @@ Validacao.prototype.hasCorrectQueryFields = function(req, res){
 };
 
 Validacao.prototype.hasCorrectParamsFields = function(req, res){
-    this.setValues(req);
+    this.setParamsValues(req);
     switch(this.paramsLength){
         case 2:
-            if(this.ano.length==4 && this.ano!='NaN'){
+            if(req.params.Ano.length==4 && this.ano!='NaN'){
                 return true;
             }
             else {
@@ -114,7 +134,7 @@ Validacao.prototype.hasCorrectParamsFields = function(req, res){
             }
             break;
         case 3:
-            if(this.ano.length==4 && this.mes.length==2 && this.ano!='NaN' && this.mes!='NaN'){
+            if(req.params.Ano.length==4 && req.params.Mes.length<=2 && this.ano!='NaN' && this.mes!='NaN'){
                 return true;
             }
             else {
@@ -123,7 +143,7 @@ Validacao.prototype.hasCorrectParamsFields = function(req, res){
             }
             break;
         case 4:
-            if(this.ano.length==4 && this.mes.length==2 && this.dia.length==2 && this.ano!='NaN' && this.mes!='NaN' && this.dia!='NaN'){
+            if(req.params.Ano.length==4 && req.params.Mes.length<=2 && req.params.Dia.length<=2 && this.ano!='NaN' && this.mes!='NaN' && this.dia!='NaN'){
                 return true;
             }
             else {

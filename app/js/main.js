@@ -77,10 +77,14 @@ $(document).ready(function(){
 		$("li a[id='"+pagina+"']").parent().addClass("active activeRoom");
 		formTable ();
 	});
+<<<<<<< 7d700bd1c2de2876e243b502e6d62c6a82728951
 <<<<<<< 709c01f8d933912fdc07cc1097795df4c8043720
 >>>>>>> Identificacao links
 =======
 	$('#example1').datepicker({
+=======
+	$('#calendar').datepicker({
+>>>>>>> Formulario layout
         format: "dd/mm/yyyy",
         language: "pt-br"
     });
@@ -155,14 +159,19 @@ function formTable (){
 }
 
 function tableForToday (){
+	cleanTable ();
+	$("#pagesAndTable").show();
 	var result='';
 <<<<<<< 709c01f8d933912fdc07cc1097795df4c8043720
 	$('.newLine').html('');
 >>>>>>> Identificacao links
 =======
 	var list = table.forToday;
+<<<<<<< 7d700bd1c2de2876e243b502e6d62c6a82728951
 	cleanTable ();
 >>>>>>> calendario e formulario
+=======
+>>>>>>> Formulario layout
 	for (x=0;x<10;x++){
 		result += '<tr><td>hh:mm</td>';
 		result += '<td>hh:mm</td>';
@@ -216,9 +225,10 @@ function dateToday (){
 }
 
 function tableComplete (){
+	cleanTable ();
+	$("#pagesAndTable").show();
 	var result='';
 	var list = table.complete;
-	cleanTable ();
 	for (x=0;x<10;x++){
 		result += '<tr><td>dd/mm/aaaa</td>';
 		result += '<td>hh:mm</td>';

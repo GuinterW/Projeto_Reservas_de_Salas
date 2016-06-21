@@ -20,6 +20,10 @@ $(document).ready(function(){
 		$("li a[id='"+pagina+"']").parent().addClass("active activeRoom");
 		formTable ();
 	});
+	$('#repeat').click(function(){
+		console.log('checkeddd');
+		$("#myModal").modal();
+	});
 	$('#calendar').datepicker({
         format: "dd/mm/yyyy",
         language: "pt-br"

@@ -46,7 +46,7 @@
 
         <!-- LISTAR -->
         <div id="listMeetings" class="pages">
-            <h2>Listar</h2>
+            <h2><i class="fa fa-list-alt" aria-hidden="true"></i>Listar</h2>
             <div class="form-group">
                 <select id="year">
                     <option>2016</option>
@@ -59,7 +59,7 @@
 
         <!-- INCLUIR -->
         <div id="includeReservation" class="pages">
-            <h2>Incluir</h2>
+            <h2><i class="fa fa-calendar-plus-o" aria-hidden="true"></i>Incluir</h2>
             <div id="formInclude">
                 <form class="form-horizontal" role="form">
                     <div class="form-group">
@@ -70,11 +70,11 @@
                     </div>
                     <div class="form-group">
                         <label class="col-sm-6 control-label">
-                            <input type="radio" name="optradio" checked> 
+                            <input type="radio" name="radioFrequency" checked> 
                             Apenas 1 vez
                         </label>
                         <label class="col-sm-6 control-label">
-                            <input type="radio" name="optradio"> 
+                            <input type="radio" name="radioFrequency" id="repeat"> 
                             Repetir
                         </label>
                     </div>
@@ -124,6 +124,74 @@
                 <li><a href="#table" id="room3" class="room">Sala 3</a></li>
             </ul>
             <div id="table"></div>
+        </div>
+
+        <!-- Modal repetir -->
+        <div class="modal fade" id="myModal" role="dialog">
+            <div class="modal-dialog">
+              <!-- Modal content-->
+              <div class="modal-content">
+                <div class="modal-header">
+                  <button type="button" class="close" data-dismiss="modal">&times;</button>
+                  <h4 class="modal-title">Repetir</h4>
+                </div>
+                <div class="modal-body">
+                    <form class="form-horizontal" role="form">
+                        <div class="form-group">
+                            <label class="col-sm-4 control-label">Frequência: </label>
+                            <div class="col-sm-6">
+                                <select class="form-control" id="sel1">
+                                    <option>Diariamente</option>
+                                    <option>Semanalmente (2ª a 6ª)</option>
+                                    <option>Mensalmente</option>
+                                    <option>Anualmente</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-4 control-label">Intervalo: </label>
+                            <label class="col-sm-2 control-label"> A cada </label>
+                            <div class="col-sm-2">
+                                <select class="form-control" id="sel2">
+                                    <option>1</option>
+                                    <option>2</option>
+                                    <option>3</option>
+                                    <option>30</option>
+                                </select>
+                            </div>
+                            <label class="col-sm-1 control-label"> dias </label>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-4 control-label">Inicia em: </label>
+                            <div class="col-sm-6">
+                                <input class="form-control" id="disabledInput" type="text" disabled>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-4 control-label">Termina em: </label>
+                            <div class="col-sm-6">
+                                <div class="radio">
+                                    <label>
+                                        <input type="radio" name="radioEnd">
+                                        Após 
+                                        <input id="dateFixed" type="text" placeholder="ex: 2">
+                                        ocorrência(s)
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="col-sm-6">
+                                <div class="radio">
+                                  <label><input type="radio" name="radioEnd">Option 2</label>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                </div>
+              </div>  
+            </div>
         </div>
     </div>
 

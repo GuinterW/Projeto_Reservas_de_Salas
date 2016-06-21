@@ -7826,6 +7826,9 @@ button.close {
 .fa-fonticons:before {
   content: ""; }
 
+#dateFixed {
+  width: 50px; }
+
 #formInclude {
   margin: 0 auto;
   width: 50%;
@@ -7845,6 +7848,12 @@ button.close {
 
 #table {
   margin-top: -6px; }
+
+.pages {
+  margin-left: 2%; }
+
+.modal-body {
+  height: 200px; }
 
 i {
   color: #333333; }

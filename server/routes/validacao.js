@@ -78,6 +78,7 @@ Validacao.prototype.hasQuery = function(req, res){
 };
 
 Validacao.prototype.hasParams = function(req, res){
+<<<<<<< 85234b3d86c984adffa5600f5b123571d76dde13
 <<<<<<< 6eecb05981f5858d03aeaaba16b07b6c5630c3e3
 <<<<<<< 41d0bcbb213ac7dea0463d36bce48a65681441e7
     this.setParamsValues(req);
@@ -86,6 +87,9 @@ Validacao.prototype.hasParams = function(req, res){
 >>>>>>> ajuste função setValues
 =======
     setParamsValues(req);
+>>>>>>> pull
+=======
+    this.setParamsValues(req);
 >>>>>>> pull
     switch(this.paramsLength){
         case 2:
@@ -142,7 +146,11 @@ Validacao.prototype.hasCorrectParamsFields = function(req, res){
             }
             break;
         case 3:
+<<<<<<< 85234b3d86c984adffa5600f5b123571d76dde13
             if(req.params.Ano.length==4 && req.params.Mes.length<=2 && this.ano!='NaN' && this.mes!='NaN'){
+=======
+            if(this.ano.length==4 && mes.length<=2 && this.ano!='NaN' && this.mes!='NaN'){
+>>>>>>> pull
                 return true;
             }
             else {
@@ -151,7 +159,11 @@ Validacao.prototype.hasCorrectParamsFields = function(req, res){
             }
             break;
         case 4:
+<<<<<<< 85234b3d86c984adffa5600f5b123571d76dde13
             if(req.params.Ano.length==4 && req.params.Mes.length<=2 && req.params.Dia.length<=2 && this.ano!='NaN' && this.mes!='NaN' && this.dia!='NaN'){
+=======
+            if(this.ano.length==4 && this.mes.length<=2 && this.dia.length<=2 && this.ano!='NaN' && this.mes!='NaN' && this.dia!='NaN'){
+>>>>>>> pull
                 return true;
             }
             else {

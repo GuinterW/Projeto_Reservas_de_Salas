@@ -7829,6 +7829,9 @@ button.close {
 #dateFixed {
   width: 50px; }
 
+#dateEnd {
+  width: 200px; }
+
 #formInclude {
   margin: 0 auto;
   width: 50%;
@@ -7849,11 +7852,17 @@ button.close {
 #table {
   margin-top: -6px; }
 
+#repeatLabel {
+  text-align: left; }
+
 .pages {
   margin-left: 2%; }
 
 .modal-body {
-  height: 200px; }
+  height: 100%; }
+
+button {
+  margin: 0 auto; }
 
 i {
   color: #333333; }

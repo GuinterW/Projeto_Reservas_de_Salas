@@ -160,6 +160,7 @@ function formTable (){
 
 function tableForToday (){
 	cleanTable ();
+	dateToday ();
 	$("#pagesAndTable").show();
 	var result='';
 <<<<<<< 709c01f8d933912fdc07cc1097795df4c8043720
@@ -244,4 +245,16 @@ function formInclusion (){
 	$("#pagesAndTable").hide();
 	cleanTable ();
 }
+<<<<<<< fd5c1d1ef3a6c7eee4afb4a95c03166d728b17d2
 >>>>>>> calendario e formulario
+=======
+
+function dateToday (){
+	var data = new Date(),
+        dia  = data.getDate(),
+        mes  = data.getMonth() + 1,
+        ano  = data.getFullYear();
+    var dateComplete= [dia, mes, ano].join('/');
+   	$('#forToday').html(dateComplete);
+}
+>>>>>>> Data do dia

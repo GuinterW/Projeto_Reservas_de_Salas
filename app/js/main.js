@@ -1,4 +1,7 @@
+<<<<<<< 9c9cc8dd6039c0570ce723772dca24869f766582
 <<<<<<< 90b9c99e06b977b01c56077a7de16fc13feb00a2
+=======
+>>>>>>> logica salas
 var ip = {
 	query: 'http://localhost:9000/search/'
 }
@@ -10,6 +13,7 @@ yearAndMonth: 'http://localhost:9000/search/sala/ano/mes',
 year: 'http://localhost:9000/search/sala/ano'
 */
 
+<<<<<<< 9c9cc8dd6039c0570ce723772dca24869f766582
 var table = {
 	forToday: '<table class="table table-bordered table-striped"><thead><tr><th>Início</th><th>Término</th><th>Responsável</th><th>Pauta</th></tr></thead><tbody class="newLine"></tbody></table>',
 	complete: '<table class="table table-bordered table-striped"><thead><tr><th>Data</th><th>Início</th><th>Término</th><th>Responsável</th><th>Pauta</th></tr></thead><tbody class="newLine"></tbody></table>'
@@ -19,6 +23,8 @@ var ip;
 <<<<<<< 14a1f27177e15aabde17da4ec20b8b85e45731ca
 >>>>>>> paginação e layout
 =======
+=======
+>>>>>>> logica salas
 var table = {
 	forToday: '<table class="table table-bordered table-striped"><thead><tr><th>Início</th><th>Término</th><th>Responsável</th><th>Pauta</th></tr></thead><tbody class="newLine"></tbody></table>',
 	complete: '<table class="table table-bordered table-striped"><thead><tr><th>Data</th><th>Início</th><th>Término</th><th>Responsável</th><th>Pauta</th></tr></thead><tbody class="newLine"></tbody></table>'
@@ -145,7 +151,20 @@ function tableForToday (sala){
 >>>>>>> calendario e formulario
 }
 
+function changingRoom (pagina){
+	if (pagina=='room1') {
+		console.log('ummmmmm');
+	}
+	else if (pagina=='room2') {
+		console.log('doiss');
+	}
+	else {
+		console.log('outraa');
+	}
+}
+
 function formTable (){
+	$("li[class='active activeRoom']").removeClass("active activeRoom");
 	var pagina = $("li[class='active mainLinks'] a").attr('href');
 	if (pagina=='#forToday'){
 		tableForToday ();
@@ -159,6 +178,8 @@ function formTable (){
 }
 
 function tableForToday (){
+	$("li[class='active activeRoom']").removeClass("active activeRoom");
+	$("li a[id='room1']").parent().addClass("active activeRoom");
 	cleanTable ();
 	dateToday ();
 	$("#pagesAndTable").show();
@@ -226,6 +247,7 @@ function dateToday (){
 }
 
 function tableComplete (){
+	$("li a[id='room1']").parent().addClass("active activeRoom");
 	cleanTable ();
 	$("#pagesAndTable").show();
 	var result='';
@@ -251,6 +273,7 @@ function formInclusion (){
 
 function dateToday (){
 	var data = new Date(),
+<<<<<<< 9c9cc8dd6039c0570ce723772dca24869f766582
         dia  = data.getDate(),
         mes  = data.getMonth() + 1,
         ano  = data.getFullYear();
@@ -258,3 +281,14 @@ function dateToday (){
    	$('#forToday').html(dateComplete);
 }
 >>>>>>> Data do dia
+=======
+        day  = data.getDate(),
+        month  = data.getMonth() + 1,
+        year  = data.getFullYear();
+    console.log(day);
+    console.log(month);
+    console.log(year);
+    var dateComplete= '<i class="fa fa-calendar" aria-hidden="true"></i>' + [day, month, year].join('/');
+   	$('#dateToday').html(dateComplete);
+}
+>>>>>>> logica salas

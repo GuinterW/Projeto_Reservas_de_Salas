@@ -17,12 +17,14 @@ var table = {
 $(document).ready(function(){
 	start();
 	$('.links').click(function(){
+		$("li[class='active activeRoom']").removeClass("active activeRoom");
+		$("li a[id='room1']").parent().addClass("active activeRoom");
 		var pagina = $(this).attr('href');
 		$("li[class='active mainLinks']").removeClass("active mainLinks");
 		$("li a[href='"+pagina+"']").parent().addClass("active mainLinks");
 		$('.pages').hide();
 		$(pagina).show();
-		formTable ();
+		formTable (1);
 	});
 	$('.room').click(function(){
 		var pagina = $(this).attr('id');
@@ -31,7 +33,6 @@ $(document).ready(function(){
 		changingRoom (pagina);
 	});
 	$('#repeat').click(function(){
-		console.log('checkeddd');
 		$("#myModal").modal();
 	});
 	$('#calendar').datepicker({
@@ -43,7 +44,7 @@ $(document).ready(function(){
 function start (){
 	$('.pages').hide();
 	$('#forToday').show();
-	tableForToday ();
+	tableForToday (1);
 }
 
 function cleanTable (){
@@ -53,33 +54,30 @@ function cleanTable (){
 
 function changingRoom (pagina){
 	if (pagina=='room1') {
-		console.log('ummmmmm');
+		formTable(1);
 	}
 	else if (pagina=='room2') {
-		console.log('doiss');
+		formTable(2);
 	}
 	else {
-		console.log('outraa');
+		formTable(3);
 	}
 }
 
-function formTable (){
-	$("li[class='active activeRoom']").removeClass("active activeRoom");
+function formTable (sala){
 	var pagina = $("li[class='active mainLinks'] a").attr('href');
 	if (pagina=='#forToday'){
-		tableForToday ();
+		tableForToday (sala);
 	}
 	else if (pagina=='#listMeetings'){
-		tableComplete ();
+		tableComplete (sala);
 	}
 	else {
 		formInclusion ();
 	}
 }
 
-function tableForToday (){
-	$("li[class='active activeRoom']").removeClass("active activeRoom");
-	$("li a[id='room1']").parent().addClass("active activeRoom");
+function tableForToday (sala){
 	cleanTable ();
 	dateToday ();
 	$("#pagesAndTable").show();
@@ -95,8 +93,7 @@ function tableForToday (){
 	$('.newLine').append(result);
 }
 
-function tableComplete (){
-	$("li a[id='room1']").parent().addClass("active activeRoom");
+function tableComplete (sala){
 	cleanTable ();
 	$("#pagesAndTable").show();
 	var result='';
@@ -122,9 +119,6 @@ function dateToday (){
         day  = data.getDate(),
         month  = data.getMonth() + 1,
         year  = data.getFullYear();
-    console.log(day);
-    console.log(month);
-    console.log(year);
     var dateComplete= '<i class="fa fa-calendar" aria-hidden="true"></i>' + [day, month, year].join('/');
    	$('#dateToday').html(dateComplete);
 }

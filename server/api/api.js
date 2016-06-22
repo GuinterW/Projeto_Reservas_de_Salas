@@ -2,11 +2,13 @@
 module.exports = function(server) {
 
     var express = require('express');
-    var search = require("../routes/search");
-    var insert = require("../routes/insert");
+    var Search = require("../routes/search");
+    var Insert = require("../routes/insert");
+    var Delete = require("../routes/delete");
 
-    server.use('/search', search);
-    server.use('/insert', insert);
+    server.use('/search', Search);
+    server.use('/insert', Insert);
+    server.use('/delete', Delete);
 
     server.get('/', function (req, res) {
         res.type('text/html');

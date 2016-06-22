@@ -1,11 +1,11 @@
 function Validation () {
-    this.start;
-    this.end;
+    this.startMeeting;
+    this.endMeeting;
     this.date;
     this.year;
     this.month;
     this.day;
-    this.paramsLength;
+    this.paramsQuantity;
     this.today = new Date();
     this.errors = {
         insufficientParams: {
@@ -34,23 +34,23 @@ Validation.prototype.setError = function(res, code, messageError){
     res.status(code).send(messageError);
 };
 
-Validation.prototype.setValues_Query = function(req){
-    this.start = req.query.Start.replace(/[:-]/g, '');
-    this.end = req.query.End.replace(/[:-]/g, '');
+Validation.prototype.setQueryValues = function(req){
+    this.startMeeting = req.query.Start.replace(/[:-]/g, '');
+    this.endMeeting = req.query.End.replace(/[:-]/g, '');
     this.date = req.query.Date.replace(/[:-]/g, '');
     this.year = parseInt(this.date.substring(0,4));
     this.month = parseInt(this.date.substring(4,6));
     this.day = parseInt(this.date.substring(6,8));
 };
 
-Validation.prototype.setValues_Params = function(req){
+Validation.prototype.setParamsValues = function(req){
     this.year = parseInt(req.params.Year, 10);
     this.month = parseInt(req.params.Month, 10);
     this.day = parseInt(req.params.Day, 10);
-    this.paramsLength = this.setParamsLength(req);
+    this.paramsQuantity = this.setParamsQuantity(req);
 };
 
-Validation.prototype.setParamsLength = function(req){
+Validation.prototype.setParamsQuantity = function(req){
     var x = 0;
     if(req.params.hasOwnProperty('Room')){
         x++;
@@ -68,7 +68,7 @@ Validation.prototype.setParamsLength = function(req){
 }
 
 Validation.prototype.hasCorrectTime = function(res){
-    if(parseInt(this.end, 10)<=parseInt(this.start, 10)){
+    if(parseInt(this.endMeeting, 10)<=parseInt(this.startMeeting, 10)){
         this.setError(res, 400, this.errors.invalidTime);
         return false;
     }
@@ -105,7 +105,7 @@ Validation.prototype.hasAffectedRows = function(res, result){
     }
 };
 
-Validation.prototype.hasQuery = function(req, res){
+Validation.prototype.hasURLQuery = function(req, res){
     if(req.query.hasOwnProperty('Room') && req.query.hasOwnProperty('Start') && req.query.hasOwnProperty('End') && req.query.hasOwnProperty('Date')){
         return true;
     }
@@ -115,8 +115,8 @@ Validation.prototype.hasQuery = function(req, res){
     }
 };
 
-Validation.prototype.hasParams = function(req, res){
-    switch(this.paramsLength){
+Validation.prototype.hasURLParams = function(req, res){
+    switch(this.paramsQuantity){
         case 2:
             if(req.params.hasOwnProperty('Room') && req.params.hasOwnProperty('Year')){
                 return true;
@@ -147,8 +147,8 @@ Validation.prototype.hasParams = function(req, res){
     }
 };
 
-Validation.prototype.hasCorrectQueryFields = function(req, res){
-    if(this.start.length>=5 && this.end.length>=5 && this.date.length==8 && req.query.Room.length==1 && parseInt(this.start, 10)!='NaN' && parseInt(this.end, 10)!='NaN' && parseInt(this.date, 10)!='NaN' && parseInt(req.query.Room, 10)!='NaN'){
+Validation.prototype.hasCorrectURLQueryFields = function(req, res){
+    if(this.startMeeting.length>=5 && this.endMeeting.length>=5 && this.date.length==8 && req.query.Room.length==1 && parseInt(this.startMeeting, 10)!='NaN' && parseInt(this.endMeeting, 10)!='NaN' && parseInt(this.date, 10)!='NaN' && parseInt(req.query.Room, 10)!='NaN'){
         return true;
     }
     else {
@@ -157,8 +157,8 @@ Validation.prototype.hasCorrectQueryFields = function(req, res){
     }
 };
 
-Validation.prototype.hasCorrectParamsFields = function(req, res){
-    switch(this.paramsLength){
+Validation.prototype.hasCorrectURLParamsFields = function(req, res){
+    switch(this.paramsQuantity){
         case 2:
             if(req.params.Year.length==4 && this.year!='NaN'){
                 return true;
@@ -191,17 +191,17 @@ Validation.prototype.hasCorrectParamsFields = function(req, res){
 
 Validation.prototype.hasTimeConflict = function(res, result){
     for(var x=0;x<result.length;x++){
-        var startMeeting = result[x].Start.replace(/[:-]/g, '');
-        var endMeeting = result[x].End.replace(/[:-]/g, '');
-        if(this.start>=startMeeting && this.start<endMeeting){
+        var startMeetingExistent = result[x].Start.replace(/[:-]/g, '');
+        var endMeetingExistent = result[x].End.replace(/[:-]/g, '');
+        if(this.startMeeting>=startMeetingExistent && this.startMeeting<endMeetingExistent){
             this.setError(res, 409, this.errors.timeConflict);
             return true;
         }
-        else if(this.end>startMeeting && this.end<=endMeeting){
+        else if(this.endMeeting>startMeetingExistent && this.endMeeting<=endMeetingExistent){
             this.setError(res, 409, this.errors.timeConflict);
             return true;
         }
-        else if(this.start<=startMeeting && this.end>=endMeeting){
+        else if(this.startMeeting<=startMeetingExistent && this.endMeeting>=endMeetingExistent){
             this.setError(res, 409, this.errors.timeConflict);
             return true;
         }

@@ -1,7 +1,7 @@
 var express = require('express');
-var search = express.Router();
+var Search = express.Router();
 var validation = require('./validation');
-var selectCommand;
+var Command;
 
 //CONEXAO SERVER.
 var mysql = require('mysql');
@@ -12,20 +12,20 @@ var connection = mysql.createConnection({
     database : 'reservas'
 });
 
-search.get('/:Room/:Year', function(req, res){
+Search.get('/:Room/:Year', function(req, res){
     setCommandMySQL('Year');
-    Validations(req,res,[parseInt(req.params.Room, 10), parseInt(req.params.Year, 10)]);
+    checkValidations(req,res,[parseInt(req.params.Room, 10), parseInt(req.params.Year, 10)]);
 });
 
-search.get('/:Room/:Year/:Mounth', function(req, res){
-    setCommandMySQL('Mounth');
-    Validations(req,res,[parseInt(req.params.Room, 10), parseInt(req.params.Year, 10), parseInt(req.params.Mounth)]);   
+Search.get('/:Room/:Year/:Month', function(req, res){
+    setCommandMySQL('Month');
+    checkValidations(req,res,[parseInt(req.params.Room, 10), parseInt(req.params.Year, 10), parseInt(req.params.Month)]);   
 });
 
-search.get('/:Room/:Year/:Mounth/:Day', function(req, res) {
-    var Date= req.params.Year + req.params.Mounth + req.params.Day;
+Search.get('/:Room/:Year/:Month/:Day', function(req, res) {
+    var date= req.params.Year + req.params.Month + req.params.Day;
     setCommandMySQL('Day');
-    Validations(req,res,[parseInt(req.params.Room, 10), parseInt(Date, 10)]);   
+    checkValidations(req,res,[parseInt(req.params.Room, 10), parseInt(date, 10)]);   
 });
 
 function buildTable(result,res){
@@ -40,12 +40,23 @@ function buildTable(result,res){
     res.send(items);
 }
 
-function Validations(req,res,value){
-    validation.setValues_Params(req);
-    if (validation.hasParams(req,res)){
-        if (validation.hasCorrectParamsFields(req,res)){
-            connection.query(selectCommand, value, function(err,result){
-                buildTable(result,res);
+function checkFormat(result, req, res){
+    if(req.query.hasOwnProperty('format') && req.query.format == 'json'){
+        res.type('text/json');
+        res.send(result);
+    }
+    else {
+        buildTable(result, res);
+    }
+}
+
+function checkValidations(req,res,value){
+    validation.setParamsValues(req);
+    if (validation.hasURLParams(req,res)){
+        if (validation.hasCorrectURLParamsFields(req,res)){
+            connection.query(Command, value, function(err,result){
+                console.log('Searched');
+                checkFormat(result, req, res);
             });
         }
     }
@@ -54,17 +65,14 @@ function Validations(req,res,value){
 function setCommandMySQL(type){
     switch(type){
         case 'Year':
-            selectCommand = 'SELECT * FROM reservas WHERE Room = ? AND YEAR(Date) = ?';
+            Command = 'SELECT * FROM reservas WHERE Room = ? AND YEAR(Date) = ?';
             break;
-        case 'Mounth':
-            selectCommand = 'SELECT * FROM reservas WHERE Room = ? AND YEAR(Date) = ? AND MONTH(Date) = ?';
+        case 'Month':
+            Command = 'SELECT * FROM reservas WHERE Room = ? AND YEAR(Date) = ? AND MONTH(Date) = ?';
             break;
         case 'Day':
-            selectCommand = 'SELECT * FROM reservas WHERE Room = ? AND Date = ?';
+            Command = 'SELECT * FROM reservas WHERE Room = ? AND Date = ?';
             break;
     }
 }
-
-
-
-module.exports = search;
+module.exports = Search;

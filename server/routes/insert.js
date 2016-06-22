@@ -1,7 +1,7 @@
 var express = require('express');
-var insert = express.Router();
+var Insert = express.Router();
 var mysql = require('mysql');
-var validation = require('./validacao');
+var validation = require('./validation');
 var connection = mysql.createConnection({
     host     : '192.168.1.117',
     user     : 'me',
@@ -18,26 +18,26 @@ function setCommandMySQL(type){
             insertUpdateCommand = 'INSERT INTO reservas SET ?';
             break;
         case 'update':
-            selectQuery = 'SELECT * FROM reservas WHERE Sala = ? AND Data = ?';
-            insertUpdateQuery = 'UPDATE reservas SET ? WHERE ID = ?';
+            selectCommand = 'SELECT * FROM reservas WHERE Sala = ? AND Data = ?';
+            insertUpdateCommand = 'UPDATE reservas SET ? WHERE ID = ?';
             break;
     };
 }
 
-function validations(req, res){
+function checkValidations(req, res){
     var date = req.query.Date.replace(/[:-]/g, '');
-    validation.setValues_Query(req);
-    if(validation.hasQuery(req, res)){
-        if(validation.hasCorrectQueryFields(req, res)){
+    validation.setQueryValues(req);
+    if(validation.hasURLQuery(req, res)){
+        if(validation.hasURLCorrectQueryFields(req, res)){
             if(validation.hasCorrectDate(res)){
                 if(validation.hasCorrectTime(res)){
-                    connection.query(selectQuery, [parseInt(req.query.Room, 10), parseInt(date, 10)], function(err, result){
+                    connection.query(selectCommand, [parseInt(req.query.Room, 10), parseInt(date, 10)], function(err, result){
                         if (err) throw err;
                         if(!validation.hasTimeConflict(res, result)){
-                            connection.query(insertUpdateQuery, [req.query, req.query.ID], function(err, result){
+                            connection.query(insertUpdateCommand, [req.query, req.query.ID], function(err, result){
                                 if (err) throw err;
                                 if(validation.hasAffectedRows(res, result)){
-                                    console.log('Inserted, ID=' + result.insertId);
+                                    console.log('Inserted/Updated');
                                     res.sendStatus(200);
                                 }
                             });
@@ -49,14 +49,14 @@ function validations(req, res){
     }
 }
 
-insert.post('/', function(req, res) {
+Insert.post('/', function(req, res) {
     setCommandMySQL('insert');
-    validations(req, res);
+    checkValidations(req, res);
 });
 
-insert.put('/', function(req, res) {
+Insert.put('/', function(req, res) {
     setCommandMySQL('update');
-    validations(req, res);
+    checkValidations(req, res);
 });
 
-module.exports = insert;
+module.exports = Insert;

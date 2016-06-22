@@ -34,7 +34,10 @@ var table = {
 $(document).ready(function(){
 	start();
 	$('.links').click(function(){
+<<<<<<< 1ad5e4fdee3cc8abcd804048aefd92943c51dcc9
 <<<<<<< 9250cdfaf6bcadbc8cdcb9922f2dfe22a3ba6e34
+=======
+>>>>>>> salas
 		$("li[class='active activeRoom']").removeClass("active activeRoom");
 		$("li a[id='room1']").parent().addClass("active activeRoom");
 		var pagina = $(this).attr('href');
@@ -43,6 +46,7 @@ $(document).ready(function(){
 		$('.pages').hide();
 		$(pagina).show();
 		formTable (1);
+<<<<<<< 1ad5e4fdee3cc8abcd804048aefd92943c51dcc9
 =======
 		var pagina = $(this).attr('href');
 		$("li[class='active mainLinks']").removeClass("active mainLinks");
@@ -51,6 +55,8 @@ $(document).ready(function(){
 		$(pagina).show();
 <<<<<<< 709c01f8d933912fdc07cc1097795df4c8043720
 >>>>>>> pages
+=======
+>>>>>>> salas
 	});
 	$('.room').click(function(){
 		var pagina = $(this).attr('id');
@@ -100,6 +106,7 @@ $(document).ready(function(){
 function start (){
 	$('.pages').hide();
 	$('#forToday').show();
+<<<<<<< 1ad5e4fdee3cc8abcd804048aefd92943c51dcc9
 <<<<<<< 709c01f8d933912fdc07cc1097795df4c8043720
 <<<<<<< 14a1f27177e15aabde17da4ec20b8b85e45731ca
 <<<<<<< 90b9c99e06b977b01c56077a7de16fc13feb00a2
@@ -107,6 +114,9 @@ function start (){
 =======
 	tableForToday ();
 >>>>>>> calendario e formulario
+=======
+	tableForToday (1);
+>>>>>>> salas
 }
 
 function cleanTable (){
@@ -153,33 +163,30 @@ function tableForToday (sala){
 
 function changingRoom (pagina){
 	if (pagina=='room1') {
-		console.log('ummmmmm');
+		formTable(1);
 	}
 	else if (pagina=='room2') {
-		console.log('doiss');
+		formTable(2);
 	}
 	else {
-		console.log('outraa');
+		formTable(3);
 	}
 }
 
-function formTable (){
-	$("li[class='active activeRoom']").removeClass("active activeRoom");
+function formTable (sala){
 	var pagina = $("li[class='active mainLinks'] a").attr('href');
 	if (pagina=='#forToday'){
-		tableForToday ();
+		tableForToday (sala);
 	}
 	else if (pagina=='#listMeetings'){
-		tableComplete ();
+		tableComplete (sala);
 	}
 	else {
 		formInclusion ();
 	}
 }
 
-function tableForToday (){
-	$("li[class='active activeRoom']").removeClass("active activeRoom");
-	$("li a[id='room1']").parent().addClass("active activeRoom");
+function tableForToday (sala){
 	cleanTable ();
 	dateToday ();
 	$("#pagesAndTable").show();
@@ -246,8 +253,7 @@ function dateToday (){
 	$('.newLine').append(result);
 }
 
-function tableComplete (){
-	$("li a[id='room1']").parent().addClass("active activeRoom");
+function tableComplete (sala){
 	cleanTable ();
 	$("#pagesAndTable").show();
 	var result='';
@@ -285,9 +291,6 @@ function dateToday (){
         day  = data.getDate(),
         month  = data.getMonth() + 1,
         year  = data.getFullYear();
-    console.log(day);
-    console.log(month);
-    console.log(year);
     var dateComplete= '<i class="fa fa-calendar" aria-hidden="true"></i>' + [day, month, year].join('/');
    	$('#dateToday').html(dateComplete);
 }

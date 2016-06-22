@@ -1,7 +1,10 @@
+<<<<<<< HEAD
 <<<<<<< 9c9cc8dd6039c0570ce723772dca24869f766582
 <<<<<<< 90b9c99e06b977b01c56077a7de16fc13feb00a2
 =======
 >>>>>>> logica salas
+=======
+>>>>>>> 2233d2a4461635cd9aeb237f49cbfd51c914f790
 var ip = {
 	query: 'http://localhost:9000/search/'
 }
@@ -13,11 +16,15 @@ yearAndMonth: 'http://localhost:9000/search/sala/ano/mes',
 year: 'http://localhost:9000/search/sala/ano'
 */
 
+<<<<<<< HEAD
 <<<<<<< 9c9cc8dd6039c0570ce723772dca24869f766582
+=======
+>>>>>>> 2233d2a4461635cd9aeb237f49cbfd51c914f790
 var table = {
 	forToday: '<table class="table table-bordered table-striped"><thead><tr><th>Início</th><th>Término</th><th>Responsável</th><th>Pauta</th></tr></thead><tbody class="newLine"></tbody></table>',
 	complete: '<table class="table table-bordered table-striped"><thead><tr><th>Data</th><th>Início</th><th>Término</th><th>Responsável</th><th>Pauta</th></tr></thead><tbody class="newLine"></tbody></table>'
 }
+<<<<<<< HEAD
 =======
 var ip;
 <<<<<<< 14a1f27177e15aabde17da4ec20b8b85e45731ca
@@ -30,14 +37,19 @@ var table = {
 	complete: '<table class="table table-bordered table-striped"><thead><tr><th>Data</th><th>Início</th><th>Término</th><th>Responsável</th><th>Pauta</th></tr></thead><tbody class="newLine"></tbody></table>'
 }
 >>>>>>> Identificacao links
+=======
+>>>>>>> 2233d2a4461635cd9aeb237f49cbfd51c914f790
 
 $(document).ready(function(){
 	start();
 	$('.links').click(function(){
+<<<<<<< HEAD
 <<<<<<< 1ad5e4fdee3cc8abcd804048aefd92943c51dcc9
 <<<<<<< 9250cdfaf6bcadbc8cdcb9922f2dfe22a3ba6e34
 =======
 >>>>>>> salas
+=======
+>>>>>>> 2233d2a4461635cd9aeb237f49cbfd51c914f790
 		$("li[class='active activeRoom']").removeClass("active activeRoom");
 		$("li a[id='room1']").parent().addClass("active activeRoom");
 		var pagina = $(this).attr('href');
@@ -46,6 +58,7 @@ $(document).ready(function(){
 		$('.pages').hide();
 		$(pagina).show();
 		formTable (1);
+<<<<<<< HEAD
 <<<<<<< 1ad5e4fdee3cc8abcd804048aefd92943c51dcc9
 =======
 		var pagina = $(this).attr('href');
@@ -57,6 +70,8 @@ $(document).ready(function(){
 >>>>>>> pages
 =======
 >>>>>>> salas
+=======
+>>>>>>> 2233d2a4461635cd9aeb237f49cbfd51c914f790
 	});
 	$('.room').click(function(){
 		var pagina = $(this).attr('id');
@@ -67,6 +82,7 @@ $(document).ready(function(){
 	$('#repeat').click(function(){
 		$("#myModal").modal();
 	});
+<<<<<<< HEAD
 <<<<<<< 14a1f27177e15aabde17da4ec20b8b85e45731ca
 <<<<<<< 90b9c99e06b977b01c56077a7de16fc13feb00a2
 	$('#calendar').datepicker({
@@ -101,11 +117,18 @@ $(document).ready(function(){
         language: "pt-br"
     });
 >>>>>>> calendario e formulario
+=======
+	$('#calendar').datepicker({
+        format: "dd/mm/yyyy",
+        language: "pt-br"
+    });
+>>>>>>> 2233d2a4461635cd9aeb237f49cbfd51c914f790
 });
 
 function start (){
 	$('.pages').hide();
 	$('#forToday').show();
+<<<<<<< HEAD
 <<<<<<< 1ad5e4fdee3cc8abcd804048aefd92943c51dcc9
 <<<<<<< 709c01f8d933912fdc07cc1097795df4c8043720
 <<<<<<< 14a1f27177e15aabde17da4ec20b8b85e45731ca
@@ -117,12 +140,18 @@ function start (){
 =======
 	tableForToday (1);
 >>>>>>> salas
+=======
+	tableForToday (1);
+>>>>>>> 2233d2a4461635cd9aeb237f49cbfd51c914f790
 }
 
 function cleanTable (){
 	$('#table').html('');
 	$('.newLine').html('');
+<<<<<<< HEAD
 <<<<<<< 709c01f8d933912fdc07cc1097795df4c8043720
+=======
+>>>>>>> 2233d2a4461635cd9aeb237f49cbfd51c914f790
 }
 
 function changingRoom (pagina){
@@ -156,6 +185,7 @@ function tableForToday (sala){
 	$("#pagesAndTable").show();
 	var result='';
 	var list = table.forToday;
+<<<<<<< HEAD
 =======
 =======
 >>>>>>> calendario e formulario
@@ -201,12 +231,15 @@ function tableForToday (sala){
 >>>>>>> calendario e formulario
 =======
 >>>>>>> Formulario layout
+=======
+>>>>>>> 2233d2a4461635cd9aeb237f49cbfd51c914f790
 	for (x=0;x<10;x++){
 		result += '<tr><td>hh:mm</td>';
 		result += '<td>hh:mm</td>';
 		result += '<td>Pessoa</td>';
 		result += '<td>Assunto</td></tr>';
 	}
+<<<<<<< HEAD
 <<<<<<< 709c01f8d933912fdc07cc1097795df4c8043720
 <<<<<<< 14a1f27177e15aabde17da4ec20b8b85e45731ca
 	$('#table').html(list);
@@ -249,6 +282,8 @@ function dateToday (){
 }
 >>>>>>> Identificacao links
 =======
+=======
+>>>>>>> 2233d2a4461635cd9aeb237f49cbfd51c914f790
 	$('#table').html(list);
 	$('.newLine').append(result);
 }
@@ -273,6 +308,7 @@ function formInclusion (){
 	$("#pagesAndTable").hide();
 	cleanTable ();
 }
+<<<<<<< HEAD
 <<<<<<< fd5c1d1ef3a6c7eee4afb4a95c03166d728b17d2
 >>>>>>> calendario e formulario
 =======
@@ -288,10 +324,19 @@ function dateToday (){
 }
 >>>>>>> Data do dia
 =======
+=======
+
+function dateToday (){
+	var data = new Date(),
+>>>>>>> 2233d2a4461635cd9aeb237f49cbfd51c914f790
         day  = data.getDate(),
         month  = data.getMonth() + 1,
         year  = data.getFullYear();
     var dateComplete= '<i class="fa fa-calendar" aria-hidden="true"></i>' + [day, month, year].join('/');
    	$('#dateToday').html(dateComplete);
+<<<<<<< HEAD
 }
 >>>>>>> logica salas
+=======
+}
+>>>>>>> 2233d2a4461635cd9aeb237f49cbfd51c914f790

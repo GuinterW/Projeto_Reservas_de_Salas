@@ -35,6 +35,7 @@
             </div>
         </div>
         <ol class="nav nav-pills">
+<<<<<<< HEAD
 <<<<<<< 14a1f27177e15aabde17da4ec20b8b85e45731ca
 <<<<<<< 90b9c99e06b977b01c56077a7de16fc13feb00a2
             <li class="active mainLinks"><a class="links" href="#forToday">Para hoje</a></li>
@@ -44,10 +45,14 @@
 =======
             <li class="active mainLinks"><a class="links" href="#forToday">Para hoje</a></li>
 >>>>>>> Identificacao links
+=======
+            <li class="active mainLinks"><a class="links" href="#forToday">Para hoje</a></li>
+>>>>>>> 2233d2a4461635cd9aeb237f49cbfd51c914f790
             <li><a class="links" href="#listMeetings">Listar reuniões</a></li>
             <li><a class="links" href="#includeReservation">Incluir reserva</a></li>
             <!--<li><a class="links" href="#">Minhas reuniões</a></li> -->
         </ol>
+<<<<<<< HEAD
 <<<<<<< 14a1f27177e15aabde17da4ec20b8b85e45731ca
 <<<<<<< 9250cdfaf6bcadbc8cdcb9922f2dfe22a3ba6e34
 
@@ -105,6 +110,8 @@
             </div>
         </div>
 =======
+=======
+>>>>>>> 2233d2a4461635cd9aeb237f49cbfd51c914f790
 
         <!--PARA HOJE -->
         <div id="forToday" class="pages">
@@ -112,6 +119,7 @@
         </div>
 
         <!-- LISTAR -->
+<<<<<<< HEAD
 >>>>>>> Identificacao links
         <div id="listMeetings" class="pages">
 <<<<<<< fd5c1d1ef3a6c7eee4afb4a95c03166d728b17d2
@@ -125,12 +133,18 @@
 <<<<<<< 90b9c99e06b977b01c56077a7de16fc13feb00a2
 =======
 >>>>>>> Identificacao links
+=======
+        <div id="listMeetings" class="pages">
+            <h2><i class="fa fa-list-alt" aria-hidden="true"></i> Listar</h2>
+            <div class="form-group">
+>>>>>>> 2233d2a4461635cd9aeb237f49cbfd51c914f790
                 <select id="year">
                     <option>2016</option>
                 </select>
                 <select id="month">
                     <option>Escolha um mês...</option>
                 </select>
+<<<<<<< HEAD
 <<<<<<< 14a1f27177e15aabde17da4ec20b8b85e45731ca
             </div><br>
         </div>
@@ -251,6 +265,80 @@
 >>>>>>> paginação e layout
         </div>
 
+=======
+            </div><br>
+        </div>
+
+        <!-- INCLUIR -->
+        <div id="includeReservation" class="pages">
+            <h2><i class="fa fa-calendar-plus-o" aria-hidden="true"></i> Incluir</h2>
+            <div id="formInclude">
+                <form class="form-horizontal" role="form">
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">Data: </label>
+                        <div class="col-sm-10">
+                            <input class="form-control" id="calendar" type="text" placeholder="Clique para escolher uma data...">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-offset-2 col-sm-4 control-label">
+                            <input type="radio" name="radioFrequency" checked> 
+                            Apenas 1 vez
+                        </label>
+                        <label id="repeatLabel" class="col-sm-6 control-label">
+                            <input type="radio" name="radioFrequency" id="repeat"> 
+                            Repetir
+                        </label>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">Sala</label>
+                        <div class="col-sm-10">
+                            <select class="form-control" id="sel1">
+                                <option>Sala 1</option>
+                                <option>Sala 2</option>
+                                <option>Sala 3</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">Início</label>
+                        <div class="col-sm-10">
+                            <select class="form-control" id="sel1">
+                                <option>hh:mm</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">Término</label>
+                        <div class="col-sm-10">
+                            <select class="form-control" id="sel2">
+                                <option>hh:mm</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">Pauta: </label>
+                        <div class="col-sm-10">
+                            <input class="form-control" type="text">
+                        </div>
+                    </div>
+                    <button type="button" class="btn btn-default">Reservar</button>
+                    <button type="button" class="btn btn-default">Cancelar</button>
+                </form>
+            </div>
+        </div>
+
+        <!-- Pages and table -->
+        <div id="pagesAndTable">
+            <ul class="pagination">
+                <li class="active activeRoom"><a href="#table" id="room1" class="room">Sala 1</a></li>
+                <li><a href="#table" id="room2" class="room">Sala 2</a></li>
+                <li><a href="#table" id="room3" class="room">Sala 3</a></li>
+            </ul>
+            <div id="table"></div>
+        </div>
+
+>>>>>>> 2233d2a4461635cd9aeb237f49cbfd51c914f790
         <!-- Modal repetir -->
         <div class="modal fade" id="myModal" role="dialog">
             <div class="modal-dialog">
@@ -324,6 +412,7 @@
                     </form>
                 </div>
               </div>  
+<<<<<<< HEAD
 =======
 =======
             </div><br>
@@ -391,6 +480,8 @@
                     <button type="button" class="btn btn-default">Cancelar</button>
                 </form>
 >>>>>>> calendario e formulario
+=======
+>>>>>>> 2233d2a4461635cd9aeb237f49cbfd51c914f790
             </div>
         </div>
 

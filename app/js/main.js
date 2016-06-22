@@ -56,6 +56,7 @@ function formTable (){
 
 function tableForToday (){
 	cleanTable ();
+	dateToday ();
 	$("#pagesAndTable").show();
 	var result='';
 	var list = table.forToday;
@@ -88,4 +89,13 @@ function tableComplete (){
 function formInclusion (){
 	$("#pagesAndTable").hide();
 	cleanTable ();
+}
+
+function dateToday (){
+	var data = new Date(),
+        dia  = data.getDate(),
+        mes  = data.getMonth() + 1,
+        ano  = data.getFullYear();
+    var dateComplete= [dia, mes, ano].join('/');
+   	$('#forToday').html(dateComplete);
 }

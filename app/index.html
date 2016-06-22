@@ -42,11 +42,11 @@
         </ol>
 
         <!--PARA HOJE -->
-        <h2 id="forToday" class="pages"><i class="fa fa-calendar" aria-hidden="true"></i>DD/MM/AAAA</h2>
+        <h2 id="forToday" class="pages"><i class="fa fa-calendar" aria-hidden="true"></i></h2>
 
         <!-- LISTAR -->
         <div id="listMeetings" class="pages">
-            <h2><i class="fa fa-list-alt" aria-hidden="true"></i>Listar</h2>
+            <h2><i class="fa fa-list-alt" aria-hidden="true"></i> Listar</h2>
             <div class="form-group">
                 <select id="year">
                     <option>2016</option>
@@ -59,7 +59,7 @@
 
         <!-- INCLUIR -->
         <div id="includeReservation" class="pages">
-            <h2><i class="fa fa-calendar-plus-o" aria-hidden="true"></i>Incluir</h2>
+            <h2><i class="fa fa-calendar-plus-o" aria-hidden="true"></i> Incluir</h2>
             <div id="formInclude">
                 <form class="form-horizontal" role="form">
                     <div class="form-group">
@@ -69,11 +69,11 @@
                         </div>
                     </div>
                     <div class="form-group">
-                        <label class="col-sm-6 control-label">
+                        <label class="col-sm-offset-2 col-sm-4 control-label">
                             <input type="radio" name="radioFrequency" checked> 
                             Apenas 1 vez
                         </label>
-                        <label class="col-sm-6 control-label">
+                        <label id="repeatLabel" class="col-sm-6 control-label">
                             <input type="radio" name="radioFrequency" id="repeat"> 
                             Repetir
                         </label>
@@ -179,16 +179,24 @@
                                     </label>
                                 </div>
                             </div>
-                            <div class="col-sm-6">
+                            <div class="col-sm-offset-4 col-sm-6">
                                 <div class="radio">
-                                  <label><input type="radio" name="radioEnd">Option 2</label>
+                                  <label>
+                                    <input type="radio" name="radioEnd">Em
+                                    <input id="dateEnd" type="text" placeholder="Digite uma data...">
+                                  </label>
                                 </div>
                             </div>
                         </div>
+                        <div class="form-group">
+                            <label class="col-sm-4 control-label">Resumo: </label>
+                            <div class="col-sm-6">
+                                <label id="abstract">A cada x dias, x vezes</label>
+                            </div>
+                        </div>
+                        <button type="button" class="btn btn-default">Concluir</button>
+                        <button type="button" class="btn btn-default">Cancelar</button>
                     </form>
-                </div>
-                <div class="modal-footer">
-                  <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
                 </div>
               </div>  
             </div>

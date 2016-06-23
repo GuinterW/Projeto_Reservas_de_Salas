@@ -81,11 +81,15 @@ function tableForToday (sala){
 	cleanTable ();
 	dateToday ();
 	$("#pagesAndTable").show();
+	var data = new Date(),
+        day  = data.getDate(),
+        month  = data.getMonth() + 1,
+        year  = data.getFullYear();
 	var result='';
 	var list = table.forToday;
 	$.ajax({
 		type: "GET",
-		url: ip.query + '1/2016/06/28',
+		url: ip.query + sala + '/' + year + '/' + month + '/' + day,
 		dataType: "html",
 		async: false,
 		success: function(data) {

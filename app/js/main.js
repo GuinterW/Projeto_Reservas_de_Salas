@@ -83,12 +83,15 @@ function tableForToday (sala){
 	$("#pagesAndTable").show();
 	var result='';
 	var list = table.forToday;
-	for (x=0;x<10;x++){
-		result += '<tr><td>hh:mm</td>';
-		result += '<td>hh:mm</td>';
-		result += '<td>Pessoa</td>';
-		result += '<td>Assunto</td></tr>';
-	}
+	$.ajax({
+		type: "GET",
+		url: ip.query + '1/2016/06/28',
+		dataType: "html",
+		async: false,
+		success: function(data) {
+	  		result += data;
+	  	}
+	});
 	$('#table').html(list);
 	$('.newLine').append(result);
 }

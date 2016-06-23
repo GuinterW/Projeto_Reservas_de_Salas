@@ -13,6 +13,14 @@ var table = {
 	forToday: '<table class="table table-bordered table-striped"><thead><tr><th>Início</th><th>Término</th><th>Responsável</th><th>Pauta</th></tr></thead><tbody class="newLine"></tbody></table>',
 	complete: '<table class="table table-bordered table-striped"><thead><tr><th>Data</th><th>Início</th><th>Término</th><th>Responsável</th><th>Pauta</th></tr></thead><tbody class="newLine"></tbody></table>'
 }
+<<<<<<< 0a8a5804e2e74a72b48465e88c8fc10761968091
+=======
+var ip;
+var table = {
+	forToday: '<table class="table table-bordered table-striped"><thead><tr><th>Início</th><th>Término</th><th>Responsável</th><th>Pauta</th></tr></thead><tbody class="newLine"></tbody></table>',
+	complete: '<table class="table table-bordered table-striped"><thead><tr><th>Data</th><th>Início</th><th>Término</th><th>Responsável</th><th>Pauta</th></tr></thead><tbody class="newLine"></tbody></table>'
+}
+>>>>>>> conflitos
 
 $(document).ready(function(){
 	start();
@@ -25,6 +33,14 @@ $(document).ready(function(){
 		$('.pages').hide();
 		$(pagina).show();
 		formTable (1);
+<<<<<<< 0a8a5804e2e74a72b48465e88c8fc10761968091
+=======
+		var pagina = $(this).attr('href');
+		$("li[class='active mainLinks']").removeClass("active mainLinks");
+		$("li a[href='"+pagina+"']").parent().addClass("active mainLinks");
+		$('.pages').hide();
+		$(pagina).show();
+>>>>>>> conflitos
 	});
 	$('.room').click(function(){
 		var pagina = $(this).attr('id');
@@ -35,6 +51,29 @@ $(document).ready(function(){
 	$('#repeat').click(function(){
 		$("#myModal").modal();
 	});
+<<<<<<< 0a8a5804e2e74a72b48465e88c8fc10761968091
+=======
+	$('#calendar').datepicker({
+        format: "dd/mm/yyyy",
+        language: "pt-br"
+    });
+	$('.room').click(function(){
+		var pagina = $(this).attr('id');
+		console.log(pagina);
+		formTable ();
+	});
+	$('.room').click(function(){
+		var pagina = $(this).attr('id');
+		$("li[class='active activeRoom']").removeClass("active activeRoom");
+		$("li a[id='"+pagina+"']").parent().addClass("active activeRoom");
+		formTable ();
+	});
+	$('#example1').datepicker({
+	$('#calendar').datepicker({
+        format: "dd/mm/yyyy",
+        language: "pt-br"
+    });
+>>>>>>> conflitos
 	$('#calendar').datepicker({
         format: "dd/mm/yyyy",
         language: "pt-br"
@@ -44,7 +83,14 @@ $(document).ready(function(){
 function start (){
 	$('.pages').hide();
 	$('#forToday').show();
+<<<<<<< 0a8a5804e2e74a72b48465e88c8fc10761968091
 	tableForToday (1);
+=======
+	tableForToday (1);
+	tableForToday ();
+	tableForToday (1);
+	tableForToday (1);
+>>>>>>> conflitos
 }
 
 function cleanTable (){
@@ -83,12 +129,52 @@ function tableForToday (sala){
 	$("#pagesAndTable").show();
 	var result='';
 	var list = table.forToday;
+<<<<<<< 0a8a5804e2e74a72b48465e88c8fc10761968091
+=======
+}
+
+function changingRoom (pagina){
+	if (pagina=='room1') {
+		formTable(1);
+	}
+	else if (pagina=='room2') {
+		formTable(2);
+	}
+	else {
+		formTable(3);
+	}
+}
+
+function formTable (sala){
+	var pagina = $("li[class='active mainLinks'] a").attr('href');
+	if (pagina=='#forToday'){
+		tableForToday (sala);
+	}
+	else if (pagina=='#listMeetings'){
+		tableComplete (sala);
+	}
+	else {
+		formInclusion ();
+	}
+}
+
+function tableForToday (sala){
+	cleanTable ();
+	dateToday ();
+	$("#pagesAndTable").show();
+	var result='';
+	$('.newLine').html('');
+	var list = table.forToday;
+	cleanTable ();
+>>>>>>> conflitos
 	for (x=0;x<10;x++){
 		result += '<tr><td>hh:mm</td>';
 		result += '<td>hh:mm</td>';
 		result += '<td>Pessoa</td>';
 		result += '<td>Assunto</td></tr>';
 	}
+<<<<<<< 0a8a5804e2e74a72b48465e88c8fc10761968091
+=======
 	$('#table').html(list);
 	$('.newLine').append(result);
 }
@@ -119,6 +205,59 @@ function dateToday (){
         day  = data.getDate(),
         month  = data.getMonth() + 1,
         year  = data.getFullYear();
-    var dateComplete= '<i class="fa fa-calendar" aria-hidden="true"></i> ' + [day, month, year].join('/');
+    var dateComplete= '<i class="fa fa-calendar" aria-hidden="true"></i>' + [day, month, year].join('/');
    	$('#dateToday').html(dateComplete);
 }
+	$('.newLine').append(result);*/
+}
+>>>>>>> conflitos
+	$('#table').html(list);
+	$('.newLine').append(result);
+}
+
+function tableComplete (sala){
+	cleanTable ();
+	$("#pagesAndTable").show();
+	var result='';
+	var list = table.complete;
+	for (x=0;x<10;x++){
+		result += '<tr><td>dd/mm/aaaa</td>';
+		result += '<td>hh:mm</td>';
+		result += '<td>hh:mm</td>';
+		result += '<td>Pessoa</td>';
+		result += '<td>Assunto</td></tr>';
+	}
+	$('#table').html(list);
+	$('.newLine').append(result);
+}
+
+function formInclusion (){
+	$("#pagesAndTable").hide();
+	cleanTable ();
+}
+
+function dateToday (){
+	var data = new Date(),
+<<<<<<< 0a8a5804e2e74a72b48465e88c8fc10761968091
+=======
+        dia  = data.getDate(),
+        mes  = data.getMonth() + 1,
+        ano  = data.getFullYear();
+    var dateComplete= [dia, mes, ano].join('/');
+   	$('#forToday').html(dateComplete);
+}
+
+function dateToday (){
+	var data = new Date(),
+>>>>>>> conflitos
+        day  = data.getDate(),
+        month  = data.getMonth() + 1,
+        year  = data.getFullYear();
+    var dateComplete= '<i class="fa fa-calendar" aria-hidden="true"></i> ' + [day, month, year].join('/');
+   	$('#dateToday').html(dateComplete);
+<<<<<<< 0a8a5804e2e74a72b48465e88c8fc10761968091
+}
+=======
+}
+}
+>>>>>>> conflitos

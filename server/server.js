@@ -2,6 +2,7 @@ var express = require('express');
 var bodyParser = require('body-parser');
 var cookieParser = require('cookie-parser');
 var api = require('./api/api');
+var routes = require('./routes/routes');
 
 function Server() {
     var app = express();
@@ -23,6 +24,8 @@ function Server() {
 
     // Returns middleware that parses cookies
     app.use(cookieParser());
+
+    routes(app);
 
     api(app);
 

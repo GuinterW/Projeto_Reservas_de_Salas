@@ -83,41 +83,24 @@ function tableForToday (sala){
 	$("#pagesAndTable").show();
 	var result='';
 	var list = table.forToday;
-}
-
-function changingRoom (pagina){
-	if (pagina=='room1') {
-		formTable(1);
-	}
-	else if (pagina=='room2') {
-		formTable(2);
-	}
-	else {
-		formTable(3);
-	}
-}
-
-function formTable (sala){
-	var pagina = $("li[class='active mainLinks'] a").attr('href');
-	if (pagina=='#forToday'){
-		tableForToday (sala);
-	}
-	else if (pagina=='#listMeetings'){
-		tableComplete (sala);
-	}
-	else {
-		formInclusion ();
-	}
-}
-
-function tableForToday (sala){
-	cleanTable ();
-	dateToday ();
-	$("#pagesAndTable").show();
-	var result='';
-	var list = table.forToday;
 	for (x=0;x<10;x++){
 		result += '<tr><td>hh:mm</td>';
+		result += '<td>hh:mm</td>';
+		result += '<td>Pessoa</td>';
+		result += '<td>Assunto</td></tr>';
+	}
+	$('#table').html(list);
+	$('.newLine').append(result);
+}
+
+function tableComplete (sala){
+	cleanTable ();
+	$("#pagesAndTable").show();
+	var result='';
+	var list = table.complete;
+	for (x=0;x<10;x++){
+		result += '<tr><td>dd/mm/aaaa</td>';
+		result += '<td>hh:mm</td>';
 		result += '<td>hh:mm</td>';
 		result += '<td>Pessoa</td>';
 		result += '<td>Assunto</td></tr>';
@@ -136,6 +119,6 @@ function dateToday (){
         day  = data.getDate(),
         month  = data.getMonth() + 1,
         year  = data.getFullYear();
-    var dateComplete= '<i class="fa fa-calendar" aria-hidden="true"></i>' + [day, month, year].join('/');
+    var dateComplete= '<i class="fa fa-calendar" aria-hidden="true"></i> ' + [day, month, year].join('/');
    	$('#dateToday').html(dateComplete);
 }

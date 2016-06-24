@@ -111,11 +111,11 @@ function tableForToday (sala){
 	dateToday ();
 	$('#day').hide();
 	$("#pagesAndTable").show();
-	console.log(day + '/' + month + '/' + year);
 	var result='';
 	var list = table.forToday;
-	if(month<10){
-		month = '0' + month.toString();
+	var lengthMonth = month.toString();
+	if (lengthMonth.length==1){
+		month = '0' + lengthMonth;
 	}
 	$.ajax({
 		type: "GET",
@@ -136,14 +136,9 @@ function tableComplete (sala){
 	$("#pagesAndTable").show();
 	var result='';
 	var list = table.complete;
-	//identifySelect ();
 	$('#table').html(list);
 	$('.newLine').append(result);
 }
-
-/*function identifySelect (){
-
-}*/
 
 function formInclusion (){
 	$("#pagesAndTable").hide();

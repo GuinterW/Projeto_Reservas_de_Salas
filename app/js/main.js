@@ -44,6 +44,11 @@ $(document).ready(function(){
         format: "dd/mm/yyyy",
         language: "pt-br"
     });
+    $('#year').change(function(){
+    	var url = $(this).val();
+    	//identificar a sala selecionada
+    	tableComplete (1, '/' + url);
+    });
     $('#month').change(function(){
     	var monthSelected = $(this).val();
     	if (monthSelected=="#") $('#day').hide();
@@ -51,15 +56,15 @@ $(document).ready(function(){
     });
 });
 
-function selectYear (){
-	var list='';
-	var data = new Date(),
-		year  = data.getFullYear() + 2;
-	for (var x=2007;x<year;x++){
-		list += "<option value=" + x + '>' + x + '</option>';
-	}
-	$('#year').html(list);
-	selectMonth ();
+function dateToday (){
+    var dateComplete= '<i class="fa fa-calendar" aria-hidden="true"></i> ' + [day, month, year].join('/');
+   	$('#dateToday').html(dateComplete);
+}
+
+function start (){
+	$('.pages').hide();
+	$('#forToday').show();
+	tableForToday (1);
 }
 
 function selectMonth (){
@@ -70,10 +75,15 @@ function selectMonth (){
 	$('#month').html(list);
 }
 
-function start (){
-	$('.pages').hide();
-	$('#forToday').show();
-	tableForToday (1);
+function selectYear (){
+	var list='';
+	var data = new Date(),
+		year  = data.getFullYear() + 2;
+	for (var x=2007;x<year;x++){
+		list += "<option value=" + x + '>' + x + '</option>';
+	}
+	$('#year').html(list);
+	selectMonth ();
 }
 
 function cleanTable (){
@@ -99,7 +109,9 @@ function formTable (sala){
 		tableForToday (sala);
 	}
 	else if (pagina=='#listMeetings'){
-		tableComplete (sala);
+		$('#year').val(2016);
+		console.log($('#year').val());
+		tableComplete (sala, '/' + year);
 	}
 	else {
 		formInclusion ();
@@ -130,12 +142,21 @@ function tableForToday (sala){
 	$('.newLine').append(result);
 }
 
-function tableComplete (sala){
+function tableComplete (sala,url){
 	cleanTable ();
 	selectYear ();
 	$("#pagesAndTable").show();
 	var result='';
 	var list = table.complete;
+	$.ajax({
+		type: "GET",
+		url: ip.query + sala + url,
+		dataType: "html",
+		async: false,
+		success: function(data) {
+	  		result += data;
+	  	}
+	});
 	$('#table').html(list);
 	$('.newLine').append(result);
 }
@@ -143,9 +164,4 @@ function tableComplete (sala){
 function formInclusion (){
 	$("#pagesAndTable").hide();
 	cleanTable ();
-}
-
-function dateToday (){
-    var dateComplete= '<i class="fa fa-calendar" aria-hidden="true"></i> ' + [day, month, year].join('/');
-   	$('#dateToday').html(dateComplete);
 }

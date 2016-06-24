@@ -31,7 +31,8 @@ Search.get('/:Room/:Year/:Month/:Day', function(req, res) {
 function buildTable(result,res){
     var items= '';
     for(var z=0;z<result.length;z++){
-        items+= '<tr>' + '<td>' + result[z].Start + '</td>';
+        items+= '<tr>' + '<td>' + result[z].Date + '</td>';
+        items+= '<td>' + result[z].Start + '</td>';
         items+= '<td>' + result[z].End + '</td>';
         items+= '<td>' + result[z].Resp + '</td>';
         items+= '<td>' + result[z].Schedule + '</td>' + '</tr>';

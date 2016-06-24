@@ -53,12 +53,16 @@ function checkFormat(result, req, res){
 function checkValidations(req,res,value){
     validation.setParamsValues(req);
     if (validation.hasURLParams(req,res)){
-        if (validation.hasCorrectURLParamsFields(req,res)){
-            connection.query(Command, value, function(err,result){
-                console.log('Searched');
-                checkFormat(result, req, res);
-            });
-        }
+        connection.query('SELECT * FROM users', function(err,result){
+            if(validation.hasValidUser(req,res,result)){
+                if (validation.hasCorrectURLParamsFields(req,res)){
+                    connection.query(Command, value, function(err,result){
+                        console.log('Searched');
+                        checkFormat(result, req, res);
+                    });
+                }
+            }
+        });
     }
 }
 

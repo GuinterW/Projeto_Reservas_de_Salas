@@ -2,6 +2,11 @@ var ip = {
 	query: 'http://localhost:9000/search/'
 }
 
+var data = new Date(),
+        day  = data.getDate(),
+        month  = data.getMonth() + 1,
+        year  = data.getFullYear();
+
 //só pra eu saber
 /*
 date: 'http://localhost:9000/search/sala/ano/mes/dia',
@@ -39,7 +44,31 @@ $(document).ready(function(){
         format: "dd/mm/yyyy",
         language: "pt-br"
     });
+    $('#month').change(function(){
+    	var monthSelected = $(this).val();
+    	if (monthSelected=="#") $('#day').hide();
+    	else $('#day').show();
+    });
 });
+
+function selectYear (){
+	var list='';
+	var data = new Date(),
+		year  = data.getFullYear() + 2;
+	for (var x=2007;x<year;x++){
+		list += "<option value=" + x + '>' + x + '</option>';
+	}
+	$('#year').html(list);
+	selectMonth ();
+}
+
+function selectMonth (){
+	var list='<option value="#"> Escolha um mês... </option>';
+	for (var x=1;x<13;x++){
+		list += "<option value=" + x + '>' + x + '</option>';
+	}
+	$('#month').html(list);
+}
 
 function start (){
 	$('.pages').hide();
@@ -80,34 +109,41 @@ function formTable (sala){
 function tableForToday (sala){
 	cleanTable ();
 	dateToday ();
+	$('#day').hide();
 	$("#pagesAndTable").show();
+	console.log(day + '/' + month + '/' + year);
 	var result='';
 	var list = table.forToday;
-	for (x=0;x<10;x++){
-		result += '<tr><td>hh:mm</td>';
-		result += '<td>hh:mm</td>';
-		result += '<td>Pessoa</td>';
-		result += '<td>Assunto</td></tr>';
+	if(month<10){
+		month = '0' + month.toString();
 	}
+	$.ajax({
+		type: "GET",
+		url: ip.query + sala + '/' + year + '/' + month + '/' + day,
+		dataType: "html",
+		async: false,
+		success: function(data) {
+	  		result += data;
+	  	}
+	});
 	$('#table').html(list);
 	$('.newLine').append(result);
 }
 
 function tableComplete (sala){
 	cleanTable ();
+	selectYear ();
 	$("#pagesAndTable").show();
 	var result='';
 	var list = table.complete;
-	for (x=0;x<10;x++){
-		result += '<tr><td>dd/mm/aaaa</td>';
-		result += '<td>hh:mm</td>';
-		result += '<td>hh:mm</td>';
-		result += '<td>Pessoa</td>';
-		result += '<td>Assunto</td></tr>';
-	}
+	//identifySelect ();
 	$('#table').html(list);
 	$('.newLine').append(result);
 }
+
+/*function identifySelect (){
+
+}*/
 
 function formInclusion (){
 	$("#pagesAndTable").hide();
@@ -115,10 +151,6 @@ function formInclusion (){
 }
 
 function dateToday (){
-	var data = new Date(),
-        day  = data.getDate(),
-        month  = data.getMonth() + 1,
-        year  = data.getFullYear();
     var dateComplete= '<i class="fa fa-calendar" aria-hidden="true"></i> ' + [day, month, year].join('/');
    	$('#dateToday').html(dateComplete);
 }

@@ -36,8 +36,8 @@
         </div>
         <ol class="nav nav-pills">
             <li class="active mainLinks"><a class="links" href="#forToday">Para hoje</a></li>
-            <li><a class="links" href="#listMeetings">Listar reuniões</a></li>
-            <li><a class="links" href="#includeReservation">Incluir reserva</a></li>
+            <li><a class="links" href="#listMeetings">Listar</a></li>
+            <li><a class="links" href="#includeReservation">Incluir</a></li>
             <!--<li><a class="links" href="#">Minhas reuniões</a></li> -->
         </ol>
 
@@ -50,12 +50,9 @@
         <div id="listMeetings" class="pages">
             <h2><i class="fa fa-list-alt" aria-hidden="true"></i> Listar</h2>
             <div class="form-group">
-                <select id="year">
-                    <option>2016</option>
-                </select>
-                <select id="month">
-                    <option>Escolha um mês...</option>
-                </select>
+                <select id="year"></select>
+                <select id="month"></select>
+                <select id="day"></select>
             </div><br>
         </div>
 
@@ -170,7 +167,7 @@
                             </div>
                         </div>
                         <div class="form-group">
-                            <label class="col-sm-4 control-label">Termina em: </label>
+                            <label class="col-sm-4 control-label">Termina: </label>
                             <div class="col-sm-6">
                                 <div class="radio">
                                     <label>

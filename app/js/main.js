@@ -2,6 +2,11 @@ var ip = {
 	query: 'http://localhost:9000/search/'
 }
 
+var data = new Date(),
+        day  = data.getDate(),
+        month  = data.getMonth() + 1,
+        year  = data.getFullYear();
+
 //só pra eu saber
 /*
 date: 'http://localhost:9000/search/sala/ano/mes/dia',
@@ -40,7 +45,9 @@ $(document).ready(function(){
         language: "pt-br"
     });
     $('#month').change(function(){
-
+    	var monthSelected = $(this).val();
+    	if (monthSelected=="#") $('#day').hide();
+    	else $('#day').show();
     });
 });
 
@@ -102,11 +109,9 @@ function formTable (sala){
 function tableForToday (sala){
 	cleanTable ();
 	dateToday ();
+	$('#day').hide();
 	$("#pagesAndTable").show();
-	var data = new Date(),
-        day  = data.getDate(),
-        month  = data.getMonth() + 1,
-        year  = data.getFullYear();
+	console.log(day + '/' + month + '/' + year);
 	var result='';
 	var list = table.forToday;
 	if(month<10){
@@ -146,10 +151,6 @@ function formInclusion (){
 }
 
 function dateToday (){
-	var data = new Date(),
-        day  = data.getDate(),
-        month  = data.getMonth() + 1,
-        year  = data.getFullYear();
     var dateComplete= '<i class="fa fa-calendar" aria-hidden="true"></i> ' + [day, month, year].join('/');
    	$('#dateToday').html(dateComplete);
 }

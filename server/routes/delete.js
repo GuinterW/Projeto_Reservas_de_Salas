@@ -14,19 +14,23 @@ function checkValidations(req, res){
     var date = req.query.Date.replace(/[:-]/g, '');
     validation.setQueryValues(req);
     if(validation.hasURLQuery(req, res)){
-        if(validation.hasURLCorrectQueryFields(req, res)){
-            if(validation.hasCorrectDate(res)){
-                if(validation.hasCorrectTime(res)){
-                    connection.query(Command, [req.query.Room, validation.startMeeting, validation.endMeeting, validation.date], function(err, result){
-                        if (err) throw err;
-                        if(validation.hasAffectedRows(res, result)){
-                            console.log('Deleted');
-                            res.sendStatus(200);
+        connection.query('SELECT * FROM users', function(err,result){
+            if(validation.hasValidUser(req,res,result)){
+                if(validation.hasURLCorrectQueryFields(req, res)){
+                    if(validation.hasCorrectDate(res)){
+                        if(validation.hasCorrectTime(res)){
+                            connection.query(Command, [req.query.Room, validation.startMeeting, validation.endMeeting, validation.date], function(err, result){
+                                if (err) throw err;
+                                if(validation.hasAffectedRows(res, result)){
+                                    console.log('Deleted');
+                                    res.sendStatus(200);
+                                }
+                            });
                         }
-                    });
+                    }
                 }
             }
-        }
+        });
     }
 }
 

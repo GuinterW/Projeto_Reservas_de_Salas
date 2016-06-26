@@ -28,10 +28,72 @@ Search.get('/:Room/:Year/:Month/:Day', function(req, res) {
     checkValidations(req,res,[parseInt(req.params.Room, 10), parseInt(date, 10)]);   
 });
 
-function buildTable(result,res){
+function getFreeTime(result, res){
+    var freeTime = [];
+    var startFreeTime = '08:30:00';
+    var endFreeTime = '18:30:00';
+    if(result.length>1){
+        for(var x=0;x<result.length;x++){
+            var resultStart = result[x].Start.replace(/[:-]/g, '');
+            if(parseInt(resultStart)>083000){
+                endFreeTime = result[x].Start;
+                for(var c=0;c<result.length;c++){
+                    var resultEnd = result[c].End.replace(/[:-]/g, '');
+                    var startFreeTimeINT = startFreeTime.replace(/[:-]/g, '');
+                    if(parseInt(resultEnd)<parseInt(resultStart)){
+                        if(parseInt(resultEnd)>=parseInt(startFreeTimeINT)){
+                            startFreeTime = result[c].End;
+                        }
+                    }
+                }
+                freeTime.push(startFreeTime, endFreeTime);
+            }
+        }
+        var lastValue=freeTime[0].replace(/[:-]/g, '');
+        var positionLastValue = 0;
+        for(var x=0;x<freeTime.length;x++){
+            var value = freeTime[x].replace(/[:-]/g, '');
+            if(parseInt(value)>=parseInt(lastValue)){
+                lastValue = value;
+                positionLastValue = x;
+            }
+        }
+        if(lastValue<183000){
+            startFreeTime = freeTime[positionLastValue];
+            endFreeTime = '18:30:00';
+            freeTime.push(startFreeTime, endFreeTime);
+        }
+    }
+    else if(result.length==1){
+        var resultStart = result[0].Start.replace(/[:-]/g, '');
+        var resultEnd = result[0].End.replace(/[:-]/g, '');
+        if(parseInt(resultStart)!=083000 && parseInt(resultEnd)!=183000){
+            if(parseInt(resultStart)==083000){
+                startFreeTime = result[0].End;
+            }
+            if(resultEnd==183000){
+                endFreeTime = result[0].Start;
+            }
+            freeTime.push(startFreeTime, endFreeTime);
+        }
+    }
+    else {
+        freeTime.push(startFreeTime, endFreeTime);
+    }
+    /*chama função que printa o tempo livre*/
+}
+
+function buildTable(result, req, res){
     var items= '';
     for(var z=0;z<result.length;z++){
+<<<<<<< 3707ce6792e433f304902a64936569bb1c0af1bd
         items+= '<tr>' + '<td>' + result[z].Date + '</td>';
+=======
+        items+= '<tr>';
+        if(req.query.today != 'true'){
+            items+= '<td>' + result[z].Date + '</td>';
+        }
+>>>>>>> função pegar tempo disponível
         items+= '<td>' + result[z].Start + '</td>';
         items+= '<td>' + result[z].End + '</td>';
         items+= '<td>' + result[z].Resp + '</td>';
@@ -41,13 +103,16 @@ function buildTable(result,res){
     res.send(items);
 }
 
-function checkFormat(result, req, res){
+function checkQuery(result, req, res){
     if(req.query.hasOwnProperty('format') && req.query.format == 'json'){
         res.type('text/json');
         res.send(result);
     }
+    else if(req.query.hasOwnProperty('freeTime') && req.query.freeTime == 'true'){
+        getFreeTime(result, res);
+    }
     else {
-        buildTable(result, res);
+        buildTable(result, req, res);
     }
 }
 

@@ -111,7 +111,7 @@ $(document).ready(function(){
 >>>>>>> select month
     });
     $('#user').on('click', '#userImage', function(){
-        $("#modalLogIn").modal();
+        $("#modalLogIn").modal('show');
     });
 });
 
@@ -128,8 +128,12 @@ function start (){
     $("#modalLogIn").modal('show');
 =======
     selectYear(2016);
+<<<<<<< 351779f4309e0bd3a9b2233e2f1a301c2f55d081
     $("#modalLogIn").modal();
 >>>>>>> google account
+=======
+    $("#modalLogIn").modal('show');
+>>>>>>> modal login
 }
 
 function buildSelectYear (){
@@ -313,11 +317,15 @@ function onSignIn(googleUser) {
     userImage = profile.getImageUrl();
     userEmail = profile.getEmail();
     $('#user').html(userName + ' <img id="userImage" src="' + userImage + '" />');
+<<<<<<< 351779f4309e0bd3a9b2233e2f1a301c2f55d081
 <<<<<<< 8b0976c84d464c8b73b5960c4058ea82e85d8425
     $("#modalLogIn").modal('hide');
     buildTable(1, '/' + year + '/' + month + '/' + day, table.forToday);
 =======
     $("#modalLogIn").modal();
+=======
+    $("#modalLogIn").modal('hide');
+>>>>>>> modal login
     tableForToday (1);
 >>>>>>> google account
 }
@@ -325,6 +333,7 @@ function onSignIn(googleUser) {
 function signOut() {
     var auth2 = gapi.auth2.getAuthInstance();
     auth2.signOut().then(function () {
+<<<<<<< 351779f4309e0bd3a9b2233e2f1a301c2f55d081
 <<<<<<< 8b0976c84d464c8b73b5960c4058ea82e85d8425
         $('#logIn').html('<div class="g-signin2" data-onsuccess="onSignIn"></div>');
         $('#user').html('');
@@ -335,4 +344,10 @@ function signOut() {
     });
     $("#modalLogIn").modal();
 >>>>>>> google account
+=======
+        $('#logIn').html('<div class="g-signin2" data-onsuccess="onSignIn"></div>');
+        $('#user').html('');
+    });
+    $("#modalLogIn").modal('hide');
+>>>>>>> modal login
 }

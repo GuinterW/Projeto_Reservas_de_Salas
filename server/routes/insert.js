@@ -28,24 +28,28 @@ function checkValidations(req, res){
     var date = req.query.Date.replace(/[:-]/g, '');
     validation.setQueryValues(req);
     if(validation.hasURLQuery(req, res)){
-        if(validation.hasURLCorrectQueryFields(req, res)){
-            if(validation.hasCorrectDate(res)){
-                if(validation.hasCorrectTime(res)){
-                    connection.query(selectCommand, [parseInt(req.query.Room, 10), parseInt(date, 10)], function(err, result){
-                        if (err) throw err;
-                        if(!validation.hasTimeConflict(res, result)){
-                            connection.query(insertUpdateCommand, [req.query, req.query.ID], function(err, result){
+        connection.query('SELECT * FROM users', function(err,result){
+            if(validation.hasValidUser(req,res,result)){
+                if(validation.hasURLCorrectQueryFields(req, res)){
+                    if(validation.hasCorrectDate(res)){
+                        if(validation.hasCorrectTime(res)){
+                            connection.query(selectCommand, [parseInt(req.query.Room, 10), parseInt(date, 10)], function(err, result){
                                 if (err) throw err;
-                                if(validation.hasAffectedRows(res, result)){
-                                    console.log('Inserted/Updated');
-                                    res.sendStatus(200);
+                                if(!validation.hasTimeConflict(res, result)){
+                                    connection.query(insertUpdateCommand, [req.query, req.query.ID], function(err, result){
+                                        if (err) throw err;
+                                        if(validation.hasAffectedRows(res, result)){
+                                            console.log('Inserted/Updated');
+                                            res.sendStatus(200);
+                                        }
+                                    });
                                 }
                             });
                         }
-                    });
+                    }
                 }
             }
-        }
+        });
     }
 }
 

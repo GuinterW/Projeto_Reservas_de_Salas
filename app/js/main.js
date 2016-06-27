@@ -36,10 +36,12 @@ $(document).ready(function(){
     });
     $('#repeat').click(function(){
         $("#myModal").modal();
+        $('#disabledInput').html($('#calendar').val());
     });
     $('#calendar').datepicker({
         format: "dd/mm/yyyy",
-        language: "pt-br"
+        language: "pt-br",
+        autoclose: true
     });
     $('#year').change(function(){
         var url = $(this).val();
@@ -66,6 +68,12 @@ $(document).ready(function(){
     $('#user').on('click', '#userImage', function(){
         $("#modalLogIn").modal('show');
     });
+    $('#sel22').change(function(){
+        $('#xdays').html($('#sel22').val());
+    });
+    $('#dateFixed').change(function(){
+        $('#xvzs').html($('#dateFixed').val());
+    });
 });
 
 function dateToday (){
@@ -78,6 +86,7 @@ function start (){
     $('#forToday').show();
     selectYear(2016);
     $("#modalLogIn").modal('show');
+    completeSelectTime();
 }
 
 function selectYear (selected){

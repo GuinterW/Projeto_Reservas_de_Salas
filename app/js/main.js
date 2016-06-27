@@ -1,5 +1,6 @@
 var ip = {
-	query: 'http://192.168.1.117:9000/search/'
+	query: 'http://192.168.1.117:9000/search/',
+	usertest: '?User=guinter.weber@digitaldesk.com.br'
 }
 
 var data = new Date(),
@@ -131,7 +132,7 @@ function tableForToday (sala){
 	}
 	$.ajax({
 		type: "GET",
-		url: ip.query + sala + '/' + year + '/' + month + '/' + day,
+		url: ip.query + sala + '/' + year + '/' + month + '/' + day + ip.usertest,
 		dataType: "html",
 		async: false,
 		success: function(data) {
@@ -150,7 +151,7 @@ function tableComplete (sala,url){
 	var list = table.complete;
 	$.ajax({
 		type: "GET",
-		url: ip.query + sala + url,
+		url: ip.query + sala + url + ip.usertest,
 		dataType: "html",
 		async: false,
 		success: function(data) {

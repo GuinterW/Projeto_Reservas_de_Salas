@@ -43,12 +43,23 @@ $(document).ready(function(){
         var url = $(this).val();
         //identificar a sala selecionada
         tableComplete (1, '/' + url, url);
+        $('#month').val('00');
+        $('#day').hide();
+        $("li[class='active activeRoom']").removeClass("active activeRoom");
+        $("li a[id='room1']").parent().addClass("active activeRoom");
     });
     $('#month').change(function(){
         var monthSelected = $(this).val();
-        if (monthSelected=="#") $('#day').hide();
-        else $('#day').show();
-        tableComplete(1, '/' +  $("#year").val() + '/' + monthSelected, $("#year").val());
+        if (monthSelected=="00"){
+            tableComplete(1, '/' +  $("#year").val(), $("#year").val());
+            $('#day').hide();
+        }
+        else {
+            $('#day').show();
+            tableComplete(1, '/' +  $("#year").val() + '/' + monthSelected, $("#year").val());
+        }
+        $("li[class='active activeRoom']").removeClass("active activeRoom");
+        $("li a[id='room1']").parent().addClass("active activeRoom");
     });
 });
 
@@ -103,7 +114,12 @@ function formTable (sala){
         tableForToday (sala);
     }
     else if (pagina=='#listMeetings'){
-        tableComplete (sala, '/' + $('#year').val(), $('#year').val());
+        if($('#month').val()=='00'){
+            tableComplete (sala, '/' + $('#year').val(), $('#year').val());
+        }
+        else {
+            tableComplete (sala, '/' + $('#year').val() + '/' + $('#month').val(), $('#year').val());
+        }
     }
     else {
         formInclusion ();

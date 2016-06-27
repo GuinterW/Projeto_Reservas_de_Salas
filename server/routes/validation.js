@@ -107,7 +107,7 @@ Validation.prototype.hasAffectedRows = function(res, result){
 
 Validation.prototype.hasValidUser = function(req, res, result){
     for(var x=0;x<result.length;x++){
-        if(req.query.user == result[x].Email){
+        if(req.query.User == result[x].Email){
             return true;
         }
     }
@@ -116,7 +116,7 @@ Validation.prototype.hasValidUser = function(req, res, result){
 }
 
 Validation.prototype.hasURLQuery = function(req, res){
-    if(req.query.hasOwnProperty('user') && req.query.hasOwnProperty('Room') && req.query.hasOwnProperty('Start') && req.query.hasOwnProperty('End') && req.query.hasOwnProperty('Date')){
+    if(req.query.hasOwnProperty('User') && req.query.hasOwnProperty('Room') && req.query.hasOwnProperty('Start') && req.query.hasOwnProperty('End') && req.query.hasOwnProperty('Date')){
         return true;
     }
     else {
@@ -128,7 +128,7 @@ Validation.prototype.hasURLQuery = function(req, res){
 Validation.prototype.hasURLParams = function(req, res){
     switch(this.paramsQuantity){
         case 2:
-            if(req.query.hasOwnProperty('user') && req.params.hasOwnProperty('Room') && req.params.hasOwnProperty('Year')){
+            if(req.query.hasOwnProperty('User') && req.params.hasOwnProperty('Room') && req.params.hasOwnProperty('Year')){
                 return true;
             }
             else {
@@ -137,7 +137,7 @@ Validation.prototype.hasURLParams = function(req, res){
             }
             break;
         case 3:
-            if(req.query.hasOwnProperty('user') && req.params.hasOwnProperty('Room') && req.params.hasOwnProperty('Year') && req.params.hasOwnProperty('Month')){
+            if(req.query.hasOwnProperty('User') && req.params.hasOwnProperty('Room') && req.params.hasOwnProperty('Year') && req.params.hasOwnProperty('Month')){
                 return true;
             }
             else {
@@ -146,7 +146,7 @@ Validation.prototype.hasURLParams = function(req, res){
             }
             break;
         case 4:
-            if(req.query.hasOwnProperty('user') && req.params.hasOwnProperty('Room') && req.params.hasOwnProperty('Year') && req.params.hasOwnProperty('Month') && req.params.hasOwnProperty('Day')){
+            if(req.query.hasOwnProperty('User') && req.params.hasOwnProperty('Room') && req.params.hasOwnProperty('Year') && req.params.hasOwnProperty('Month') && req.params.hasOwnProperty('Day')){
                 return true;
             }
             else {

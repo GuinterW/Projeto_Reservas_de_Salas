@@ -71,10 +71,18 @@ function getFreeTime(result, res){
             if(parseInt(resultStart)==083000){
                 startFreeTime = result[0].End;
             }
-            if(resultEnd==183000){
+            else {
+                endFreeTime = result[0].Start;
+                freeTime.push(startFreeTime, endFreeTime);
+            }
+            if(parseInt(resultEnd)==183000){
                 endFreeTime = result[0].Start;
             }
-            freeTime.push(startFreeTime, endFreeTime);
+            else {
+                startFreeTime = result[0].End;
+                endFreeTime = '18:30:00';
+                freeTime.push(startFreeTime, endFreeTime);
+            }
         }
     }
     else {
@@ -120,7 +128,7 @@ function checkValidations(req,res,value){
                 if (validation.hasCorrectURLParamsFields(req,res)){
                     connection.query(Command, value, function(err,result){
                         console.log('Searched');
-                        checkFormat(result, req, res);
+                        checkQuery(result, req, res);
                     });
                 }
             }

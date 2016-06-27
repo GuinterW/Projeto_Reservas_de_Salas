@@ -36,14 +36,23 @@ $(document).ready(function(){
         $("li[class='active mainLinks']").removeClass("active mainLinks");
         $("li a[href='"+page+"']").parent().addClass("active mainLinks");
         $('.pages').hide();
+<<<<<<< d7a6937fa346b8dc0dcdc1dae67a540f0cb8d4f4
         $(page).show();
+=======
+        $(pagina).show();
+>>>>>>> ajuste funções front-end
         checkTab(1);
     });
     $('.room').click(function(){
         var page = $(this).attr('id');
         $("li[class='active activeRoom']").removeClass("active activeRoom");
+<<<<<<< d7a6937fa346b8dc0dcdc1dae67a540f0cb8d4f4
         $("li a[id='"+page+"']").parent().addClass("active activeRoom");
         checkRoom(page);
+=======
+        $("li a[id='"+pagina+"']").parent().addClass("active activeRoom");
+        checkRoom(pagina);
+>>>>>>> ajuste funções front-end
     });
     $('#repeat').click(function(){
 <<<<<<< 09a1945cd1d2c938f854e3387ed27224f619e6c0
@@ -64,9 +73,13 @@ $(document).ready(function(){
         buildTable(1, '/' + $('#year').val());
 =======
         var url = $(this).val();
+<<<<<<< d7a6937fa346b8dc0dcdc1dae67a540f0cb8d4f4
         //identificar a sala selecionada
         tableComplete (1, '/' + url, url);
 >>>>>>> select month
+=======
+        buildTable(1, '/' + url);
+>>>>>>> ajuste funções front-end
         $('#month').val('00');
         $('#day').hide();
         $("li[class='active activeRoom']").removeClass("active activeRoom");
@@ -104,12 +117,12 @@ $(document).ready(function(){
 =======
         var monthSelected = $(this).val();
         if (monthSelected=="00"){
-            tableComplete(1, '/' +  $("#year").val(), $("#year").val());
+            buildTable(1, '/' +  $("#year").val(), $("#year").val());
             $('#day').hide();
         }
         else {
             $('#day').show();
-            tableComplete(1, '/' +  $("#year").val() + '/' + monthSelected, $("#year").val());
+            buildTable(1, '/' +  $("#year").val() + '/' + monthSelected, $("#year").val());
         }
         $("li[class='active activeRoom']").removeClass("active activeRoom");
         $("li a[id='room1']").parent().addClass("active activeRoom");
@@ -135,6 +148,7 @@ function start (){
     buildSelectYear();
     $('.pages').hide();
     $('#forToday').show();
+<<<<<<< d7a6937fa346b8dc0dcdc1dae67a540f0cb8d4f4
 <<<<<<< 8b0976c84d464c8b73b5960c4058ea82e85d8425
     $("#modalLogIn").modal('show');
 =======
@@ -149,6 +163,10 @@ function start (){
 =======
     completeSelectTime();
 >>>>>>> BP #24 #22 #18 #17
+=======
+    buildSelectYear();
+    $("#modalLogIn").modal('show');
+>>>>>>> ajuste funções front-end
 }
 
 function buildSelectYear (){
@@ -231,11 +249,19 @@ function cleanTable (){
     $('.newLine').html('');
 }
 
+<<<<<<< d7a6937fa346b8dc0dcdc1dae67a540f0cb8d4f4
 function checkRoom (page){
     if (page=='room1') {
         checkTab(1);
     }
     else if (page=='room2') {
+=======
+function checkRoom (pagina){
+    if (pagina=='room1') {
+        checkTab(1);
+    }
+    else if (pagina=='room2') {
+>>>>>>> ajuste funções front-end
         checkTab(2);
     }
     else {
@@ -244,10 +270,16 @@ function checkRoom (page){
 }
 
 function checkTab (sala){
+<<<<<<< d7a6937fa346b8dc0dcdc1dae67a540f0cb8d4f4
     var page = $("li[class='active mainLinks'] a").attr('href');
     if (page=='#forToday'){
         $('#day').hide();
         buildTable(sala, '/' + year + '/' + month + '/' + day, table.forToday);
+=======
+    var pagina = $("li[class='active mainLinks'] a").attr('href');
+    if (pagina=='#forToday'){
+        buildTable(sala, '/' + year + '/' + month + '/' + day, , table.forToday);
+>>>>>>> ajuste funções front-end
     }
 <<<<<<< 8da6c0033019bc888ed4430b61eec37d57850416
     else if (page=='#listMeetings'){
@@ -265,11 +297,15 @@ function checkTab (sala){
 =======
     else if (pagina=='#listMeetings'){
         if($('#month').val()=='00'){
-            tableComplete (sala, '/' + $('#year').val(), $('#year').val());
+            buildTable(sala, '/' + $('#year').val(), table.complete);
         }
         else {
+<<<<<<< d7a6937fa346b8dc0dcdc1dae67a540f0cb8d4f4
             tableComplete (sala, '/' + $('#year').val() + '/' + $('#month').val(), $('#year').val());
 >>>>>>> select month
+=======
+            buildTable(sala, '/' + $('#year').val() + '/' + $('#month').val(), table.complete);
+>>>>>>> ajuste funções front-end
         }
     }
     else {
@@ -279,6 +315,22 @@ function checkTab (sala){
 
 function buildTable(sala, url, table){
     cleanTable ();
+<<<<<<< d7a6937fa346b8dc0dcdc1dae67a540f0cb8d4f4
+=======
+    if (lengthMonth.length==1){
+        month = '0' + lengthMonth;
+    }
+    dateToday ();
+    var list = table;
+    var result=ajax(ip.query + sala + url + '?User=' + userEmail);
+    $('#day').hide();
+    $("#pagesAndTable").show();
+    $('#table').html(list);
+    $('.newLine').append(result);
+}
+
+/*function tableForToday (sala){
+>>>>>>> ajuste funções front-end
     var lengthMonth = month.toString();
     if (lengthMonth.length==1){
         month = '0' + lengthMonth;
@@ -297,7 +349,7 @@ function buildTable(sala, url, table){
     $('.newLine').append(result);
 }
 
-function tableComplete (sala,url, year){
+function tableComplete (sala,url,){
     cleanTable ();
     //selectYear (year);
     $("#pagesAndTable").show();
@@ -306,7 +358,7 @@ function tableComplete (sala,url, year){
 >>>>>>> google account
     $('#table').html(list);
     $('.newLine').append(result);
-}
+}*/
 
 function ajax(url){
     var result = '';

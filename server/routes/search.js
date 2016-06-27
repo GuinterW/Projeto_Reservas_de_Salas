@@ -92,11 +92,10 @@ function getFreeTime(result, res){
 }
 
 function buildTable(result, req, res){
-    var items= '';
+    var items= '<tr>';
     for(var z=0;z<result.length;z++){
-        items+= '<tr>';
         if(req.query.today != 'true'){
-            items+= '<td>' + result[z].Date + '</td>';
+            items+= '<td>' + result[z].Date.toString().substring(0,4) + result[z].Date.toString().substring(8,11) + result[z].Date.toString().substring(4,8) + result[z].Date.toString().substring(10,15) + '</td>';
         }
         items+= '<td>' + result[z].Start + '</td>';
         items+= '<td>' + result[z].End + '</td>';

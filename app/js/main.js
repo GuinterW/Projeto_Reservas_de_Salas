@@ -1,6 +1,6 @@
 var ip = {
-	query: 'http://192.168.1.117:9000/search/',
-	usertest: '?User=guinter.weber@digitaldesk.com.br'
+	query: 'http://localhost:9000/search/',
+	usertest: '?User=Guinter%20Weber'
 }
 
 var data = new Date(),
@@ -8,7 +8,7 @@ var data = new Date(),
         month  = data.getMonth() + 1,
         year  = data.getFullYear();
 
-//só pra eu saber
+//só pra saber
 /*
 date: 'http://localhost:9000/search/sala/ano/mes/dia',
 yearAndMonth: 'http://localhost:9000/search/sala/ano/mes',
@@ -126,8 +126,6 @@ function tableForToday (sala){
 	$("#pagesAndTable").show();
 	var result='';
 	var list = table.forToday;
-<<<<<<< b81635aa428b2b1ff7be4b9e11a5b2d563d1767f
-<<<<<<< 4410cdf19e2ecf9aafec861c9e1fad3db3c83083
 	var lengthMonth = month.toString();
 	if (lengthMonth.length==1){
 		month = '0' + lengthMonth;
@@ -135,65 +133,12 @@ function tableForToday (sala){
 	$.ajax({
 		type: "GET",
 		url: ip.query + sala + '/' + year + '/' + month + '/' + day + ip.usertest,
-		dataType: "html",
+		//dataType: "html",
 		async: false,
 		success: function(data) {
 	  		result += data;
 	  	}
 	});
-=======
-<<<<<<< 0a8a5804e2e74a72b48465e88c8fc10761968091
-=======
-}
-
-function changingRoom (pagina){
-	if (pagina=='room1') {
-		formTable(1);
-	}
-	else if (pagina=='room2') {
-		formTable(2);
-	}
-	else {
-		formTable(3);
-	}
-}
-
-function formTable (sala){
-	var pagina = $("li[class='active mainLinks'] a").attr('href');
-	if (pagina=='#forToday'){
-		tableForToday (sala);
-	}
-	else if (pagina=='#listMeetings'){
-		tableComplete (sala);
-	}
-	else {
-		formInclusion ();
-	}
-}
-
-function tableForToday (sala){
-	cleanTable ();
-	dateToday ();
-	$("#pagesAndTable").show();
-	var result='';
-	$('.newLine').html('');
-	var list = table.forToday;
-	cleanTable ();
->>>>>>> conflitos
-=======
->>>>>>> ajuste conflitos
-	for (x=0;x<10;x++){
-		result += '<tr><td>hh:mm</td>';
-		result += '<td>hh:mm</td>';
-		result += '<td>Pessoa</td>';
-		result += '<td>Assunto</td></tr>';
-	}
-<<<<<<< b81635aa428b2b1ff7be4b9e11a5b2d563d1767f
-<<<<<<< 0a8a5804e2e74a72b48465e88c8fc10761968091
-=======
->>>>>>> conflitos
-=======
->>>>>>> ajuste conflitos
 	$('#table').html(list);
 	$('.newLine').append(result);
 }
@@ -207,7 +152,7 @@ function tableComplete (sala,url){
 	$.ajax({
 		type: "GET",
 		url: ip.query + sala + url + ip.usertest,
-		dataType: "html",
+		//dataType: "html",
 		async: false,
 		success: function(data) {
 	  		result += data;
@@ -220,26 +165,4 @@ function tableComplete (sala,url){
 function formInclusion (){
 	$("#pagesAndTable").hide();
 	cleanTable ();
-<<<<<<< 4410cdf19e2ecf9aafec861c9e1fad3db3c83083
 }
-=======
-}
-
-function dateToday (){
-	var data = new Date(),
-        day  = data.getDate(),
-        month  = data.getMonth() + 1,
-        year  = data.getFullYear();
-    var dateComplete= '<i class="fa fa-calendar" aria-hidden="true"></i> ' + [day, month, year].join('/');
-   	$('#dateToday').html(dateComplete);
-<<<<<<< b81635aa428b2b1ff7be4b9e11a5b2d563d1767f
-<<<<<<< 0a8a5804e2e74a72b48465e88c8fc10761968091
-}
-=======
-}
-}
->>>>>>> conflitos
->>>>>>> conflitos
-=======
-}
->>>>>>> ajuste conflitos

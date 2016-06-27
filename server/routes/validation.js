@@ -107,7 +107,7 @@ Validation.prototype.hasAffectedRows = function(res, result){
 
 Validation.prototype.hasValidUser = function(req, res, result){
     for(var x=0;x<result.length;x++){
-        if(req.query.User == result[x].Email){
+        if(req.query.User == result[x].Name){
             return true;
         }
     }

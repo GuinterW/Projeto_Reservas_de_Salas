@@ -1,4 +1,18 @@
+<<<<<<< 8b0976c84d464c8b73b5960c4058ea82e85d8425
 var server = 'http://localhost:9000/search/';
+=======
+var ip = {
+    query: 'http://localhost:9000/search/',
+}
+
+var data = new Date(),
+        day  = data.getDate(),
+        month  = data.getMonth() + 1,
+        year  = data.getFullYear(),
+        userName = '',
+        userImage = '',
+        userEmail = '';
+>>>>>>> google account
 
 var date = new Date(),
     day  = date.getDate(),
@@ -96,6 +110,9 @@ $(document).ready(function(){
         $("li a[id='room1']").parent().addClass("active activeRoom");
 >>>>>>> select month
     });
+    $('#user').on('click', '#userImage', function(){
+        $("#modalLogIn").modal();
+    });
 });
 
 function dateToday (){
@@ -107,7 +124,12 @@ function start (){
     buildSelectYear();
     $('.pages').hide();
     $('#forToday').show();
+<<<<<<< 8b0976c84d464c8b73b5960c4058ea82e85d8425
     $("#modalLogIn").modal('show');
+=======
+    selectYear(2016);
+    $("#modalLogIn").modal();
+>>>>>>> google account
 }
 
 function buildSelectYear (){
@@ -243,9 +265,26 @@ function buildTable(sala, url, table){
         month = '0' + lengthMonth;
     }
     dateToday ();
+<<<<<<< 8b0976c84d464c8b73b5960c4058ea82e85d8425
     var list = table;
     var result=ajax(server + sala + url + '?User=' + userEmail);
     $("#pagesAndTable").show();
+=======
+    $('#day').hide();
+    $("#pagesAndTable").show();
+    var list = table.forToday;
+    var result=ajax(ip.query + sala + '/' + year + '/' + month + '/' + day + '?User=' + userEmail + '&today=true');
+    $('#table').html(list);
+    $('.newLine').append(result);
+}
+
+function tableComplete (sala,url, year){
+    cleanTable ();
+    //selectYear (year);
+    $("#pagesAndTable").show();
+    var result=ajax(ip.query + sala + url + '?User=' + userEmail);
+    var list = table.complete;
+>>>>>>> google account
     $('#table').html(list);
     $('.newLine').append(result);
 }
@@ -274,15 +313,26 @@ function onSignIn(googleUser) {
     userImage = profile.getImageUrl();
     userEmail = profile.getEmail();
     $('#user').html(userName + ' <img id="userImage" src="' + userImage + '" />');
+<<<<<<< 8b0976c84d464c8b73b5960c4058ea82e85d8425
     $("#modalLogIn").modal('hide');
     buildTable(1, '/' + year + '/' + month + '/' + day, table.forToday);
+=======
+    $("#modalLogIn").modal();
+    tableForToday (1);
+>>>>>>> google account
 }
 
 function signOut() {
     var auth2 = gapi.auth2.getAuthInstance();
     auth2.signOut().then(function () {
+<<<<<<< 8b0976c84d464c8b73b5960c4058ea82e85d8425
         $('#logIn').html('<div class="g-signin2" data-onsuccess="onSignIn"></div>');
         $('#user').html('');
     });
     $("#modalLogIn").modal('hide');
+=======
+        $('#user').html();
+    });
+    $("#modalLogIn").modal();
+>>>>>>> google account
 }

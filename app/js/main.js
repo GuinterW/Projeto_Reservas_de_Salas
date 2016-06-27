@@ -64,7 +64,7 @@ $(document).ready(function(){
         $("li a[id='room1']").parent().addClass("active activeRoom");
     });
     $('#user').on('click', '#userImage', function(){
-        $("#modalLogIn").modal();
+        $("#modalLogIn").modal('show');
     });
 });
 
@@ -77,7 +77,7 @@ function start (){
     $('.pages').hide();
     $('#forToday').show();
     selectYear(2016);
-    $("#modalLogIn").modal();
+    $("#modalLogIn").modal('show');
 }
 
 function selectYear (selected){
@@ -180,14 +180,15 @@ function onSignIn(googleUser) {
     userImage = profile.getImageUrl();
     userEmail = profile.getEmail();
     $('#user').html(userName + ' <img id="userImage" src="' + userImage + '" />');
-    $("#modalLogIn").modal();
+    $("#modalLogIn").modal('hide');
     tableForToday (1);
 }
 
 function signOut() {
     var auth2 = gapi.auth2.getAuthInstance();
     auth2.signOut().then(function () {
-        $('#user').html();
+        $('#logIn').html('<div class="g-signin2" data-onsuccess="onSignIn"></div>');
+        $('#user').html('');
     });
-    $("#modalLogIn").modal();
+    $("#modalLogIn").modal('hide');
 }

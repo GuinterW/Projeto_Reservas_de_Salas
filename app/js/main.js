@@ -1,5 +1,5 @@
 var ip = {
-	query: 'http://localhost:9000/search/'
+	query: 'http://192.168.1.117:9000/search/'
 }
 
 var data = new Date(),

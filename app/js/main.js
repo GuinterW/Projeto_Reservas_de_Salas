@@ -46,8 +46,13 @@ $(document).ready(function(){
         checkRoom(page);
     });
     $('#repeat').click(function(){
+<<<<<<< 09a1945cd1d2c938f854e3387ed27224f619e6c0
         $("#modalRepeat").modal();
         $('#startRepeat').html($('#calendar').val());
+=======
+        $("#myModal").modal();
+        $('#disabledInput').html($('#calendar').val());
+>>>>>>> BP #24 #22 #18 #17
     });
     $('#calendar').datepicker({
         format: "dd/mm/yyyy",
@@ -113,6 +118,12 @@ $(document).ready(function(){
     $('#user').on('click', '#userImage', function(){
         $("#modalLogIn").modal('show');
     });
+    $('#sel22').change(function(){
+        $('#xdays').html($('#sel22').val());
+    });
+    $('#dateFixed').change(function(){
+        $('#xvzs').html($('#dateFixed').val());
+    });
 });
 
 function dateToday (){
@@ -133,7 +144,11 @@ function start (){
 >>>>>>> google account
 =======
     $("#modalLogIn").modal('show');
+<<<<<<< 09a1945cd1d2c938f854e3387ed27224f619e6c0
 >>>>>>> modal login
+=======
+    completeSelectTime();
+>>>>>>> BP #24 #22 #18 #17
 }
 
 function buildSelectYear (){

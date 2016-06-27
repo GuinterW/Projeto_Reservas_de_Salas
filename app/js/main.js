@@ -41,13 +41,20 @@ $(document).ready(function(){
         autoclose: true
     });
     $('#year').change(function(){
+<<<<<<< 8da6c0033019bc888ed4430b61eec37d57850416
         buildTable(1, '/' + $('#year').val());
+=======
+        var url = $(this).val();
+        //identificar a sala selecionada
+        tableComplete (1, '/' + url, url);
+>>>>>>> select month
         $('#month').val('00');
         $('#day').hide();
         $("li[class='active activeRoom']").removeClass("active activeRoom");
         $("li a[id='room1']").parent().addClass("active activeRoom");
     });
     $('#month').change(function(){
+<<<<<<< 8da6c0033019bc888ed4430b61eec37d57850416
         if ($('#month').val()=="00"){
             buildTable(1, '/' +  $("#year").val(), table.complete);
             $('#day').hide();
@@ -75,6 +82,19 @@ $(document).ready(function(){
     });
     $('#endRepeat').change(function(){
         $('#nRepeats').html($('#endRepeat').val());
+=======
+        var monthSelected = $(this).val();
+        if (monthSelected=="00"){
+            tableComplete(1, '/' +  $("#year").val(), $("#year").val());
+            $('#day').hide();
+        }
+        else {
+            $('#day').show();
+            tableComplete(1, '/' +  $("#year").val() + '/' + monthSelected, $("#year").val());
+        }
+        $("li[class='active activeRoom']").removeClass("active activeRoom");
+        $("li a[id='room1']").parent().addClass("active activeRoom");
+>>>>>>> select month
     });
 });
 
@@ -188,6 +208,7 @@ function checkTab (sala){
         $('#day').hide();
         buildTable(sala, '/' + year + '/' + month + '/' + day, table.forToday);
     }
+<<<<<<< 8da6c0033019bc888ed4430b61eec37d57850416
     else if (page=='#listMeetings'){
         if($('#month').val()=='00'){
             $('#day').hide();
@@ -200,6 +221,14 @@ function checkTab (sala){
             else {
                 buildTable(sala, '/' +  $("#year").val() + '/' + $('#month').val() + '/' + $('#day').val(), table.complete);
             }
+=======
+    else if (pagina=='#listMeetings'){
+        if($('#month').val()=='00'){
+            tableComplete (sala, '/' + $('#year').val(), $('#year').val());
+        }
+        else {
+            tableComplete (sala, '/' + $('#year').val() + '/' + $('#month').val(), $('#year').val());
+>>>>>>> select month
         }
     }
     else {

@@ -7844,7 +7844,8 @@ button.close {
   margin-left: 2%; }
 
 #tituloPrincipal {
-  color: #337ab7; }
+  color: #337ab7;
+  margin-top: 45px; }
 
 #table {
   margin-top: -6px; }

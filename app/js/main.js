@@ -1,12 +1,14 @@
 var ip = {
     query: 'http://localhost:9000/search/',
-    usertest: '?User=Guinter%20Weber'
 }
 
 var data = new Date(),
         day  = data.getDate(),
         month  = data.getMonth() + 1,
-        year  = data.getFullYear();
+        year  = data.getFullYear(),
+        userName = '',
+        userImage = '',
+        userEmail = '';
 
 
 var table = {
@@ -61,6 +63,9 @@ $(document).ready(function(){
         $("li[class='active activeRoom']").removeClass("active activeRoom");
         $("li a[id='room1']").parent().addClass("active activeRoom");
     });
+    $('#user').on('click', '#userImage', function(){
+        $("#modalLogIn").modal();
+    });
 });
 
 function dateToday (){
@@ -72,7 +77,7 @@ function start (){
     $('.pages').hide();
     $('#forToday').show();
     selectYear(2016);
-    tableForToday (1);
+    $("#modalLogIn").modal();
 }
 
 function selectYear (selected){
@@ -136,7 +141,7 @@ function tableForToday (sala){
     $('#day').hide();
     $("#pagesAndTable").show();
     var list = table.forToday;
-    var result=ajax(ip.query + sala + '/' + year + '/' + month + '/' + day + ip.usertest + '&today=true');
+    var result=ajax(ip.query + sala + '/' + year + '/' + month + '/' + day + '?User=' + userEmail + '&today=true');
     $('#table').html(list);
     $('.newLine').append(result);
 }
@@ -145,7 +150,7 @@ function tableComplete (sala,url, year){
     cleanTable ();
     //selectYear (year);
     $("#pagesAndTable").show();
-    var result=ajax(ip.query + sala + url + ip.usertest);
+    var result=ajax(ip.query + sala + url + '?User=' + userEmail);
     var list = table.complete;
     $('#table').html(list);
     $('.newLine').append(result);
@@ -167,4 +172,22 @@ function ajax(url){
 function formInclusion (){
     $("#pagesAndTable").hide();
     cleanTable ();
+}
+
+function onSignIn(googleUser) {
+    var profile = googleUser.getBasicProfile();
+    userName = profile.getName();
+    userImage = profile.getImageUrl();
+    userEmail = profile.getEmail();
+    $('#user').html(userName + ' <img id="userImage" src="' + userImage + '" />');
+    $("#modalLogIn").modal();
+    tableForToday (1);
+}
+
+function signOut() {
+    var auth2 = gapi.auth2.getAuthInstance();
+    auth2.signOut().then(function () {
+        $('#user').html();
+    });
+    $("#modalLogIn").modal();
 }

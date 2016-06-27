@@ -26,13 +26,13 @@ $(document).ready(function(){
         $("li a[href='"+pagina+"']").parent().addClass("active mainLinks");
         $('.pages').hide();
         $(pagina).show();
-        formTable (1);
+        checkTab(1);
     });
     $('.room').click(function(){
         var pagina = $(this).attr('id');
         $("li[class='active activeRoom']").removeClass("active activeRoom");
         $("li a[id='"+pagina+"']").parent().addClass("active activeRoom");
-        changingRoom (pagina);
+        checkRoom(pagina);
     });
     $('#repeat').click(function(){
         $("#myModal").modal();
@@ -45,8 +45,7 @@ $(document).ready(function(){
     });
     $('#year').change(function(){
         var url = $(this).val();
-        //identificar a sala selecionada
-        tableComplete (1, '/' + url, url);
+        buildTable(1, '/' + url);
         $('#month').val('00');
         $('#day').hide();
         $("li[class='active activeRoom']").removeClass("active activeRoom");
@@ -55,12 +54,12 @@ $(document).ready(function(){
     $('#month').change(function(){
         var monthSelected = $(this).val();
         if (monthSelected=="00"){
-            tableComplete(1, '/' +  $("#year").val(), $("#year").val());
+            buildTable(1, '/' +  $("#year").val(), $("#year").val());
             $('#day').hide();
         }
         else {
             $('#day').show();
-            tableComplete(1, '/' +  $("#year").val() + '/' + monthSelected, $("#year").val());
+            buildTable(1, '/' +  $("#year").val() + '/' + monthSelected, $("#year").val());
         }
         $("li[class='active activeRoom']").removeClass("active activeRoom");
         $("li a[id='room1']").parent().addClass("active activeRoom");
@@ -84,18 +83,14 @@ function dateToday (){
 function start (){
     $('.pages').hide();
     $('#forToday').show();
-    selectYear(2016);
+    buildSelectYear();
     $("#modalLogIn").modal('show');
-    completeSelectTime();
 }
 
-function selectYear (selected){
-    console.log(selected);
+function buildSelectYear (){
     var list='';
-    var data = new Date(),
-        year  = data.getFullYear() + 2;
-    for (var x=2007;x<year;x++){
-        if(x==selected){
+    for (var x=2007;x<year + 2;x++){
+        if(x==year){
             list += "<option value=" + x + ' selected=true>' + x + '</option>';
         }
         else {
@@ -110,37 +105,51 @@ function cleanTable (){
     $('.newLine').html('');
 }
 
-function changingRoom (pagina){
+function checkRoom (pagina){
     if (pagina=='room1') {
-        formTable(1);
+        checkTab(1);
     }
     else if (pagina=='room2') {
-        formTable(2);
+        checkTab(2);
     }
     else {
-        formTable(3);
+        checkTab(3);
     }
 }
 
-function formTable (sala){
+function checkTab (sala){
     var pagina = $("li[class='active mainLinks'] a").attr('href');
     if (pagina=='#forToday'){
-        tableForToday (sala);
+        buildTable(sala, '/' + year + '/' + month + '/' + day, , table.forToday);
     }
     else if (pagina=='#listMeetings'){
         if($('#month').val()=='00'){
-            tableComplete (sala, '/' + $('#year').val(), $('#year').val());
+            buildTable(sala, '/' + $('#year').val(), table.complete);
         }
         else {
-            tableComplete (sala, '/' + $('#year').val() + '/' + $('#month').val(), $('#year').val());
+            buildTable(sala, '/' + $('#year').val() + '/' + $('#month').val(), table.complete);
         }
     }
     else {
-        formInclusion ();
+        insert();
     }
 }
 
-function tableForToday (sala){
+function buildTable(sala, url, table){
+    cleanTable ();
+    if (lengthMonth.length==1){
+        month = '0' + lengthMonth;
+    }
+    dateToday ();
+    var list = table;
+    var result=ajax(ip.query + sala + url + '?User=' + userEmail);
+    $('#day').hide();
+    $("#pagesAndTable").show();
+    $('#table').html(list);
+    $('.newLine').append(result);
+}
+
+/*function tableForToday (sala){
     var lengthMonth = month.toString();
     if (lengthMonth.length==1){
         month = '0' + lengthMonth;
@@ -155,7 +164,7 @@ function tableForToday (sala){
     $('.newLine').append(result);
 }
 
-function tableComplete (sala,url, year){
+function tableComplete (sala,url,){
     cleanTable ();
     //selectYear (year);
     $("#pagesAndTable").show();
@@ -163,7 +172,7 @@ function tableComplete (sala,url, year){
     var list = table.complete;
     $('#table').html(list);
     $('.newLine').append(result);
-}
+}*/
 
 function ajax(url){
     var result = '';
@@ -178,7 +187,7 @@ function ajax(url){
     return result;
 }
 
-function formInclusion (){
+function insert(){
     $("#pagesAndTable").hide();
     cleanTable ();
 }

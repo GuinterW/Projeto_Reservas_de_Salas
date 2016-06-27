@@ -94,14 +94,10 @@ function getFreeTime(result, res){
 function buildTable(result, req, res){
     var items= '';
     for(var z=0;z<result.length;z++){
-<<<<<<< 3707ce6792e433f304902a64936569bb1c0af1bd
-        items+= '<tr>' + '<td>' + result[z].Date + '</td>';
-=======
         items+= '<tr>';
         if(req.query.today != 'true'){
             items+= '<td>' + result[z].Date + '</td>';
         }
->>>>>>> função pegar tempo disponível
         items+= '<td>' + result[z].Start + '</td>';
         items+= '<td>' + result[z].End + '</td>';
         items+= '<td>' + result[z].Resp + '</td>';

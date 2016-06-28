@@ -30,7 +30,7 @@ function checkValidations(req, res){
     if(validation.hasURLQuery(req, res)){
         connection.query('SELECT * FROM users', function(err,result){
             if(validation.hasValidUser(req,res,result)){
-                if(validation.hasURLCorrectQueryFields(req, res)){
+                if(validation.hasCorrectURLQueryFields(req, res)){
                     if(validation.hasCorrectDate(res)){
                         if(validation.hasCorrectTime(res)){
                             connection.query(selectCommand, [parseInt(req.query.Room, 10), parseInt(date, 10)], function(err, result){

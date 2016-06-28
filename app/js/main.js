@@ -86,6 +86,7 @@ $(document).ready(function(){
         autoclose: true
     });
     $('#year').change(function(){
+<<<<<<< 73b5dbc810eb3e5d7dfe6ff80e4b86057b1ebebc
 <<<<<<< 8da6c0033019bc888ed4430b61eec37d57850416
         buildTable(1, '/' + $('#year').val());
 =======
@@ -97,12 +98,16 @@ $(document).ready(function(){
 =======
         buildTable(1, '/' + url);
 >>>>>>> ajuste funções front-end
+=======
+        buildTable(1, '/' + $('#year').val());
+>>>>>>> requisição dia
         $('#month').val('00');
         $('#day').hide();
         $("li[class='active activeRoom']").removeClass("active activeRoom");
         $("li a[id='room1']").parent().addClass("active activeRoom");
     });
     $('#month').change(function(){
+<<<<<<< 73b5dbc810eb3e5d7dfe6ff80e4b86057b1ebebc
 <<<<<<< 8da6c0033019bc888ed4430b61eec37d57850416
         if ($('#month').val()=="00"){
             buildTable(1, '/' +  $("#year").val(), table.complete);
@@ -135,15 +140,27 @@ $(document).ready(function(){
         var monthSelected = $(this).val();
         if (monthSelected=="00"){
             buildTable(1, '/' +  $("#year").val(), $("#year").val());
+=======
+        if ($('#month').val()=="00"){
+            buildTable(1, '/' +  $("#year").val(), table.complete);
+>>>>>>> requisição dia
             $('#day').hide();
         }
         else {
-            $('#day').show();
-            buildTable(1, '/' +  $("#year").val() + '/' + monthSelected, $("#year").val());
+            buildTable(1, '/' +  $("#year").val() + '/' + $('#month').val(), table.complete);
+            buildSelectDay($('#month').val());
         }
         $("li[class='active activeRoom']").removeClass("active activeRoom");
         $("li a[id='room1']").parent().addClass("active activeRoom");
 >>>>>>> select month
+    });
+    $('#day').change(function(){
+        if ($('#day').val()=="00"){
+            buildTable(1, '/' +  $("#year").val() + '/' + $('#month').val(), table.complete);
+        }
+        else {
+            buildTable(1, '/' +  $("#year").val() + '/' + $('#month').val() + '/' + $('#day').val(), table.complete);
+        }
     });
     $('#user').on('click', '#userImage', function(){
         $("#modalLogIn").modal('show');
@@ -304,6 +321,7 @@ function checkTab (sala){
     if (page=='#forToday'){
         $('#day').hide();
         buildTable(sala, '/' + year + '/' + month + '/' + day, table.forToday);
+<<<<<<< 73b5dbc810eb3e5d7dfe6ff80e4b86057b1ebebc
 =======
     var pagina = $("li[class='active mainLinks'] a").attr('href');
     if (pagina=='#forToday'){
@@ -313,6 +331,8 @@ function checkTab (sala){
 >>>>>>> renomeação ID html
         buildTable(sala, '/' + year + '/' + month + '/' + day, , table.forToday);
 >>>>>>> ajuste funções front-end
+=======
+>>>>>>> requisição dia
     }
 <<<<<<< 75285bab3c5edb13eda4b03a48dcb118cc114746
 <<<<<<< 8da6c0033019bc888ed4430b61eec37d57850416
@@ -334,15 +354,25 @@ function checkTab (sala){
     else if (page=='#listMeetings'){
 >>>>>>> renomeação ID html
         if($('#month').val()=='00'){
+            $('#day').hide();
             buildTable(sala, '/' + $('#year').val(), table.complete);
         }
         else {
+<<<<<<< 73b5dbc810eb3e5d7dfe6ff80e4b86057b1ebebc
 <<<<<<< d7a6937fa346b8dc0dcdc1dae67a540f0cb8d4f4
             tableComplete (sala, '/' + $('#year').val() + '/' + $('#month').val(), $('#year').val());
 >>>>>>> select month
 =======
             buildTable(sala, '/' + $('#year').val() + '/' + $('#month').val(), table.complete);
 >>>>>>> ajuste funções front-end
+=======
+            if($('#day').val()=='00'){
+                buildTable(sala, '/' + $('#year').val() + '/' + $('#month').val(), table.complete);
+            }
+            else {
+                buildTable(sala, '/' +  $("#year").val() + '/' + $('#month').val() + '/' + $('#day').val(), table.complete);
+            }
+>>>>>>> requisição dia
         }
     }
     else {
@@ -352,20 +382,24 @@ function checkTab (sala){
 
 function buildTable(sala, url, table){
     cleanTable ();
+<<<<<<< 73b5dbc810eb3e5d7dfe6ff80e4b86057b1ebebc
 <<<<<<< d7a6937fa346b8dc0dcdc1dae67a540f0cb8d4f4
 =======
+=======
+    var lengthMonth = month.toString();
+>>>>>>> requisição dia
     if (lengthMonth.length==1){
         month = '0' + lengthMonth;
     }
     dateToday ();
     var list = table;
     var result=ajax(server + sala + url + '?User=' + userEmail);
-    $('#day').hide();
     $("#pagesAndTable").show();
     $('#table').html(list);
     $('.newLine').append(result);
 }
 
+<<<<<<< 73b5dbc810eb3e5d7dfe6ff80e4b86057b1ebebc
 /*function tableForToday (sala){
 >>>>>>> ajuste funções front-end
     var lengthMonth = month.toString();
@@ -397,6 +431,8 @@ function tableComplete (sala,url,){
     $('.newLine').append(result);
 }*/
 
+=======
+>>>>>>> requisição dia
 function ajax(url){
     var result = '';
     $.ajax({
@@ -429,9 +465,13 @@ function onSignIn(googleUser) {
     $("#modalLogIn").modal();
 =======
     $("#modalLogIn").modal('hide');
+<<<<<<< 73b5dbc810eb3e5d7dfe6ff80e4b86057b1ebebc
 >>>>>>> modal login
     tableForToday (1);
 >>>>>>> google account
+=======
+    buildTable(1, '/' + year + '/' + month + '/' + day, table.forToday);
+>>>>>>> requisição dia
 }
 
 function signOut() {

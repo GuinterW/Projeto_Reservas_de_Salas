@@ -1,3 +1,4 @@
+<<<<<<< 75285bab3c5edb13eda4b03a48dcb118cc114746
 <<<<<<< 8b0976c84d464c8b73b5960c4058ea82e85d8425
 var server = 'http://localhost:9000/search/';
 =======
@@ -13,6 +14,9 @@ var data = new Date(),
         userImage = '',
         userEmail = '';
 >>>>>>> google account
+=======
+var server = 'http://localhost:9000/search/';
+>>>>>>> renomeação ID html
 
 var date = new Date(),
     day  = date.getDate(),
@@ -36,16 +40,21 @@ $(document).ready(function(){
         $("li[class='active mainLinks']").removeClass("active mainLinks");
         $("li a[href='"+page+"']").parent().addClass("active mainLinks");
         $('.pages').hide();
+<<<<<<< 75285bab3c5edb13eda4b03a48dcb118cc114746
 <<<<<<< d7a6937fa346b8dc0dcdc1dae67a540f0cb8d4f4
         $(page).show();
 =======
         $(pagina).show();
 >>>>>>> ajuste funções front-end
+=======
+        $(page).show();
+>>>>>>> renomeação ID html
         checkTab(1);
     });
     $('.room').click(function(){
         var page = $(this).attr('id');
         $("li[class='active activeRoom']").removeClass("active activeRoom");
+<<<<<<< 75285bab3c5edb13eda4b03a48dcb118cc114746
 <<<<<<< d7a6937fa346b8dc0dcdc1dae67a540f0cb8d4f4
         $("li a[id='"+page+"']").parent().addClass("active activeRoom");
         checkRoom(page);
@@ -62,6 +71,14 @@ $(document).ready(function(){
         $("#myModal").modal();
         $('#disabledInput').html($('#calendar').val());
 >>>>>>> BP #24 #22 #18 #17
+=======
+        $("li a[id='"+page+"']").parent().addClass("active activeRoom");
+        checkRoom(page);
+    });
+    $('#repeat').click(function(){
+        $("#modalRepeat").modal();
+        $('#startRepeat').html($('#calendar').val());
+>>>>>>> renomeação ID html
     });
     $('#calendar').datepicker({
         format: "dd/mm/yyyy",
@@ -131,11 +148,11 @@ $(document).ready(function(){
     $('#user').on('click', '#userImage', function(){
         $("#modalLogIn").modal('show');
     });
-    $('#sel22').change(function(){
-        $('#xdays').html($('#sel22').val());
+    $('#repeatFrequency').change(function(){
+        $('#nFrequency').html($('#repeatFrequency').val());
     });
-    $('#dateFixed').change(function(){
-        $('#xvzs').html($('#dateFixed').val());
+    $('#endRepeat').change(function(){
+        $('#nRepeats').html($('#endRepeat').val());
     });
 });
 
@@ -148,6 +165,7 @@ function start (){
     buildSelectYear();
     $('.pages').hide();
     $('#forToday').show();
+<<<<<<< 75285bab3c5edb13eda4b03a48dcb118cc114746
 <<<<<<< d7a6937fa346b8dc0dcdc1dae67a540f0cb8d4f4
 <<<<<<< 8b0976c84d464c8b73b5960c4058ea82e85d8425
     $("#modalLogIn").modal('show');
@@ -165,6 +183,8 @@ function start (){
 >>>>>>> BP #24 #22 #18 #17
 =======
     buildSelectYear();
+=======
+>>>>>>> renomeação ID html
     $("#modalLogIn").modal('show');
 >>>>>>> ajuste funções front-end
 }
@@ -249,6 +269,7 @@ function cleanTable (){
     $('.newLine').html('');
 }
 
+<<<<<<< 75285bab3c5edb13eda4b03a48dcb118cc114746
 <<<<<<< d7a6937fa346b8dc0dcdc1dae67a540f0cb8d4f4
 function checkRoom (page){
     if (page=='room1') {
@@ -262,6 +283,13 @@ function checkRoom (pagina){
     }
     else if (pagina=='room2') {
 >>>>>>> ajuste funções front-end
+=======
+function checkRoom (page){
+    if (page=='room1') {
+        checkTab(1);
+    }
+    else if (page=='room2') {
+>>>>>>> renomeação ID html
         checkTab(2);
     }
     else {
@@ -270,6 +298,7 @@ function checkRoom (pagina){
 }
 
 function checkTab (sala){
+<<<<<<< 75285bab3c5edb13eda4b03a48dcb118cc114746
 <<<<<<< d7a6937fa346b8dc0dcdc1dae67a540f0cb8d4f4
     var page = $("li[class='active mainLinks'] a").attr('href');
     if (page=='#forToday'){
@@ -278,9 +307,14 @@ function checkTab (sala){
 =======
     var pagina = $("li[class='active mainLinks'] a").attr('href');
     if (pagina=='#forToday'){
+=======
+    var page = $("li[class='active mainLinks'] a").attr('href');
+    if (page=='#forToday'){
+>>>>>>> renomeação ID html
         buildTable(sala, '/' + year + '/' + month + '/' + day, , table.forToday);
 >>>>>>> ajuste funções front-end
     }
+<<<<<<< 75285bab3c5edb13eda4b03a48dcb118cc114746
 <<<<<<< 8da6c0033019bc888ed4430b61eec37d57850416
     else if (page=='#listMeetings'){
         if($('#month').val()=='00'){
@@ -296,6 +330,9 @@ function checkTab (sala){
             }
 =======
     else if (pagina=='#listMeetings'){
+=======
+    else if (page=='#listMeetings'){
+>>>>>>> renomeação ID html
         if($('#month').val()=='00'){
             buildTable(sala, '/' + $('#year').val(), table.complete);
         }
@@ -322,7 +359,7 @@ function buildTable(sala, url, table){
     }
     dateToday ();
     var list = table;
-    var result=ajax(ip.query + sala + url + '?User=' + userEmail);
+    var result=ajax(server + sala + url + '?User=' + userEmail);
     $('#day').hide();
     $("#pagesAndTable").show();
     $('#table').html(list);
@@ -344,7 +381,7 @@ function buildTable(sala, url, table){
     $('#day').hide();
     $("#pagesAndTable").show();
     var list = table.forToday;
-    var result=ajax(ip.query + sala + '/' + year + '/' + month + '/' + day + '?User=' + userEmail + '&today=true');
+    var result=ajax(server + sala + '/' + year + '/' + month + '/' + day + '?User=' + userEmail + '&today=true');
     $('#table').html(list);
     $('.newLine').append(result);
 }
@@ -353,7 +390,7 @@ function tableComplete (sala,url,){
     cleanTable ();
     //selectYear (year);
     $("#pagesAndTable").show();
-    var result=ajax(ip.query + sala + url + '?User=' + userEmail);
+    var result=ajax(server + sala + url + '?User=' + userEmail);
     var list = table.complete;
 >>>>>>> google account
     $('#table').html(list);

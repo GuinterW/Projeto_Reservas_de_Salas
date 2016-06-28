@@ -14,11 +14,11 @@ var insertUpdateCommand;
 function setCommandMySQL(type){
     switch(type){
         case 'insert': 
-            selectCommand = 'SELECT * FROM reservas WHERE Sala = ? AND Data = ?';
+            selectCommand = 'SELECT * FROM reservas WHERE Room = ? AND Date = ?';
             insertUpdateCommand = 'INSERT INTO reservas SET ?';
             break;
         case 'update':
-            selectCommand = 'SELECT * FROM reservas WHERE Sala = ? AND Data = ?';
+            selectCommand = 'SELECT * FROM reservas WHERE Room = ? AND Date = ?';
             insertUpdateCommand = 'UPDATE reservas SET ? WHERE ID = ?';
             break;
     };

@@ -71,6 +71,12 @@ $(document).ready(function(){
     $('#endRepeat').change(function(){
         $('#nRepeats').html($('#endRepeat').val());
     });
+    $("#buttomInsert").click(function(){
+        var calendar = $('#calendar').val();
+        var room = $('#insertRoom').val();
+        var url='http://localhost:9000/insert?Room='+room.substring(5,6)+'&Start='+$('#startMeeting').val()+'&End='+$('#endMeeting').val()+'&Date='+calendar.substring(6,10)+calendar.substring(3,5)+calendar.substring(0,2)+'&Resp='+userName+'&Schedule='+$('#insertSchedule').val()+'&User='+userEmail;
+        ajax(url, 'POST');
+    });
 });
 
 function dateToday (){

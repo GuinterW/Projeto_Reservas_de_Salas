@@ -14,18 +14,27 @@ var connection = mysql.createConnection({
 
 Search.get('/:Room/:Year', function(req, res){
     setCommandMySQL('Year');
-    checkValidations(req,res,[parseInt(req.params.Room, 10), parseInt(req.params.Year, 10)]);
+    if(req.query.hasOwnProperty('myMeetings') && req.query.myMeetings == 'true'){
+        Command += ' AND RespEmail = ?';
+    }
+    checkValidations(req,res,[parseInt(req.params.Room, 10), parseInt(req.params.Year, 10), req.query.User]);
 });
 
 Search.get('/:Room/:Year/:Month', function(req, res){
     setCommandMySQL('Month');
-    checkValidations(req,res,[parseInt(req.params.Room, 10), parseInt(req.params.Year, 10), parseInt(req.params.Month)]);   
+    if(req.query.hasOwnProperty('myMeetings') && req.query.myMeetings == 'true'){
+        Command += ' AND RespEmail = ?';
+    }
+    checkValidations(req,res,[parseInt(req.params.Room, 10), parseInt(req.params.Year, 10), parseInt(req.params.Month), req.query.User]);   
 });
 
 Search.get('/:Room/:Year/:Month/:Day', function(req, res) {
     var date= req.params.Year + req.params.Month + req.params.Day;
     setCommandMySQL('Day');
-    checkValidations(req,res,[parseInt(req.params.Room, 10), parseInt(date, 10)]);   
+    if(req.query.hasOwnProperty('myMeetings') && req.query.myMeetings == 'true'){
+        Command += ' AND RespEmail = ?';
+    }
+    checkValidations(req,res,[parseInt(req.params.Room, 10), parseInt(date, 10), req.query.User]);   
 });
 
 function getFreeTime(result, res){
@@ -125,7 +134,7 @@ function checkValidations(req,res,value){
         connection.query('SELECT * FROM users', function(err,result){
             if(validation.hasValidUser(req,res,result)){
                 if (validation.hasCorrectURLParamsFields(req,res)){
-                    connection.query(Command, value, function(err,result){
+                    connection.query(Command, value, function(err, result){
                         console.log('Searched');
                         checkQuery(result, req, res);
                     });

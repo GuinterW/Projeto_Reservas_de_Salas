@@ -1,6 +1,7 @@
 var ip = {
 	query: 'http://localhost:9000/search/',
-	usertest: '?User=Guinter%20Weber'
+	usertest: '?User=GUINTER%20WEBER'
+}
 
 var data = new Date(),
         day  = data.getDate(),
@@ -51,8 +52,10 @@ $(document).ready(function(){
     });
     $('#month').change(function(){
         var monthSelected = $(this).val();
-        if (monthSelected=="#") $('#day').hide();
-        else $('#day').show();
+        if (monthSelected == "00") 
+        	$('#day').aria-hidden();
+        else 
+            selectDay(monthSelected);
         tableComplete(1, '/' +  $("#year").val() + '/' + monthSelected, $("#year").val());
     });
 });
@@ -83,6 +86,38 @@ function selectYear (selected){
         }
     }
     $('#year').html(list);
+}
+
+function selectDay (monthSelected){
+    $('#day').show();
+	switch (monthSelected){
+		case '01','03','05','07','08','10','12':
+			for (var x=1;x<32;x++){
+ 				list += "<option value=" + x + '>' + x + '</option>';
+ 			}
+ 			$('#day').html(list);
+
+		case '04','06','09','11':
+			for (var x=1;x<31;x++){
+ 				list += "<option value=" + x + '>' + x + '</option>';
+ 			}
+ 			$('#day').html(list);
+
+		case '02':
+			resto = monthSelected/4
+			if (resto == 0){
+				for (var x=1;x<30;x++){
+			 		list += "<option value=" + x + '>' + x + '</option>';
+			    }
+ 		    }
+            else {
+                for (var x=1;x<30;x++){
+                    list += "<option value=" + x + '>' + x + '</option>';
+                }
+            }		
+        	$('#day').html(list);
+
+	}
 }
 
 function cleanTable (){

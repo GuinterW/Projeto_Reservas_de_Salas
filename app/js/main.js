@@ -1,15 +1,12 @@
-var ip = {
-    query: 'http://localhost:9000/search/',
-}
+var server = 'http://localhost:9000/search/';
 
-var data = new Date(),
-        day  = data.getDate(),
-        month  = data.getMonth() + 1,
-        year  = data.getFullYear(),
-        userName = '',
-        userImage = '',
-        userEmail = '';
-
+var date = new Date(),
+    day  = date.getDate(),
+    month  = date.getMonth() + 1,
+    year  = date.getFullYear(),
+    userName = '',
+    userImage = '',
+    userEmail = '';
 
 var table = {
     forToday: '<table class="table table-bordered table-striped"><thead><tr><th>Início</th><th>Término</th><th>Responsável</th><th>Pauta</th></tr></thead><tbody class="newLine"></tbody></table>',
@@ -21,22 +18,22 @@ $(document).ready(function(){
     $('.links').click(function(){
         $("li[class='active activeRoom']").removeClass("active activeRoom");
         $("li a[id='room1']").parent().addClass("active activeRoom");
-        var pagina = $(this).attr('href');
+        var page = $(this).attr('href');
         $("li[class='active mainLinks']").removeClass("active mainLinks");
-        $("li a[href='"+pagina+"']").parent().addClass("active mainLinks");
+        $("li a[href='"+page+"']").parent().addClass("active mainLinks");
         $('.pages').hide();
-        $(pagina).show();
+        $(page).show();
         checkTab(1);
     });
     $('.room').click(function(){
-        var pagina = $(this).attr('id');
+        var page = $(this).attr('id');
         $("li[class='active activeRoom']").removeClass("active activeRoom");
-        $("li a[id='"+pagina+"']").parent().addClass("active activeRoom");
-        checkRoom(pagina);
+        $("li a[id='"+page+"']").parent().addClass("active activeRoom");
+        checkRoom(page);
     });
     $('#repeat').click(function(){
-        $("#myModal").modal();
-        $('#disabledInput').html($('#calendar').val());
+        $("#modalRepeat").modal();
+        $('#startRepeat').html($('#calendar').val());
     });
     $('#calendar').datepicker({
         format: "dd/mm/yyyy",
@@ -67,11 +64,11 @@ $(document).ready(function(){
     $('#user').on('click', '#userImage', function(){
         $("#modalLogIn").modal('show');
     });
-    $('#sel22').change(function(){
-        $('#xdays').html($('#sel22').val());
+    $('#repeatFrequency').change(function(){
+        $('#nFrequency').html($('#repeatFrequency').val());
     });
-    $('#dateFixed').change(function(){
-        $('#xvzs').html($('#dateFixed').val());
+    $('#endRepeat').change(function(){
+        $('#nRepeats').html($('#endRepeat').val());
     });
 });
 
@@ -81,9 +78,9 @@ function dateToday (){
 }
 
 function start (){
+    buildSelectYear();
     $('.pages').hide();
     $('#forToday').show();
-    buildSelectYear();
     $("#modalLogIn").modal('show');
 }
 
@@ -105,11 +102,11 @@ function cleanTable (){
     $('.newLine').html('');
 }
 
-function checkRoom (pagina){
-    if (pagina=='room1') {
+function checkRoom (page){
+    if (page=='room1') {
         checkTab(1);
     }
-    else if (pagina=='room2') {
+    else if (page=='room2') {
         checkTab(2);
     }
     else {
@@ -118,11 +115,11 @@ function checkRoom (pagina){
 }
 
 function checkTab (sala){
-    var pagina = $("li[class='active mainLinks'] a").attr('href');
-    if (pagina=='#forToday'){
+    var page = $("li[class='active mainLinks'] a").attr('href');
+    if (page=='#forToday'){
         buildTable(sala, '/' + year + '/' + month + '/' + day, , table.forToday);
     }
-    else if (pagina=='#listMeetings'){
+    else if (page=='#listMeetings'){
         if($('#month').val()=='00'){
             buildTable(sala, '/' + $('#year').val(), table.complete);
         }
@@ -142,7 +139,7 @@ function buildTable(sala, url, table){
     }
     dateToday ();
     var list = table;
-    var result=ajax(ip.query + sala + url + '?User=' + userEmail);
+    var result=ajax(server + sala + url + '?User=' + userEmail);
     $('#day').hide();
     $("#pagesAndTable").show();
     $('#table').html(list);
@@ -159,7 +156,7 @@ function buildTable(sala, url, table){
     $('#day').hide();
     $("#pagesAndTable").show();
     var list = table.forToday;
-    var result=ajax(ip.query + sala + '/' + year + '/' + month + '/' + day + '?User=' + userEmail + '&today=true');
+    var result=ajax(server + sala + '/' + year + '/' + month + '/' + day + '?User=' + userEmail + '&today=true');
     $('#table').html(list);
     $('.newLine').append(result);
 }
@@ -168,7 +165,7 @@ function tableComplete (sala,url,){
     cleanTable ();
     //selectYear (year);
     $("#pagesAndTable").show();
-    var result=ajax(ip.query + sala + url + '?User=' + userEmail);
+    var result=ajax(server + sala + url + '?User=' + userEmail);
     var list = table.complete;
     $('#table').html(list);
     $('.newLine').append(result);

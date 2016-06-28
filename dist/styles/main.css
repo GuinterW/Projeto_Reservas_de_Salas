@@ -7823,28 +7823,29 @@ button.close {
 .fa-fonticons:before {
   content: ""; }
 
-#dateFixed {
+#startRepeat {
   width: 50px; }
 
-#dateEnd {
+#dateEndRepeat {
   width: 200px; }
 
-#formInclude {
+#formInsert {
   margin: 0 auto;
   width: 50%;
   background-color: #e6e6e6;
   padding: 5%;
   margin-bottom: 10px; }
 
-#head {
+#header {
   margin-top: 3%; }
 
 #pagesAndTable {
   width: 90%;
   margin-left: 2%; }
 
-#tituloPrincipal {
-  color: #337ab7; }
+#mainTitle {
+  color: #337ab7;
+  margin-top: 45px; }
 
 #table {
   margin-top: -6px; }

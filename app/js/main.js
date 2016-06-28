@@ -76,6 +76,12 @@ $(document).ready(function(){
     $('#endRepeat').change(function(){
         $('#nRepeats').html($('#endRepeat').val());
     });
+    $("#buttomInsert").click(function(){
+        url='http://localhost:9000/insert?Room='+room.substring(5,6)+'&Start='+$('#startMeeting').val()+'&End='+$('#endMeeting').val()+'&Date='+calendar.substring(6,10)+calendar.substring(3,5)+calendar.substring(0,2)+'&Resp='+userName+'&Schedule='+$('#insertSchedule').val()+'&User='+userEmail;
+        var calendar = $('#calendar').val();
+        var room = $('#insertRoom').val();
+        ajax(url, 'POST');
+    });
 });
 
 function dateToday (){
@@ -215,16 +221,16 @@ function buildTable(sala, url, table){
     }
     dateToday ();
     var list = table;
-    var result=ajax(server + sala + url + '?User=' + userEmail);
+    var result=ajax(server + sala + url + '?User=' + userEmail, "GET");
     $("#pagesAndTable").show();
     $('#table').html(list);
     $('.newLine').append(result);
 }
 
-function ajax(url){
+function ajax(url,type){
     var result = '';
     $.ajax({
-        type: "GET",
+        type: type,
         url: url,
         async: false,
         success: function(data) {

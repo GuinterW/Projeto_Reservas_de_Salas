@@ -5,7 +5,7 @@
     <meta charset="utf-8">
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>app generator</title>
+    <title>Reservas de salas</title>
 
      <!-- Place favicon.ico in the root directory -->
     <link rel="icon" href="favicon.ico">
@@ -19,6 +19,8 @@
     <link rel="stylesheet" href="styles/main.css">
 
     <!-- endbuild -->
+
+    <meta name="google-signin-client_id" content="996025421051-v12okpv54pricjmchlcr2vcg0rc0gi9h.apps.googleusercontent.com">
 </head>
 
 <body>
@@ -26,18 +28,19 @@
       <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
     <![endif]-->
     <div class="container">
-        <div class="row page-header" id="head">
+        <div class="row page-header" id="header">
             <div class="col-md-6">
-                <h1 class="brand" id="tituloPrincipal"> <i class="fa fa-book fa-1x" aria-hidden="true"></i> Reuniões - DigitalDesk</h1>
+                <h1 class="brand text-left" id="mainTitle"> <i class="fa fa-book fa-1x" aria-hidden="true"></i> Reuniões - DigitalDesk</h1>
             </div>
             <div class="col-md-6">
-                <h5 class="text-right">Ciclano <i class="fa fa-user fa-4x" aria-hidden="true"></i></h5>
+                <h1 class="text-right" id="user"></h1>
+                <div id="logIn"></div>
             </div>
         </div>
         <ol class="nav nav-pills">
             <li class="active mainLinks"><a class="links" href="#forToday">Para hoje</a></li>
             <li><a class="links" href="#listMeetings">Listar</a></li>
-            <li><a class="links" href="#includeReservation">Incluir</a></li>
+            <li><a class="links" href="#insertMeeting">Incluir</a></li>
             <!--<li><a class="links" href="#">Minhas reuniões</a></li> -->
         </ol>
 
@@ -52,7 +55,7 @@
             <div class="form-group">
                 <select id="year"></select>
                 <select id="month">
-                    <option value='00'>Escolha um mês queridão</option>
+                    <option value='00'>Escolha um mês queridão(todos)</option>
                     <option value='01'>Janeiro</option>
                     <option value='02'>Fevereiro</option>
                     <option value='03'>Março</option>
@@ -71,9 +74,9 @@
         </div>
 
         <!-- INCLUIR -->
-        <div id="includeReservation" class="pages">
+        <div id="insertMeeting" class="pages">
             <h2><i class="fa fa-calendar-plus-o" aria-hidden="true"></i> Incluir</h2>
-            <div id="formInclude">
+            <div id="formInsert">
                 <form class="form-horizontal" role="form">
                     <div class="form-group">
                         <label class="col-sm-2 control-label">Data: </label>
@@ -94,7 +97,7 @@
                     <div class="form-group">
                         <label class="col-sm-2 control-label">Sala</label>
                         <div class="col-sm-10">
-                            <select class="form-control" id="sel1">
+                            <select class="form-control" id="insertRoom">
                                 <option>Sala 1</option>
                                 <option>Sala 2</option>
                                 <option>Sala 3</option>
@@ -104,16 +107,54 @@
                     <div class="form-group">
                         <label class="col-sm-2 control-label">Início</label>
                         <div class="col-sm-10">
-                            <select class="form-control" id="sel1">
-                                <option>hh:mm</option>
+                            <select class="form-control" id="startMeeting">
+                                <option value="08:30:00"></option>
+                                <option value="09:00:00"></option>
+                                <option value="09:30:00"></option>
+                                <option value="10:00:00"></option>
+                                <option value="10:30:00"></option>
+                                <option value="11:00:00"></option>
+                                <option value="11:30:00"></option>
+                                <option value="12:00:00"></option>
+                                <option value="12:30:00"></option>
+                                <option value="13:00:00"></option>
+                                <option value="13:30:00"></option>
+                                <option value="14:00:00"></option>
+                                <option value="14:30:00"></option>
+                                <option value="15:00:00"></option>
+                                <option value="15:30:00"></option>
+                                <option value="16:00:00"></option>
+                                <option value="16:30:00"></option>
+                                <option value="17:00:00"></option>
+                                <option value="17:30:00"></option>
+                                <option value="18:00:00"></option>
                             </select>
                         </div>
                     </div>
                     <div class="form-group">
                         <label class="col-sm-2 control-label">Término</label>
                         <div class="col-sm-10">
-                            <select class="form-control" id="sel2">
-                                <option>hh:mm</option>
+                            <select class="form-control" id="endMeeting">
+                                <option value="09:00:00"></option>
+                                <option value="09:30:00"></option>
+                                <option value="10:00:00"></option>
+                                <option value="10:30:00"></option>
+                                <option value="11:00:00"></option>
+                                <option value="11:30:00"></option>
+                                <option value="12:00:00"></option>
+                                <option value="12:30:00"></option>
+                                <option value="13:00:00"></option>
+                                <option value="13:30:00"></option>
+                                <option value="14:00:00"></option>
+                                <option value="14:30:00"></option>
+                                <option value="15:00:00"></option>
+                                <option value="15:30:00"></option>
+                                <option value="16:00:00"></option>
+                                <option value="16:30:00"></option>
+                                <option value="17:00:00"></option>
+                                <option value="17:30:00"></option>
+                                <option value="18:00:00"></option>
+                                <option value="18:30:00"></option>
                             </select>
                         </div>
                     </div>
@@ -140,7 +181,7 @@
         </div>
 
         <!-- Modal repetir -->
-        <div class="modal fade" id="myModal" role="dialog">
+        <div class="modal fade" id="modalRepeat" role="dialog">
             <div class="modal-dialog">
               <!-- Modal content-->
               <div class="modal-content">
@@ -153,7 +194,7 @@
                         <div class="form-group">
                             <label class="col-sm-4 control-label">Frequência: </label>
                             <div class="col-sm-6">
-                                <select class="form-control" id="sel1">
+                                <select class="form-control" id="repeatType">
                                     <option>Diariamente</option>
                                     <option>Semanalmente (2ª a 6ª)</option>
                                     <option>Mensalmente</option>
@@ -165,7 +206,7 @@
                             <label class="col-sm-4 control-label">Intervalo: </label>
                             <label class="col-sm-2 control-label"> A cada </label>
                             <div class="col-sm-2">
-                                <select class="form-control" id="sel2">
+                                <select class="form-control" id="repeatFrequency">
                                     <option>1</option>
                                     <option>2</option>
                                     <option>3</option>
@@ -177,7 +218,7 @@
                         <div class="form-group">
                             <label class="col-sm-4 control-label">Inicia em: </label>
                             <div class="col-sm-6">
-                                <input class="form-control" id="disabledInput" type="text" disabled>
+                                <input class="form-control" id="startRepeat" type="text" disabled>
                             </div>
                         </div>
                         <div class="form-group">
@@ -185,9 +226,9 @@
                             <div class="col-sm-6">
                                 <div class="radio">
                                     <label>
-                                        <input type="radio" name="radioEnd">
+                                        <input type="radio" name="radioEnd" checked>
                                         Após 
-                                        <input id="dateFixed" type="text" placeholder="ex: 2">
+                                        <input id="endRepeat" type="text" placeholder="ex: 2">
                                         ocorrência(s)
                                     </label>
                                 </div>
@@ -196,7 +237,7 @@
                                 <div class="radio">
                                   <label>
                                     <input type="radio" name="radioEnd">Em
-                                    <input id="dateEnd" type="text" placeholder="Digite uma data...">
+                                    <input id="dateEndRepeat" type="text" placeholder="Digite uma data...">
                                   </label>
                                 </div>
                             </div>
@@ -204,17 +245,29 @@
                         <div class="form-group">
                             <label class="col-sm-4 control-label">Resumo: </label>
                             <div class="col-sm-6">
-                                <label id="abstract">A cada x dias, x vezes</label>
+                                <label id="abstract">A cada <span id="nFrequency">1</span> dias, <span id="nRepeats">x</span> vezes</label>
                             </div>
                         </div>
                         <button type="button" class="btn btn-default">Concluir</button>
-                        <button type="button" class="btn btn-default">Cancelar</button>
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
                     </form>
                 </div>
               </div>  
             </div><br>
         </div>
     </div>
+
+    <div class="modal fade" id="modalLogIn" role="dialog">
+            <div class="modal-dialog">
+              <!-- Modal content-->
+              <div class="modal-content">
+                <div class="modal-body">
+                    <div class="g-signin2" data-onsuccess="onSignIn"></div>
+                    <a href="#" onclick="signOut()">Sign out</a>
+                </div>
+              </div>  
+            </div>
+        </div>
 
     <!-- build:js js/vendor.js -->
     <!-- bower:js -->
@@ -254,5 +307,7 @@
     <script src="js/main.js"></script>
     <script src="js/bootstrap-datepicker.js"></script>
     <!-- endbuild -->
+    <script src="https://apis.google.com/js/platform.js" async defer></script>
 </body>
+
 </html>

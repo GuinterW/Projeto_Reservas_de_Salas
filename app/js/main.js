@@ -41,25 +41,31 @@ $(document).ready(function(){
         autoclose: true
     });
     $('#year').change(function(){
-        var url = $(this).val();
-        buildTable(1, '/' + url);
+        buildTable(1, '/' + $('#year').val());
         $('#month').val('00');
         $('#day').hide();
         $("li[class='active activeRoom']").removeClass("active activeRoom");
         $("li a[id='room1']").parent().addClass("active activeRoom");
     });
     $('#month').change(function(){
-        var monthSelected = $(this).val();
-        if (monthSelected=="00"){
-            buildTable(1, '/' +  $("#year").val(), $("#year").val());
+        if ($('#month').val()=="00"){
+            buildTable(1, '/' +  $("#year").val(), table.complete);
             $('#day').hide();
         }
         else {
-            $('#day').show();
-            buildTable(1, '/' +  $("#year").val() + '/' + monthSelected, $("#year").val());
+            buildTable(1, '/' +  $("#year").val() + '/' + $('#month').val(), table.complete);
+            buildSelectDay($('#month').val());
         }
         $("li[class='active activeRoom']").removeClass("active activeRoom");
         $("li a[id='room1']").parent().addClass("active activeRoom");
+    });
+    $('#day').change(function(){
+        if ($('#day').val()=="00"){
+            buildTable(1, '/' +  $("#year").val() + '/' + $('#month').val(), table.complete);
+        }
+        else {
+            buildTable(1, '/' +  $("#year").val() + '/' + $('#month').val() + '/' + $('#day').val(), table.complete);
+        }
     });
     $('#user').on('click', '#userImage', function(){
         $("#modalLogIn").modal('show');
@@ -97,6 +103,68 @@ function buildSelectYear (){
     $('#year').html(list);
 }
 
+function buildSelectDay (monthSelected){
+    $('#day').show();
+    var list = '<option value="00">Todos</option>';
+    switch (monthSelected){
+        case '01':
+        case '03':
+        case '05':
+        case '07':
+        case '08':
+        case '10':
+        case '12':
+            for (var x=1;x<32;x++){
+                if(x<10){
+                    list += '<option value="0' + x + '">' + x + '</option>';
+                }
+                else {
+                    list += '<option value="' + x + '">' + x + '</option>';
+                }
+            }
+            $('#day').html(list);
+            break;
+        case '04':
+        case '06':
+        case '09':
+        case '11':
+            for (var x=1;x<31;x++){
+                if(x<10){
+                    list += '<option value="0' + x + '">' + x + '</option>';
+                }
+                else {
+                    list += '<option value="' + x + '">' + x + '</option>';
+                }
+            }
+            $('#day').html(list);
+            break;
+        case '02':
+            resto = $('#year').val()%4;
+            if (resto == 0){
+                for (var x=1;x<30;x++){
+                    if(x<10){
+                        list += '<option value="0' + x + '">' + x + '</option>';
+                    }
+                    else {
+                        list += '<option value="' + x + '">' + x + '</option>';
+                    }
+                }
+            }
+            else {
+                for (var x=1;x<29;x++){
+                    if(x<10){
+                        list += '<option value="0' + x + '">' + x + '</option>';
+                    }
+                    else {
+                        list += '<option value="' + x + '">' + x + '</option>';
+                    }
+                }
+            }        
+            $('#day').html(list);
+            break;
+    }
+}
+
 function cleanTable (){
     $('#table').html('');
     $('.newLine').html('');
@@ -117,14 +185,21 @@ function checkRoom (page){
 function checkTab (sala){
     var page = $("li[class='active mainLinks'] a").attr('href');
     if (page=='#forToday'){
-        buildTable(sala, '/' + year + '/' + month + '/' + day, , table.forToday);
+        $('#day').hide();
+        buildTable(sala, '/' + year + '/' + month + '/' + day, table.forToday);
     }
     else if (page=='#listMeetings'){
         if($('#month').val()=='00'){
+            $('#day').hide();
             buildTable(sala, '/' + $('#year').val(), table.complete);
         }
         else {
-            buildTable(sala, '/' + $('#year').val() + '/' + $('#month').val(), table.complete);
+            if($('#day').val()=='00'){
+                buildTable(sala, '/' + $('#year').val() + '/' + $('#month').val(), table.complete);
+            }
+            else {
+                buildTable(sala, '/' +  $("#year").val() + '/' + $('#month').val() + '/' + $('#day').val(), table.complete);
+            }
         }
     }
     else {
@@ -134,42 +209,17 @@ function checkTab (sala){
 
 function buildTable(sala, url, table){
     cleanTable ();
+    var lengthMonth = month.toString();
     if (lengthMonth.length==1){
         month = '0' + lengthMonth;
     }
     dateToday ();
     var list = table;
     var result=ajax(server + sala + url + '?User=' + userEmail);
-    $('#day').hide();
     $("#pagesAndTable").show();
     $('#table').html(list);
     $('.newLine').append(result);
 }
-
-/*function tableForToday (sala){
-    var lengthMonth = month.toString();
-    if (lengthMonth.length==1){
-        month = '0' + lengthMonth;
-    }
-    cleanTable ();
-    dateToday ();
-    $('#day').hide();
-    $("#pagesAndTable").show();
-    var list = table.forToday;
-    var result=ajax(server + sala + '/' + year + '/' + month + '/' + day + '?User=' + userEmail + '&today=true');
-    $('#table').html(list);
-    $('.newLine').append(result);
-}
-
-function tableComplete (sala,url,){
-    cleanTable ();
-    //selectYear (year);
-    $("#pagesAndTable").show();
-    var result=ajax(server + sala + url + '?User=' + userEmail);
-    var list = table.complete;
-    $('#table').html(list);
-    $('.newLine').append(result);
-}*/
 
 function ajax(url){
     var result = '';
@@ -196,7 +246,7 @@ function onSignIn(googleUser) {
     userEmail = profile.getEmail();
     $('#user').html(userName + ' <img id="userImage" src="' + userImage + '" />');
     $("#modalLogIn").modal('hide');
-    tableForToday (1);
+    buildTable(1, '/' + year + '/' + month + '/' + day, table.forToday);
 }
 
 function signOut() {

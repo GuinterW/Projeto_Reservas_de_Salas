@@ -23,7 +23,7 @@
     <meta name="google-signin-client_id" content="996025421051-v12okpv54pricjmchlcr2vcg0rc0gi9h.apps.googleusercontent.com">
 </head>
 
-<body>
+<body style="display: none">
     <!--[if lt IE 10]>
       <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
     <![endif]-->
@@ -55,7 +55,7 @@
             <div class="form-group">
                 <select id="year"></select>
                 <select id="month">
-                    <option value='00'>Escolha um mês queridão(todos)</option>
+                    <option value='00'>todos</option>
                     <option value='01'>Janeiro</option>
                     <option value='02'>Fevereiro</option>
                     <option value='03'>Março</option>
@@ -264,6 +264,7 @@
             <div class="modal-body">
                 <div class="g-signin2" data-onsuccess="onSignIn"></div>
                 <button type="button" class="btn btn-danger" id="logOut">Log Out</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
             </div>
           </div>  
         </div>

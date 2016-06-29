@@ -12,6 +12,7 @@ var userName = '';
 var userImage = '';
 var userEmail = '';
 var urlDelete = '';
+var x = 0;
 
 var table = {
     forToday: '<table class="table table-bordered table-striped"><thead><tr><th>Início</th><th>Término</th><th>Responsável</th><th>Pauta</th></tr></thead><tbody class="newLine"></tbody></table>',
@@ -19,7 +20,7 @@ var table = {
 }
 
 $(document).ready(function(){
-    start();
+    checkUser();
     $('.links').click(function(){
         $("li[class='active activeRoom']").removeClass("active activeRoom");
         $("li a[id='room1']").parent().addClass("active activeRoom");
@@ -114,8 +115,40 @@ $(document).ready(function(){
     $('#delete').click(function(){
         ajax(urlDelete, 'DELETE');
         $('#modalDelete').modal('hide');
+        checkTab($("li[class='active activeRoom']").val());
     });
 });
+
+function checkUser(){
+    x++;
+    if(x<3){
+        setTimeout(function(){
+            $.ajax({
+                type: 'GET',
+                url: 'http://localhost:9000/search?User=' + userEmail,
+                async: true,
+                success: function(data) {
+                    start();
+                    $('body').css('display', 'block');
+                },
+                error: function(xhr, ajaxOptions, thrownError) {
+                    checkUser();
+                }
+            });
+        }, 3000);
+    }
+    else {
+        var auth2 = gapi.auth2.getAuthInstance();
+        auth2.signOut().then(function () {
+            $('#logIn').html('<div class="g-signin2" data-onsuccess="onSignIn"></div>');
+            $('#user').html('');
+            userName = '';
+            userImage = '';
+            userEmail = '';
+            window.location.replace('http://localhost:9000');       
+        });
+    }
+}
 
 function dateToday (){
     var dateComplete= '<i class="fa fa-calendar" aria-hidden="true"></i> ' + [day, month, year].join('/');
@@ -126,6 +159,7 @@ function start (){
     buildSelectYear();
     $('.pages').hide();
     $('#forToday').show();
+    $('.g-signin2').css('display', 'none');
 }
 
 function buildSelectYear (){
@@ -294,7 +328,6 @@ function onSignIn(googleUser) {
     userImage = profile.getImageUrl();
     userEmail = profile.getEmail();
     $('#user').html(userName + ' <img id="userImage" src="' + userImage + '" />');
-    $("#modalLogIn").modal('hide');
     buildTable(1, '/' + year + '/' + month + '/' + day + '/?today=true&' , table.forToday);
 }
 

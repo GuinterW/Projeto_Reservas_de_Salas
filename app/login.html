@@ -16,9 +16,7 @@
                         <div class="tab-pane active" id="login">
                             <img class="profile-img">
                             <form class="form-signin" action="" method="">
-                                <input id="username" type="text" class="form-control" placeholder="Username" required autofocus>
-                                <input type="submit" class="btn btn-lg btn-default btn-block" value="Sign In" data-onsuccess="onSignIn">
-                                <div class="g-signin2" data-onsuccess="onSignIn"></div>
+                                <div id="my-signin2"></div>
                             </form>
                         </div>
                     </div>
@@ -27,9 +25,43 @@
         </div>
     </div>
 
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.2/jquery.min.js"></script>
-    <!-- <script src="/bower_components/jquery/dist/jquery.js"></script> -->
-    <script src="https://apis.google.com/js/platform.js" async defer></script>
+    <!-- build:js js/vendor.js -->
+    <!-- bower:js -->
+    <script src="/bower_components/jquery/dist/jquery.js"></script>
+    <!-- endbower -->
+    <!-- endbuild -->
+    
+    <!-- build:js scripts/plugins.js -->
+    
+    <script src="/bower_components/bootstrap-sass/assets/javascripts/bootstrap/affix.js"></script>
+    
+    <script src="/bower_components/bootstrap-sass/assets/javascripts/bootstrap/alert.js"></script>
+    
+    <script src="/bower_components/bootstrap-sass/assets/javascripts/bootstrap/dropdown.js"></script>
+    
+    <script src="/bower_components/bootstrap-sass/assets/javascripts/bootstrap/tooltip.js"></script>
+    
+    <script src="/bower_components/bootstrap-sass/assets/javascripts/bootstrap/modal.js"></script>
+    
+    <script src="/bower_components/bootstrap-sass/assets/javascripts/bootstrap/transition.js"></script>
+    
+    <script src="/bower_components/bootstrap-sass/assets/javascripts/bootstrap/button.js"></script>
+    
+    <script src="/bower_components/bootstrap-sass/assets/javascripts/bootstrap/popover.js"></script>
+    
+    <script src="/bower_components/bootstrap-sass/assets/javascripts/bootstrap/carousel.js"></script>
+    
+    <script src="/bower_components/bootstrap-sass/assets/javascripts/bootstrap/scrollspy.js"></script>
+    
+    <script src="/bower_components/bootstrap-sass/assets/javascripts/bootstrap/collapse.js"></script>
+    
+    <script src="/bower_components/bootstrap-sass/assets/javascripts/bootstrap/tab.js"></script>
+    
+    <!-- endbuild -->
+
+    <script src="https://apis.google.com/js/platform.js?onload=renderButton" async defer></script>
+    <!-- build:js js/login.js -->
     <script src="js/login.js"></script>
+    <!-- endbuild -->
 </body>
 </html>

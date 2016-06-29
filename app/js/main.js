@@ -42,18 +42,10 @@ $(document).ready(function(){
         $('#startRepeat').val($('#calendar').val());
     });
     $('#buttomClear').click(function(){
-        $('#calendar').each(function(){
-            this.reset();
-        });
-        $('#startMeeting').each(function(){
-            this.reset();
-        });
-        $('#endMeeting').each(function(){
-            this.reset();
-        });
-        $('#insertSchedule').each(function(){
-            this.reset();
-        });
+        $('#calendar').val('');
+        $('#startMeeting').val('08:30:00');
+        $('#endMeeting').val('09:00:00');
+        $('#insertSchedule').val('');
     });
     $('#calendar').datepicker({
         format: "dd/mm/yyyy",

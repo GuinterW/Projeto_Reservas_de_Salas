@@ -86,7 +86,7 @@ Validation.prototype.hasCorrectDate = function(res){
         this.setError(res, 400, this.errors.invalidDate);
         return false;
     }
-    else if(this.year==this.today.getFullYear() && this.month==this.today.getMonth() + 1 && this.day==this.today.getDate()){
+    else if(this.year==this.today.getFullYear() && this.month==this.today.getMonth() + 1 && this.day<this.today.getDate()){
         this.setError(res, 400, this.errors.invalidDate);
         return false;
     }

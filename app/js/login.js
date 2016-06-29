@@ -12,4 +12,5 @@ function onSignIn(googleUser) {
     userEmail = profile.getEmail();
     $('#username').val(userName);
     $('.profile-img').prop('src', userImage);
+    window.location.replace('http://localhost:9000/index.html');
 }

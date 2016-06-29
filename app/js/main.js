@@ -87,16 +87,19 @@ $(document).ready(function(){
         signOut();
     });
     $('#table').on('click', '.tableRow', function(){
-        var date = $(this).data('date');
-        var start = $(this).data('start');
-        var end = $(this).data('end');
-        var user = userEmail;
-        var room = $("li[class='active activeRoom']").val();
-        urlDelete = 'http://localhost:9000/delete?Room=' + room + '&Start=' + start + '&End=' + end + '&date=' + date + '&user' + user;
-        $('#modalDelete').modal('show');
+        if($("li[class='active mainLinks'] a").attr('href')=='#myMeetings'){
+            var date = $(this).children('td[data-name="date"]').data('date');
+            var start = $(this).children('td[data-name="start"]').data('start');
+            var end = $(this).children('td[data-name="end"]').data('end');
+            var user = userEmail;
+            var room = $("li[class='active activeRoom']").val();
+            urlDelete = 'http://localhost:9000/delete?Room=' + room + '&Start=' + start + '&End=' + end + '&Date=' + date + '&User=' + user;
+            $('#modalDelete').modal('show');
+        }
     });
     $('#delete').click(function(){
         ajax(urlDelete, 'DELETE');
+        $('#modalDelete').modal('hide');
     });
 });
 
@@ -109,7 +112,6 @@ function start (){
     buildSelectYear();
     $('.pages').hide();
     $('#forToday').show();
-    $("#modalLogIn").modal('show');
 }
 
 function buildSelectYear (){
@@ -289,7 +291,8 @@ function signOut() {
         $('#user').html('');
         userName = '';
         userImage = '';
-        userEmail = '';       
+        userEmail = '';
+        window.location.replace('http://localhost:9000');       
     });
     $("#modalLogIn").modal('hide');
 }

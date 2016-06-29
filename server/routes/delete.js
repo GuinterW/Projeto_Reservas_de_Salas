@@ -19,7 +19,7 @@ function checkValidations(req, res){
                 if(validation.hasCorrectURLQueryFields(req, res)){
                     if(validation.hasCorrectDate(res)){
                         if(validation.hasCorrectTime(res)){
-                            connection.query(Command, [req.query.Room, validation.startMeeting, validation.endMeeting, validation.date], function(err, result){
+                            connection.query(Command, [req.query.Room, validation.startMeeting, validation.endMeeting, validation.date, req.query.User], function(err, result){
                                 if (err) throw err;
                                 if(validation.hasAffectedRows(res, result)){
                                     console.log('Deleted');

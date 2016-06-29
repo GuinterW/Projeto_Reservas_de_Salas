@@ -100,14 +100,58 @@ function getFreeTime(result, res){
     /*chama função que printa o tempo livre*/
 }
 
+function convertMonth(month){
+    switch(month){
+        case 'Jan':
+            return '01';
+            break;
+        case 'Feb':
+            return '02';
+            break;
+        case 'Mar':
+            return '03';
+            break;
+        case 'Apr':
+            return '04';
+            break;
+        case 'May':
+            return '05';
+            break;
+        case 'Jun':
+            return '06';
+            break;
+        case 'Jul':
+            return '07';
+            break;
+        case 'Aug':
+            return '08';
+            break;
+        case 'Sep':
+            return '09';
+            break;
+        case 'Oct':
+            return '10';
+            break;
+        case 'Nov':
+            return '11';
+            break;
+        case 'Dec':
+            return '12';
+            break;
+    }
+}
+
 function buildTable(result, req, res){
-    var items= '<tr class="tableRow">';
+    var items= '';
+    var date = '';
     for(var z=0;z<result.length;z++){
+        date = result[z].Date.toString().substring(11,15) + convertMonth(result[z].Date.toString().substring(4,7)) + result[z].Date.toString().substring(8,10);
+        items+= '<tr class="tableRow">';
         if(req.query.today != 'true'){
-            items+= '<td data-date="' + result[z].Date + '">' + result[z].Date.toString().substring(0,4) + result[z].Date.toString().substring(8,11) + result[z].Date.toString().substring(4,8) + result[z].Date.toString().substring(10,15) + '</td>';
+            items+= '<td data-name="date" data-date="' + date + '">' + result[z].Date.toString().substring(0,4) + result[z].Date.toString().substring(9,11) + result[z].Date.toString().substring(4,8) + result[z].Date.toString().substring(11,15) + '</td>';
         }
-        items+= '<td data-start="' + result[z].Start + '">' + result[z].Start + '</td>';
-        items+= '<td data-end="' + result[z].End + '">' + result[z].End + '</td>';
+        items+= '<td data-name="start" data-start="' + result[z].Start + '">' + result[z].Start + '</td>';
+        items+= '<td data-name="end" data-end="' + result[z].End + '">' + result[z].End + '</td>';
         items+= '<td data-user="' + req.query.User + '">' + result[z].Resp + '</td>';
         items+= '<td>' + result[z].Schedule + '</td>' + '</tr>';
     }

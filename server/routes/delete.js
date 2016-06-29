@@ -8,7 +8,7 @@ var connection = mysql.createConnection({
     password : 'secret',
     database : 'reservas'
 });
-var Command = 'DELETE FROM reservas WHERE Room = ? AND Start = ? AND End = ? AND Date = ?';
+var Command = 'DELETE FROM reservas WHERE Room = ? AND Start = ? AND End = ? AND Date = ? AND User = ?';
 
 function checkValidations(req, res){
     var date = req.query.Date.replace(/[:-]/g, '');
@@ -19,7 +19,7 @@ function checkValidations(req, res){
                 if(validation.hasCorrectURLQueryFields(req, res)){
                     if(validation.hasCorrectDate(res)){
                         if(validation.hasCorrectTime(res)){
-                            connection.query(Command, [req.query.Room, validation.startMeeting, validation.endMeeting, validation.date], function(err, result){
+                            connection.query(Command, [req.query.Room, validation.startMeeting, validation.endMeeting, validation.date, req.query.User], function(err, result){
                                 if (err) throw err;
                                 if(validation.hasAffectedRows(res, result)){
                                     console.log('Deleted');

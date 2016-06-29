@@ -13,7 +13,18 @@ var connection = mysql.createConnection({
 });
 
 Search.get('/', function(req, res){
-    if(req.query.hasOwnProperty('User')){
+    if(req.query.hasOwnProperty('User') && req.query.hasOwnProperty('Rooms')){
+        connection.query('SELECT * FROM users', function(err,result){
+            if(validation.hasValidUser(req,res,result)){
+                if(req.query.Rooms == 'true'){
+                    connection.query('SELECT * FROM rooms', function(err,result){
+                        buildRooms(result, res);
+                    });
+                }
+            }
+        });   
+    }
+    else if(req.query.hasOwnProperty('User')){
         connection.query('SELECT * FROM users', function(err,result){
             if(validation.hasValidUser(req,res,result)){
                 res.sendStatus(200);
@@ -149,6 +160,15 @@ function convertMonth(month){
             return '12';
             break;
     }
+}
+
+function buildRooms(result, res){
+    var items = '<li class="active activeRoom" value="' + result[0].Room + '"><a href="#table" id="room' + result[0].Room + '" class="room">Sala ' + result[0].Room + '</a></li>'
+    for(var x=1;x<result.length;x++){
+        items += '<li value="' + result[x].Room + '"><a href="#table" id="room' + result[x].Room + '" class="room">Sala ' + result[x].Room + '</a></li>';
+    }
+    res.type('text/html');
+    res.send(items);
 }
 
 function buildTable(result, req, res){

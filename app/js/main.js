@@ -31,7 +31,7 @@ $(document).ready(function(){
         $(page).show();
         checkTab(1);
     });
-    $('.room').click(function(){
+    $('.pagination').on('click', '.room', function(){
         var page = $(this).attr('id');
         $("li[class='active activeRoom']").removeClass("active activeRoom");
         $("li a[id='"+page+"']").parent().addClass("active activeRoom");
@@ -82,7 +82,15 @@ $(document).ready(function(){
         var calendar = $('#calendar').val();
         var room = $('#insertRoom').val();
         var url='http://localhost:9000/insert?Room='+room.substring(5,6)+'&Start='+$('#startMeeting').val()+'&End='+$('#endMeeting').val()+'&Date='+calendar.substring(6,10)+calendar.substring(3,5)+calendar.substring(0,2)+'&Resp='+userName+'&Schedule='+$('#insertSchedule').val()+'&User='+userEmail;
-        ajax(url, 'POST');
+        var result = ajax(url, 'POST');
+        if(result=='OK'){
+            $('#modalInsert .modal-dialog .modal-content .modal-body h1').html('Reserva realizda.');
+            $('#modalInsert').modal('show');
+        }
+        else {
+            $('#modalInsert .modal-dialog .modal-content .modal-body h1').html('Não foi possível realizar a reserva.');
+            $('#modalInsert').modal('show');
+        }
     });
     $('#logOut').click(function(){
         signOut();
@@ -111,7 +119,7 @@ function checkUser(){
         setTimeout(function(){
             $.ajax({
                 type: 'GET',
-                url: 'http://localhost:9000/search?User=' + userEmail,
+                url: server + '?User=' + userEmail,
                 async: true,
                 success: function(data) {
                     start();
@@ -121,7 +129,7 @@ function checkUser(){
                     checkUser();
                 }
             });
-        }, 3000);
+        }, 2000);
     }
     else {
         var auth2 = gapi.auth2.getAuthInstance();
@@ -142,10 +150,16 @@ function dateToday (){
 }
 
 function start (){
+    buildRooms();
     buildSelectYear();
     $('.pages').hide();
     $('#forToday').show();
     $('.g-signin2').css('display', 'none');
+}
+
+function buildRooms(){
+    var result = ajax(server + '?Rooms=true&User=' + userEmail, 'GET');
+    $('.pagination').html(result);
 }
 
 function buildSelectYear (){

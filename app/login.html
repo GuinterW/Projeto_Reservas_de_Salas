@@ -15,12 +15,10 @@
                 <div class="account-wall">
                     <div id="my-tab-content" class="tab-content">
                         <div class="tab-pane active" id="login">
-                            <img class="profile-img" src=""
-                        alt="">
+                            <img class="profile-img">
                             <form class="form-signin" action="" method="">
-                                <input type="text" class="form-control" placeholder="Username" required autofocus>
-                                <input type="password" class="form-control" placeholder="Password" required>
-                                <input type="submit" class="btn btn-lg btn-default btn-block" value="Sign In" />
+                                <input id="username" type="text" class="form-control" placeholder="Username" required autofocus>
+                                <input type="submit" class="btn btn-lg btn-default btn-block" value="Sign In" data-onsuccess="onSignIn">
                                 <div class="g-signin2" data-onsuccess="onSignIn"></div>
                             </form>
                         </div>

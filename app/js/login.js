@@ -10,13 +10,6 @@ function onSignIn(googleUser) {
     userName = profile.getName();
     userImage = profile.getImageUrl();
     userEmail = profile.getEmail();
-}
-
-function signOut() {
-    var auth2 = gapi.auth2.getAuthInstance();
-    auth2.signOut().then(function () {
-        userName = '';
-        userImage = '';
-        userEmail = '';     
-    });
+    $('#username').val(userName);
+    $('.profile-img').prop('src', userImage);
 }

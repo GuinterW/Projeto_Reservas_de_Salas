@@ -15,7 +15,7 @@ var connection = mysql.createConnection({
 Search.get('/:Room/:Year', function(req, res){
     setCommandMySQL('Year');
     if(req.query.hasOwnProperty('myMeetings') && req.query.myMeetings == 'true'){
-        Command += ' AND RespEmail = ?';
+        Command += ' AND User = ?';
     }
     checkValidations(req,res,[parseInt(req.params.Room, 10), parseInt(req.params.Year, 10), req.query.User]);
 });
@@ -23,7 +23,7 @@ Search.get('/:Room/:Year', function(req, res){
 Search.get('/:Room/:Year/:Month', function(req, res){
     setCommandMySQL('Month');
     if(req.query.hasOwnProperty('myMeetings') && req.query.myMeetings == 'true'){
-        Command += ' AND RespEmail = ?';
+        Command += ' AND User = ?';
     }
     checkValidations(req,res,[parseInt(req.params.Room, 10), parseInt(req.params.Year, 10), parseInt(req.params.Month), req.query.User]);   
 });
@@ -32,7 +32,7 @@ Search.get('/:Room/:Year/:Month/:Day', function(req, res) {
     var date= req.params.Year + req.params.Month + req.params.Day;
     setCommandMySQL('Day');
     if(req.query.hasOwnProperty('myMeetings') && req.query.myMeetings == 'true'){
-        Command += ' AND RespEmail = ?';
+        Command += ' AND User = ?';
     }
     checkValidations(req,res,[parseInt(req.params.Room, 10), parseInt(date, 10), req.query.User]);   
 });
@@ -101,14 +101,14 @@ function getFreeTime(result, res){
 }
 
 function buildTable(result, req, res){
-    var items= '<tr>';
+    var items= '<tr class="tableRow">';
     for(var z=0;z<result.length;z++){
         if(req.query.today != 'true'){
-            items+= '<td>' + result[z].Date.toString().substring(0,4) + result[z].Date.toString().substring(8,11) + result[z].Date.toString().substring(4,8) + result[z].Date.toString().substring(10,15) + '</td>';
+            items+= '<td data-date="' + result[z].Date + '">' + result[z].Date.toString().substring(0,4) + result[z].Date.toString().substring(8,11) + result[z].Date.toString().substring(4,8) + result[z].Date.toString().substring(10,15) + '</td>';
         }
-        items+= '<td>' + result[z].Start + '</td>';
-        items+= '<td>' + result[z].End + '</td>';
-        items+= '<td>' + result[z].Resp + '</td>';
+        items+= '<td data-start="' + result[z].Start + '">' + result[z].Start + '</td>';
+        items+= '<td data-end="' + result[z].End + '">' + result[z].End + '</td>';
+        items+= '<td data-user="' + req.query.User + '">' + result[z].Resp + '</td>';
         items+= '<td>' + result[z].Schedule + '</td>' + '</tr>';
     }
     res.type('text/html');

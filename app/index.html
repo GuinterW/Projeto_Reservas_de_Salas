@@ -173,9 +173,9 @@
         <!-- Pages and table -->
         <div id="pagesAndTable">
             <ul class="pagination">
-                <li class="active activeRoom"><a href="#table" id="room1" class="room">Sala 1</a></li>
-                <li><a href="#table" id="room2" class="room">Sala 2</a></li>
-                <li><a href="#table" id="room3" class="room">Sala 3</a></li>
+                <li class="active activeRoom" value="1"><a href="#table" id="room1" class="room">Sala 1</a></li>
+                <li value="2"><a href="#table" id="room2" class="room">Sala 2</a></li>
+                <li value="3"><a href="#table" id="room3" class="room">Sala 3</a></li>
             </ul>
             <div id="table"></div>
         </div>
@@ -263,7 +263,7 @@
               <div class="modal-content">
                 <div class="modal-body">
                     <div class="g-signin2" data-onsuccess="onSignIn"></div>
-                    <a href="#" onclick="signOut()">Sign out</a>
+                    <button type="button" class="btn btn-danger" id="logOut">Log Out</button>
                 </div>
               </div>  
             </div>

@@ -8,7 +8,7 @@ var connection = mysql.createConnection({
     password : 'secret',
     database : 'reservas'
 });
-var Command = 'DELETE FROM reservas WHERE Room = ? AND Start = ? AND End = ? AND Date = ?';
+var Command = 'DELETE FROM reservas WHERE Room = ? AND Start = ? AND End = ? AND Date = ? AND User = ?';
 
 function checkValidations(req, res){
     var date = req.query.Date.replace(/[:-]/g, '');

@@ -44,6 +44,11 @@ $(document).ready(function(){
         language: "pt-br",
         autoclose: true
     });
+    $('#dateEndRepeat').datepicker({
+        format: "dd/mm/yyyy",
+        language: "pt-br",
+        autoclose: true
+    });
     $('#year').change(function(){
         checkTab(1);
         $('#month').val('00');
@@ -76,6 +81,18 @@ $(document).ready(function(){
         var room = $('#insertRoom').val();
         var url='http://localhost:9000/insert?Room='+room.substring(5,6)+'&Start='+$('#startMeeting').val()+'&End='+$('#endMeeting').val()+'&Date='+calendar.substring(6,10)+calendar.substring(3,5)+calendar.substring(0,2)+'&Resp='+userName+'&Schedule='+$('#insertSchedule').val()+'&User='+userEmail;
         ajax(url, 'POST');
+    });
+    $('#logOut').click(function(){
+        signOut();
+    });
+    $('#table').on('click', '.tableRow', function(){
+        var date = $(this).data('date');
+        var start = $(this).data('start');
+        var end = $(this).data('end');
+        var user = userEmail;
+        var room = $("li[class='active activeRoom']").val();
+        var url = 'http://localhost:9000/delete?Room=' + room + '&Start=' + start + '&End=' + end + '&date=' + date + '&user' + user;
+        ajax(url, 'DELETE');
     });
 });
 

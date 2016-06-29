@@ -258,16 +258,28 @@
     </div>
 
     <div class="modal fade" id="modalLogIn" role="dialog">
-            <div class="modal-dialog">
-              <!-- Modal content-->
-              <div class="modal-content">
-                <div class="modal-body">
-                    <div class="g-signin2" data-onsuccess="onSignIn"></div>
-                    <button type="button" class="btn btn-danger" id="logOut">Log Out</button>
-                </div>
-              </div>  
+        <div class="modal-dialog">
+          <!-- Modal content-->
+          <div class="modal-content">
+            <div class="modal-body">
+                <div class="g-signin2" data-onsuccess="onSignIn"></div>
+                <button type="button" class="btn btn-danger" id="logOut">Log Out</button>
             </div>
+          </div>  
         </div>
+    </div>
+    <div class="modal fade" id="modalDelete" role="dialog">
+        <div class="modal-dialog">
+          <!-- Modal content-->
+          <div class="modal-content">
+            <div class="modal-body">
+                <h1>Você deseja apagar esta reserva?</h1>
+                <button type="button" class="btn btn-danger" id="delete">Sim</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">Não</button>
+            </div>
+          </div>  
+        </div>
+    </div>
 
     <!-- build:js js/vendor.js -->
     <!-- bower:js -->

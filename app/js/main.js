@@ -11,6 +11,7 @@ var year  = date.getFullYear();
 var userName = '';
 var userImage = '';
 var userEmail = '';
+var urlDelete = '';
 
 var table = {
     forToday: '<table class="table table-bordered table-striped"><thead><tr><th>Início</th><th>Término</th><th>Responsável</th><th>Pauta</th></tr></thead><tbody class="newLine"></tbody></table>',
@@ -91,8 +92,11 @@ $(document).ready(function(){
         var end = $(this).data('end');
         var user = userEmail;
         var room = $("li[class='active activeRoom']").val();
-        var url = 'http://localhost:9000/delete?Room=' + room + '&Start=' + start + '&End=' + end + '&date=' + date + '&user' + user;
-        ajax(url, 'DELETE');
+        urlDelete = 'http://localhost:9000/delete?Room=' + room + '&Start=' + start + '&End=' + end + '&date=' + date + '&user' + user;
+        $('#modalDelete').modal('show');
+    });
+    $('#delete').click(function(){
+        ajax(urlDelete, 'DELETE');
     });
 });
 

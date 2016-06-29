@@ -111,6 +111,12 @@ $(document).ready(function(){
         $('#modalDelete').modal('hide');
         checkTab($("li[class='active activeRoom']").val());
     });
+    $('#buttomClear').click(function(){
+        $('#calendar').val('');
+        $('#startMeeting').val('08:30:00');
+        $('#endMeeting').val('09:00:00');
+        $('#insertSchedule').val('');
+    });
 });
 
 function checkUser(){

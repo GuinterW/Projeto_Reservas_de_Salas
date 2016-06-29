@@ -41,7 +41,7 @@
             <li class="active mainLinks"><a class="links" href="#forToday">Para hoje</a></li>
             <li><a class="links" href="#listMeetings">Listar</a></li>
             <li><a class="links" href="#insertMeeting">Incluir</a></li>
-            <!--<li><a class="links" href="#">Minhas reuniões</a></li> -->
+            <li><a class="links" href="#myMeetings">Minhas reuniões</a></li>
         </ol>
 
         <!--PARA HOJE -->
@@ -108,26 +108,26 @@
                         <label class="col-sm-2 control-label">Início</label>
                         <div class="col-sm-10">
                             <select class="form-control" id="startMeeting">
-                                <option value="08:30:00"></option>
-                                <option value="09:00:00"></option>
-                                <option value="09:30:00"></option>
-                                <option value="10:00:00"></option>
-                                <option value="10:30:00"></option>
-                                <option value="11:00:00"></option>
-                                <option value="11:30:00"></option>
-                                <option value="12:00:00"></option>
-                                <option value="12:30:00"></option>
-                                <option value="13:00:00"></option>
-                                <option value="13:30:00"></option>
-                                <option value="14:00:00"></option>
-                                <option value="14:30:00"></option>
-                                <option value="15:00:00"></option>
-                                <option value="15:30:00"></option>
-                                <option value="16:00:00"></option>
-                                <option value="16:30:00"></option>
-                                <option value="17:00:00"></option>
-                                <option value="17:30:00"></option>
-                                <option value="18:00:00"></option>
+                                <option value="08:30:00">08:30</option>
+                                <option value="09:00:00">09:00</option>
+                                <option value="09:30:00">09:30</option>
+                                <option value="10:00:00">10:00</option>
+                                <option value="10:30:00">10:30</option>
+                                <option value="11:00:00">11:00</option>
+                                <option value="11:30:00">11:30</option>
+                                <option value="12:00:00">12:00</option>
+                                <option value="12:30:00">12:30</option>
+                                <option value="13:00:00">13:00</option>
+                                <option value="13:30:00">13:30</option>
+                                <option value="14:00:00">14:00</option>
+                                <option value="14:30:00">14:30</option>
+                                <option value="15:00:00">15:00</option>
+                                <option value="15:30:00">15:30</option>
+                                <option value="16:00:00">16:00</option>
+                                <option value="16:30:00">16:30</option>
+                                <option value="17:00:00">17:00</option>
+                                <option value="17:30:00">17:30</option>
+                                <option value="18:00:00">18:00</option>
                             </select>
                         </div>
                     </div>
@@ -135,37 +135,37 @@
                         <label class="col-sm-2 control-label">Término</label>
                         <div class="col-sm-10">
                             <select class="form-control" id="endMeeting">
-                                <option value="09:00:00"></option>
-                                <option value="09:30:00"></option>
-                                <option value="10:00:00"></option>
-                                <option value="10:30:00"></option>
-                                <option value="11:00:00"></option>
-                                <option value="11:30:00"></option>
-                                <option value="12:00:00"></option>
-                                <option value="12:30:00"></option>
-                                <option value="13:00:00"></option>
-                                <option value="13:30:00"></option>
-                                <option value="14:00:00"></option>
-                                <option value="14:30:00"></option>
-                                <option value="15:00:00"></option>
-                                <option value="15:30:00"></option>
-                                <option value="16:00:00"></option>
-                                <option value="16:30:00"></option>
-                                <option value="17:00:00"></option>
-                                <option value="17:30:00"></option>
-                                <option value="18:00:00"></option>
-                                <option value="18:30:00"></option>
+                                <option value="09:00:00">09:00</option>
+                                <option value="09:30:00">09:30</option>
+                                <option value="10:00:00">10:00</option>
+                                <option value="10:30:00">10:30</option>
+                                <option value="11:00:00">11:00</option>
+                                <option value="11:30:00">11:30</option>
+                                <option value="12:00:00">12:00</option>
+                                <option value="12:30:00">12:30</option>
+                                <option value="13:00:00">13:00</option>
+                                <option value="13:30:00">13:30</option>
+                                <option value="14:00:00">14:00</option>
+                                <option value="14:30:00">14:30</option>
+                                <option value="15:00:00">15:00</option>
+                                <option value="15:30:00">15:30</option>
+                                <option value="16:00:00">16:00</option>
+                                <option value="16:30:00">16:30</option>
+                                <option value="17:00:00">17:00</option>
+                                <option value="17:30:00">17:30</option>
+                                <option value="18:00:00">18:00</option>
+                                <option value="18:30:00">18:30</option>
                             </select>
                         </div>
                     </div>
                     <div class="form-group">
                         <label class="col-sm-2 control-label">Pauta: </label>
                         <div class="col-sm-10">
-                            <input class="form-control" type="text">
+                            <input class="form-control" type="text" id="insertSchedule">
                         </div>
                     </div>
-                    <button type="button" class="btn btn-default">Reservar</button>
-                    <button type="button" class="btn btn-default">Cancelar</button>
+                    <button type="button" class="btn btn-default" id="buttomInsert">Reservar</button>
+                    <button type="button" class="btn btn-default">Limpar</button>
                 </form>
             </div>
         </div>
@@ -173,9 +173,9 @@
         <!-- Pages and table -->
         <div id="pagesAndTable">
             <ul class="pagination">
-                <li class="active activeRoom"><a href="#table" id="room1" class="room">Sala 1</a></li>
-                <li><a href="#table" id="room2" class="room">Sala 2</a></li>
-                <li><a href="#table" id="room3" class="room">Sala 3</a></li>
+                <li class="active activeRoom" value="1"><a href="#table" id="room1" class="room">Sala 1</a></li>
+                <li value="2"><a href="#table" id="room2" class="room">Sala 2</a></li>
+                <li value="3"><a href="#table" id="room3" class="room">Sala 3</a></li>
             </ul>
             <div id="table"></div>
         </div>
@@ -258,16 +258,28 @@
     </div>
 
     <div class="modal fade" id="modalLogIn" role="dialog">
-            <div class="modal-dialog">
-              <!-- Modal content-->
-              <div class="modal-content">
-                <div class="modal-body">
-                    <div class="g-signin2" data-onsuccess="onSignIn"></div>
-                    <a href="#" onclick="signOut()">Sign out</a>
-                </div>
-              </div>  
+        <div class="modal-dialog">
+          <!-- Modal content-->
+          <div class="modal-content">
+            <div class="modal-body">
+                <div class="g-signin2" data-onsuccess="onSignIn"></div>
+                <button type="button" class="btn btn-danger" id="logOut">Log Out</button>
             </div>
+          </div>  
         </div>
+    </div>
+    <div class="modal fade" id="modalDelete" role="dialog">
+        <div class="modal-dialog">
+          <!-- Modal content-->
+          <div class="modal-content">
+            <div class="modal-body">
+                <h1>Você deseja apagar esta reserva?</h1>
+                <button type="button" class="btn btn-danger" id="delete">Sim</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">Não</button>
+            </div>
+          </div>  
+        </div>
+    </div>
 
     <!-- build:js js/vendor.js -->
     <!-- bower:js -->

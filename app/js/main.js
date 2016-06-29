@@ -1,12 +1,17 @@
 var server = 'http://localhost:9000/search/';
 
-var date = new Date(),
-    day  = date.getDate(),
-    month  = date.getMonth() + 1,
-    year  = date.getFullYear(),
-    userName = '',
-    userImage = '',
-    userEmail = '';
+var date = new Date();
+var day  = date.getDate();
+var month  = date.getMonth() + 1;
+var stringMonth = month.toString();
+if (stringMonth.length==1){
+    month = '0' + stringMonth;
+}
+var year  = date.getFullYear();
+var userName = '';
+var userImage = '';
+var userEmail = '';
+var urlDelete = '';
 
 var table = {
     forToday: '<table class="table table-bordered table-striped"><thead><tr><th>Início</th><th>Término</th><th>Responsável</th><th>Pauta</th></tr></thead><tbody class="newLine"></tbody></table>',
@@ -33,39 +38,35 @@ $(document).ready(function(){
     });
     $('#repeat').click(function(){
         $("#modalRepeat").modal();
-        $('#startRepeat').html($('#calendar').val());
+        $('#startRepeat').val($('#calendar').val());
     });
     $('#calendar').datepicker({
         format: "dd/mm/yyyy",
         language: "pt-br",
         autoclose: true
     });
+    $('#dateEndRepeat').datepicker({
+        format: "dd/mm/yyyy",
+        language: "pt-br",
+        autoclose: true
+    });
     $('#year').change(function(){
-        buildTable(1, '/' + $('#year').val());
+        checkTab(1);
         $('#month').val('00');
         $('#day').hide();
         $("li[class='active activeRoom']").removeClass("active activeRoom");
         $("li a[id='room1']").parent().addClass("active activeRoom");
     });
     $('#month').change(function(){
-        if ($('#month').val()=="00"){
-            buildTable(1, '/' +  $("#year").val(), table.complete);
-            $('#day').hide();
-        }
-        else {
-            buildTable(1, '/' +  $("#year").val() + '/' + $('#month').val(), table.complete);
+        if ($('#month').val()!="00"){
             buildSelectDay($('#month').val());
         }
+        checkTab(1);
         $("li[class='active activeRoom']").removeClass("active activeRoom");
         $("li a[id='room1']").parent().addClass("active activeRoom");
     });
     $('#day').change(function(){
-        if ($('#day').val()=="00"){
-            buildTable(1, '/' +  $("#year").val() + '/' + $('#month').val(), table.complete);
-        }
-        else {
-            buildTable(1, '/' +  $("#year").val() + '/' + $('#month').val() + '/' + $('#day').val(), table.complete);
-        }
+        checkTab(1);
     });
     $('#user').on('click', '#userImage', function(){
         $("#modalLogIn").modal('show');
@@ -75,6 +76,30 @@ $(document).ready(function(){
     });
     $('#endRepeat').change(function(){
         $('#nRepeats').html($('#endRepeat').val());
+    });
+    $("#buttomInsert").click(function(){
+        var calendar = $('#calendar').val();
+        var room = $('#insertRoom').val();
+        var url='http://localhost:9000/insert?Room='+room.substring(5,6)+'&Start='+$('#startMeeting').val()+'&End='+$('#endMeeting').val()+'&Date='+calendar.substring(6,10)+calendar.substring(3,5)+calendar.substring(0,2)+'&Resp='+userName+'&Schedule='+$('#insertSchedule').val()+'&User='+userEmail;
+        ajax(url, 'POST');
+    });
+    $('#logOut').click(function(){
+        signOut();
+    });
+    $('#table').on('click', '.tableRow', function(){
+        if($("li[class='active mainLinks'] a").attr('href')=='#myMeetings'){
+            var date = $(this).children('td[data-name="date"]').data('date');
+            var start = $(this).children('td[data-name="start"]').data('start');
+            var end = $(this).children('td[data-name="end"]').data('end');
+            var user = userEmail;
+            var room = $("li[class='active activeRoom']").val();
+            urlDelete = 'http://localhost:9000/delete?Room=' + room + '&Start=' + start + '&End=' + end + '&Date=' + date + '&User=' + user;
+            $('#modalDelete').modal('show');
+        }
+    });
+    $('#delete').click(function(){
+        ajax(urlDelete, 'DELETE');
+        $('#modalDelete').modal('hide');
     });
 });
 
@@ -87,7 +112,6 @@ function start (){
     buildSelectYear();
     $('.pages').hide();
     $('#forToday').show();
-    $("#modalLogIn").modal('show');
 }
 
 function buildSelectYear (){
@@ -186,19 +210,34 @@ function checkTab (sala){
     var page = $("li[class='active mainLinks'] a").attr('href');
     if (page=='#forToday'){
         $('#day').hide();
-        buildTable(sala, '/' + year + '/' + month + '/' + day, table.forToday);
+        buildTable(sala, '/' + year + '/' + month + '/' + day + '/?today=true&', table.forToday);
     }
     else if (page=='#listMeetings'){
         if($('#month').val()=='00'){
             $('#day').hide();
-            buildTable(sala, '/' + $('#year').val(), table.complete);
+            buildTable(sala, '/' + $('#year').val() + '?', table.complete);
         }
         else {
             if($('#day').val()=='00'){
-                buildTable(sala, '/' + $('#year').val() + '/' + $('#month').val(), table.complete);
+                buildTable(sala, '/' + $('#year').val() + '/' + $('#month').val() + '?', table.complete);
             }
             else {
-                buildTable(sala, '/' +  $("#year").val() + '/' + $('#month').val() + '/' + $('#day').val(), table.complete);
+                buildTable(sala, '/' +  $("#year").val() + '/' + $('#month').val() + '/' + $('#day').val() + '?', table.complete);
+            }
+        }
+    }
+    else if(page=='#myMeetings'){
+        $('#listMeetings').show();
+        if($('#month').val()=='00'){
+            $('#day').hide();
+            buildTable(sala, '/' + $('#year').val() + '?myMeetings=true&', table.complete);
+        }
+        else {
+            if($('#day').val()=='00'){
+                buildTable(sala, '/' + $('#year').val() + '/' + $('#month').val() + '?myMeetings=true&', table.complete);
+            }
+            else {
+                buildTable(sala, '/' +  $("#year").val() + '/' + $('#month').val() + '/' + $('#day').val() + '?myMeetings=true&', table.complete);
             }
         }
     }
@@ -209,22 +248,18 @@ function checkTab (sala){
 
 function buildTable(sala, url, table){
     cleanTable ();
-    var lengthMonth = month.toString();
-    if (lengthMonth.length==1){
-        month = '0' + lengthMonth;
-    }
     dateToday ();
     var list = table;
-    var result=ajax(server + sala + url + '?User=' + userEmail);
+    var result=ajax(server + sala + url + 'User=' + userEmail, 'GET');
     $("#pagesAndTable").show();
     $('#table').html(list);
     $('.newLine').append(result);
 }
 
-function ajax(url){
+function ajax(url, type){
     var result = '';
     $.ajax({
-        type: "GET",
+        type: type,
         url: url,
         async: false,
         success: function(data) {
@@ -246,7 +281,7 @@ function onSignIn(googleUser) {
     userEmail = profile.getEmail();
     $('#user').html(userName + ' <img id="userImage" src="' + userImage + '" />');
     $("#modalLogIn").modal('hide');
-    buildTable(1, '/' + year + '/' + month + '/' + day, table.forToday);
+    buildTable(1, '/' + year + '/' + month + '/' + day + '/?today=true&' , table.forToday);
 }
 
 function signOut() {
@@ -254,6 +289,10 @@ function signOut() {
     auth2.signOut().then(function () {
         $('#logIn').html('<div class="g-signin2" data-onsuccess="onSignIn"></div>');
         $('#user').html('');
+        userName = '';
+        userImage = '';
+        userEmail = '';
+        window.location.replace('http://localhost:9000');       
     });
     $("#modalLogIn").modal('hide');
 }

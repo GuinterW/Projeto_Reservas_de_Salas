@@ -14,11 +14,11 @@ var insertUpdateCommand;
 function setCommandMySQL(type){
     switch(type){
         case 'insert': 
-            selectCommand = 'SELECT * FROM reservas WHERE Sala = ? AND Data = ?';
+            selectCommand = 'SELECT * FROM reservas WHERE Room = ? AND Date = ?';
             insertUpdateCommand = 'INSERT INTO reservas SET ?';
             break;
         case 'update':
-            selectCommand = 'SELECT * FROM reservas WHERE Sala = ? AND Data = ?';
+            selectCommand = 'SELECT * FROM reservas WHERE Room = ? AND Date = ?';
             insertUpdateCommand = 'UPDATE reservas SET ? WHERE ID = ?';
             break;
     };
@@ -30,7 +30,7 @@ function checkValidations(req, res){
     if(validation.hasURLQuery(req, res)){
         connection.query('SELECT * FROM users', function(err,result){
             if(validation.hasValidUser(req,res,result)){
-                if(validation.hasURLCorrectQueryFields(req, res)){
+                if(validation.hasCorrectURLQueryFields(req, res)){
                     if(validation.hasCorrectDate(res)){
                         if(validation.hasCorrectTime(res)){
                             connection.query(selectCommand, [parseInt(req.query.Room, 10), parseInt(date, 10)], function(err, result){

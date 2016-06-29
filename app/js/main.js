@@ -40,6 +40,20 @@ $(document).ready(function(){
         $("#modalRepeat").modal();
         $('#startRepeat').val($('#calendar').val());
     });
+    $('#buttomClear').click(function(){
+        $('#calendar').each(function(){
+            this.reset();
+        });
+        $('#startMeeting').each(function(){
+            this.reset();
+        });
+        $('#endMeeting').each(function(){
+            this.reset();
+        });
+        $('#insertSchedule').each(function(){
+            this.reset();
+        });
+    });
     $('#calendar').datepicker({
         format: "dd/mm/yyyy",
         language: "pt-br",

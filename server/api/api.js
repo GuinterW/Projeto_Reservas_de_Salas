@@ -11,8 +11,6 @@ module.exports = function(server) {
     server.use('/delete', Delete);
 
     server.get('/', function (req, res) {
-        res.type('text/html');
-        res.send('');
     });
 
 };

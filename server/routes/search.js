@@ -12,6 +12,16 @@ var connection = mysql.createConnection({
     database : 'reservas'
 });
 
+Search.get('/', function(req, res){
+    if(req.query.hasOwnProperty('User')){
+        connection.query('SELECT * FROM users', function(err,result){
+            if(validation.hasValidUser(req,res,result)){
+                res.sendStatus(200);
+            }
+        });
+    }
+});
+
 Search.get('/:Room/:Year', function(req, res){
     setCommandMySQL('Year');
     if(req.query.hasOwnProperty('myMeetings') && req.query.myMeetings == 'true'){
@@ -148,7 +158,7 @@ function buildTable(result, req, res){
         date = result[z].Date.toString().substring(11,15) + convertMonth(result[z].Date.toString().substring(4,7)) + result[z].Date.toString().substring(8,10);
         items+= '<tr class="tableRow">';
         if(req.query.today != 'true'){
-            items+= '<td data-name="date" data-date="' + date + '">' + result[z].Date.toString().substring(0,4) + result[z].Date.toString().substring(9,11) + result[z].Date.toString().substring(4,8) + result[z].Date.toString().substring(11,15) + '</td>';
+            items+= '<td data-name="date" data-date="' + date + '">' + result[z].Date.toString().substring(0,4) + result[z].Date.toString().substring(8,11) + result[z].Date.toString().substring(4,8) + result[z].Date.toString().substring(11,15) + '</td>';
         }
         items+= '<td data-name="start" data-start="' + result[z].Start + '">' + result[z].Start + '</td>';
         items+= '<td data-name="end" data-end="' + result[z].End + '">' + result[z].End + '</td>';

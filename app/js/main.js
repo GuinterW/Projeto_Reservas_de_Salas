@@ -106,7 +106,7 @@ $(document).ready(function(){
         var url='http://localhost:9000/insert?Room='+room+'&Start='+$('#startMeeting').val()+'&End='+$('#endMeeting').val()+'&Date='+calendar.substring(6,10)+calendar.substring(3,5)+calendar.substring(0,2)+'&Resp='+userName+'&Schedule='+$('#insertSchedule').val()+'&User='+userEmail;
         var result = ajax(url, 'POST');
         if(result=='OK'){
-            $('#modalInsert .modal-dialog .modal-content .modal-body h1').html('Reserva realizda.');
+            $('#modalInsert .modal-dialog .modal-content .modal-body h1').html('Reserva realizada.');
             $('#modalInsert').modal('show');
         }
         else {
@@ -129,7 +129,11 @@ $(document).ready(function(){
         }
     });
     $('#delete').click(function(){
-        ajax(urlDelete, 'DELETE');
+        result = ajax(urlDelete, 'DELETE');
+        if(result != 'OK'){
+            $('#modalInsert .modal-dialog .modal-content .modal-body h1').html('Não foi possível apagar a reserva.');
+            $('#modalInsert').modal('show');
+        }
         $('#modalDelete').modal('hide');
         checkTab($("li[class='active activeRoom']").val());
     });
@@ -140,7 +144,7 @@ $(document).ready(function(){
         $('#insertSchedule').val('');
     });
     $('#buttomRepeat').click(function(){
-        repeatInsert();
+        setRepeatInsert();
         $('#modalRepeat').modal('hide');
     });
     $('#repeatType').change(function(){
@@ -217,7 +221,7 @@ function getRepeats(dayRepeat, monthRepeat, yearRepeat){
     return result;
 }
 
-function repeatInsert(){
+function setRepeatInsert(){
     var dateRepeat = $('#calendar').val().toString();
     var dayRepeat = parseInt(dateRepeat.substring(0,2));
     var monthRepeat = parseInt(dateRepeat.substring(3,5));
@@ -225,298 +229,153 @@ function repeatInsert(){
     var room = parseInt($('#insertRoom').val());
     var daysInMonth = getDaysInMonth(monthRepeat, yearRepeat);
     if($('#endRepeat').val()>0){
-        for(var x=0;x<$('#endRepeat').val();x++){
-            if($('#repeatType').val()=='00'){
-                daysInMonth = getDaysInMonth(monthRepeat, yearRepeat);
-                if(dayRepeat+parseInt($('#repeatFrequency').val())>daysInMonth){
-                    dayRepeat = parseInt($('#repeatFrequency').val()) - (daysInMonth - dayRepeat);
-                    if(monthRepeat+1>12){
-                        monthRepeat = 1;
-                        yearRepeat+=1;
-                    }
-                    else {
-                        monthRepeat+=1;
-                    }
-                }
-                yearRepeat = yearRepeat.toString();
-                monthRepeat = monthRepeat.toString();
-                dayRepeat = dayRepeat.toString();
-                if(monthRepeat.length==1){
-                    monthRepeat = '0' + monthRepeat;
-                }
-                if(dayRepeat.length==1){
-                    dayRepeat = '0' + dayRepeat;
-                }
-                var url='http://localhost:9000/insert?Room='+room+'&Start='+$('#startMeeting').val()+'&End='+$('#endMeeting').val()+'&Date='+yearRepeat+monthRepeat+dayRepeat+'&Resp='+userName+'&Schedule='+$('#insertSchedule').val()+'&User='+userEmail;
-                result = ajax(url, 'POST');
-                if(result!='OK'){
-                    $('#modalInsert .modal-dialog .modal-content .modal-body h1').html('Não foi possível realizar alguma(s) reserva(s).');
-                    $('#modalInsert').modal('show');
-                }
-                yearRepeat = parseInt(yearRepeat);
-                monthRepeat = parseInt(monthRepeat);
-                dayRepeat = parseInt(dayRepeat);
-                dayRepeat+=parseInt($('#repeatFrequency').val());
-            }
-            else {
-                switch($('#repeatType').val()){
-                    case '1':
-                        daysInMonth = getDaysInMonth(monthRepeat, yearRepeat);
-                        if(dayRepeat+1>daysInMonth){
-                            dayRepeat = 1;
-                            if(monthRepeat+1>12){
-                                monthRepeat = 1;
-                                yearRepeat+=1;
-                            }
-                            else {
-                                monthRepeat+=1;
-                            }
-                        }
-                        yearRepeat = yearRepeat.toString();
-                        monthRepeat = monthRepeat.toString();
-                        dayRepeat = dayRepeat.toString();
-                        if(monthRepeat.length==1){
-                            monthRepeat = '0' + monthRepeat;
-                        }
-                        if(dayRepeat.length==1){
-                            dayRepeat = '0' + dayRepeat;
-                        }
-                        var url='http://localhost:9000/insert?Room='+room+'&Start='+$('#startMeeting').val()+'&End='+$('#endMeeting').val()+'&Date='+yearRepeat+monthRepeat+dayRepeat+'&Resp='+userName+'&Schedule='+$('#insertSchedule').val()+'&User='+userEmail;
-                        result = ajax(url, 'POST');
-                        if(result!='OK'){
-                            $('#modalInsert .modal-dialog .modal-content .modal-body h1').html('Não foi possível realizar alguma(s) reserva(s).');
-                            $('#modalInsert').modal('show');
-                        }
-                        yearRepeat = parseInt(yearRepeat);
-                        monthRepeat = parseInt(monthRepeat);
-                        dayRepeat = parseInt(dayRepeat);
-                        dayRepeat++;
-                        break;
-                    case '7':
-                        daysInMonth = getDaysInMonth(monthRepeat, yearRepeat);
-                        console.log(daysInMonth);
-                        console.log(dayRepeat);
-                        if(dayRepeat+7>daysInMonth){
-                            dayRepeat = 7 - (daysInMonth - dayRepeat);
-                            console.log(dayRepeat);
-                            if(monthRepeat+1>12){
-                                monthRepeat = 1;
-                                yearRepeat+=1;
-                            }
-                            else {
-                                monthRepeat+=1;
-                            }
-                        }
-                        yearRepeat = yearRepeat.toString();
-                        monthRepeat = monthRepeat.toString();
-                        dayRepeat = dayRepeat.toString();
-                        if(monthRepeat.length==1){
-                            monthRepeat = '0' + monthRepeat;
-                        }
-                        if(dayRepeat.length==1){
-                            dayRepeat = '0' + dayRepeat;
-                        }
-                        var url='http://localhost:9000/insert?Room='+room+'&Start='+$('#startMeeting').val()+'&End='+$('#endMeeting').val()+'&Date='+yearRepeat+monthRepeat+dayRepeat+'&Resp='+userName+'&Schedule='+$('#insertSchedule').val()+'&User='+userEmail;
-                        result = ajax(url, 'POST');
-                        if(result!='OK'){
-                            $('#modalInsert .modal-dialog .modal-content .modal-body h1').html('Não foi possível realizar alguma(s) reserva(s).');
-                            $('#modalInsert').modal('show');
-                        }
-                        yearRepeat = parseInt(yearRepeat);
-                        monthRepeat = parseInt(monthRepeat);
-                        dayRepeat = parseInt(dayRepeat);
-                        dayRepeat+=7;
-                        break;
-                    case '30':
-                        if(monthRepeat+1>12){
-                            monthRepeat = 1;
-                        }
-                        yearRepeat = yearRepeat.toString();
-                        monthRepeat = monthRepeat.toString();
-                        dayRepeat = dayRepeat.toString();
-                        if(monthRepeat.length==1){
-                            monthRepeat = '0' + monthRepeat;
-                        }
-                        if(dayRepeat.length==1){
-                            dayRepeat = '0' + dayRepeat;
-                        }
-                        var url='http://localhost:9000/insert?Room='+room+'&Start='+$('#startMeeting').val()+'&End='+$('#endMeeting').val()+'&Date='+yearRepeat+monthRepeat+dayRepeat+'&Resp='+userName+'&Schedule='+$('#insertSchedule').val()+'&User='+userEmail;
-                        result = ajax(url, 'POST');
-                        if(result!='OK'){
-                            $('#modalInsert .modal-dialog .modal-content .modal-body h1').html('Não foi possível realizar alguma(s) reserva(s).');
-                            $('#modalInsert').modal('show');
-                        }
-                        yearRepeat = parseInt(yearRepeat);
-                        monthRepeat = parseInt(monthRepeat);
-                        dayRepeat = parseInt(dayRepeat);
-                        monthRepeat++;
-                        break;
-                    case '365':
-                        yearRepeat = yearRepeat.toString();
-                        monthRepeat = monthRepeat.toString();
-                        dayRepeat = dayRepeat.toString();
-                        if(monthRepeat.length==1){
-                            monthRepeat = '0' + monthRepeat;
-                        }
-                        if(dayRepeat.length==1){
-                            dayRepeat = '0' + dayRepeat;
-                        }
-                        var url='http://localhost:9000/insert?Room='+room+'&Start='+$('#startMeeting').val()+'&End='+$('#endMeeting').val()+'&Date='+yearRepeat+monthRepeat+dayRepeat+'&Resp='+userName+'&Schedule='+$('#insertSchedule').val()+'&User='+userEmail;
-                        result = ajax(url, 'POST');
-                        if(result!='OK'){
-                            $('#modalInsert .modal-dialog .modal-content .modal-body h1').html('Não foi possível realizar alguma(s) reserva(s).');
-                            $('#modalInsert').modal('show');
-                        }
-                        yearRepeat = parseInt(yearRepeat);
-                        monthRepeat = parseInt(monthRepeat);
-                        dayRepeat = parseInt(dayRepeat);
-                        yearRepeat++;
-                        break;
-                }
-            }
-        }
+        repeat(dayRepeat, monthRepeat, yearRepeat, room, daysInMonth, $('#endRepeat').val());
     }
     else if($('#dateEndRepeat').val()>0){
         var timesToRepeat = getRepeats(dayRepeat, monthRepeat, yearRepeat);
-        for(var x=0;x<timesToRepeat;x++){
-            if($('#repeatType').val()!='00'){
-                daysInMonth = getDaysInMonth(monthRepeat, yearRepeat);
-                if(dayRepeat+parseInt($('#repeatFrequency').val())>daysInMonth){
-                    dayRepeat = parseInt($('#repeatFrequency').val()) - (daysInMonth - dayRepeat);
-                    if(monthRepeat+1>12){
-                        monthRepeat = 1;
-                        yearRepeat+=1;
-                    }
-                    else {
-                        monthRepeat+=1;
-                    }
+        repeat(dayRepeat, monthRepeat, yearRepeat, room, daysInMonth, timesToRepeat);
+    }
+}
+
+function repeat(dayRepeat, monthRepeat, yearRepeat, room, daysInMonth, timesToRepeat){
+    for(var x=0;x<timesToRepeat;x++){
+        if($('#repeatType').val()!='00'){
+            daysInMonth = getDaysInMonth(monthRepeat, yearRepeat);
+            if(dayRepeat+parseInt($('#repeatFrequency').val())>daysInMonth){
+                dayRepeat = parseInt($('#repeatFrequency').val()) - (daysInMonth - dayRepeat);
+                if(monthRepeat+1>12){
+                    monthRepeat = 1;
+                    yearRepeat+=1;
                 }
-                yearRepeat = yearRepeat.toString();
-                monthRepeat = monthRepeat.toString();
-                dayRepeat = dayRepeat.toString();
-                if(monthRepeat.length==1){
-                    monthRepeat = '0' + monthRepeat;
+                else {
+                    monthRepeat+=1;
                 }
-                if(dayRepeat.length==1){
-                    dayRepeat = '0' + dayRepeat;
-                }
-                var url='http://localhost:9000/insert?Room='+room+'&Start='+$('#startMeeting').val()+'&End='+$('#endMeeting').val()+'&Date='+yearRepeat+monthRepeat+dayRepeat+'&Resp='+userName+'&Schedule='+$('#insertSchedule').val()+'&User='+userEmail;
-                result = ajax(url, 'POST');
-                if(result!='OK'){
-                    $('#modalInsert .modal-dialog .modal-content .modal-body h1').html('Não foi possível realizar alguma(s) reserva(s).');
-                    $('#modalInsert').modal('show');
-                }
-                yearRepeat = parseInt(yearRepeat);
-                monthRepeat = parseInt(monthRepeat);
-                dayRepeat = parseInt(dayRepeat);
-                dayRepeat+=parseInt($('#repeatFrequency').val());
             }
-            else {
-                switch($('#repeatType').val()){
-                    case '1':
-                        daysInMonth = getDaysInMonth(monthRepeat, yearRepeat);
-                        if(dayRepeat+1>daysInMonth){
-                            dayRepeat = 1;
-                            if(monthRepeat+1>12){
-                                monthRepeat = 1;
-                                yearRepeat+=1;
-                            }
-                            else {
-                                monthRepeat+=1;
-                            }
-                        }
-                        yearRepeat = yearRepeat.toString();
-                        monthRepeat = monthRepeat.toString();
-                        dayRepeat = dayRepeat.toString();
-                        if(monthRepeat.length==1){
-                            monthRepeat = '0' + monthRepeat;
-                        }
-                        if(dayRepeat.length==1){
-                            dayRepeat = '0' + dayRepeat;
-                        }
-                        var url='http://localhost:9000/insert?Room='+room+'&Start='+$('#startMeeting').val()+'&End='+$('#endMeeting').val()+'&Date='+yearRepeat+monthRepeat+dayRepeat+'&Resp='+userName+'&Schedule='+$('#insertSchedule').val()+'&User='+userEmail;
-                        result = ajax(url, 'POST');
-                        if(result!='OK'){
-                            $('#modalInsert .modal-dialog .modal-content .modal-body h1').html('Não foi possível realizar alguma(s) reserva(s).');
-                            $('#modalInsert').modal('show');
-                        }
-                        yearRepeat = parseInt(yearRepeat);
-                        monthRepeat = parseInt(monthRepeat);
-                        dayRepeat = parseInt(dayRepeat);
-                        dayRepeat++;
-                        break;
-                    case '7':
-                        daysInMonth = getDaysInMonth(monthRepeat, yearRepeat);
-                        if(dayRepeat+7>daysInMonth){
-                            dayRepeat = 7 - (daysInMonth - dayRepeat);
-                            if(monthRepeat+1>12){
-                                monthRepeat = 1;
-                                yearRepeat+=1;
-                            }
-                            else {
-                                monthRepeat+=1;
-                            }
-                        }
-                        yearRepeat = yearRepeat.toString();
-                        monthRepeat = monthRepeat.toString();
-                        dayRepeat = dayRepeat.toString();
-                        if(monthRepeat.length==1){
-                            monthRepeat = '0' + monthRepeat;
-                        }
-                        if(dayRepeat.length==1){
-                            dayRepeat = '0' + dayRepeat;
-                        }
-                        var url='http://localhost:9000/insert?Room='+room+'&Start='+$('#startMeeting').val()+'&End='+$('#endMeeting').val()+'&Date='+yearRepeat+monthRepeat+dayRepeat+'&Resp='+userName+'&Schedule='+$('#insertSchedule').val()+'&User='+userEmail;
-                        result = ajax(url, 'POST');
-                        if(result!='OK'){
-                            $('#modalInsert .modal-dialog .modal-content .modal-body h1').html('Não foi possível realizar alguma(s) reserva(s).');
-                            $('#modalInsert').modal('show');
-                        }
-                        yearRepeat = parseInt(yearRepeat);
-                        monthRepeat = parseInt(monthRepeat);
-                        dayRepeat = parseInt(dayRepeat);
-                        dayRepeat+=7;
-                        break;
-                    case '30':
+            yearRepeat = yearRepeat.toString();
+            monthRepeat = monthRepeat.toString();
+            dayRepeat = dayRepeat.toString();
+            if(monthRepeat.length==1){
+                monthRepeat = '0' + monthRepeat;
+            }
+            if(dayRepeat.length==1){
+                dayRepeat = '0' + dayRepeat;
+            }
+            var url='http://localhost:9000/insert?Room='+room+'&Start='+$('#startMeeting').val()+'&End='+$('#endMeeting').val()+'&Date='+yearRepeat+monthRepeat+dayRepeat+'&Resp='+userName+'&Schedule='+$('#insertSchedule').val()+'&User='+userEmail;
+            result = ajax(url, 'POST');
+            if(result!='OK'){
+                $('#modalInsert .modal-dialog .modal-content .modal-body h1').html('Não foi possível realizar alguma(s) reserva(s).');
+                $('#modalInsert').modal('show');
+            }
+            yearRepeat = parseInt(yearRepeat);
+            monthRepeat = parseInt(monthRepeat);
+            dayRepeat = parseInt(dayRepeat);
+            dayRepeat+=parseInt($('#repeatFrequency').val());
+        }
+        else {
+            switch($('#repeatType').val()){
+                case '1':
+                    daysInMonth = getDaysInMonth(monthRepeat, yearRepeat);
+                    if(dayRepeat+1>daysInMonth){
+                        dayRepeat = 1;
                         if(monthRepeat+1>12){
                             monthRepeat = 1;
+                            yearRepeat+=1;
                         }
-                        yearRepeat = yearRepeat.toString();
-                        monthRepeat = monthRepeat.toString();
-                        dayRepeat = dayRepeat.toString();
-                        if(monthRepeat.length==1){
-                            monthRepeat = '0' + monthRepeat;
+                        else {
+                            monthRepeat+=1;
                         }
-                        if(dayRepeat.length==1){
-                            dayRepeat = '0' + dayRepeat;
+                    }
+                    yearRepeat = yearRepeat.toString();
+                    monthRepeat = monthRepeat.toString();
+                    dayRepeat = dayRepeat.toString();
+                    if(monthRepeat.length==1){
+                        monthRepeat = '0' + monthRepeat;
+                    }
+                    if(dayRepeat.length==1){
+                        dayRepeat = '0' + dayRepeat;
+                    }
+                    var url='http://localhost:9000/insert?Room='+room+'&Start='+$('#startMeeting').val()+'&End='+$('#endMeeting').val()+'&Date='+yearRepeat+monthRepeat+dayRepeat+'&Resp='+userName+'&Schedule='+$('#insertSchedule').val()+'&User='+userEmail;
+                    result = ajax(url, 'POST');
+                    if(result!='OK'){
+                        $('#modalInsert .modal-dialog .modal-content .modal-body h1').html('Não foi possível realizar alguma(s) reserva(s).');
+                        $('#modalInsert').modal('show');
+                    }
+                    yearRepeat = parseInt(yearRepeat);
+                    monthRepeat = parseInt(monthRepeat);
+                    dayRepeat = parseInt(dayRepeat);
+                    dayRepeat++;
+                    break;
+                case '7':
+                    daysInMonth = getDaysInMonth(monthRepeat, yearRepeat);
+                    if(dayRepeat+7>daysInMonth){
+                        dayRepeat = 7 - (daysInMonth - dayRepeat);
+                        if(monthRepeat+1>12){
+                            monthRepeat = 1;
+                            yearRepeat+=1;
                         }
-                        var url='http://localhost:9000/insert?Room='+room+'&Start='+$('#startMeeting').val()+'&End='+$('#endMeeting').val()+'&Date='+yearRepeat+monthRepeat+dayRepeat+'&Resp='+userName+'&Schedule='+$('#insertSchedule').val()+'&User='+userEmail;
-                        result = ajax(url, 'POST');
-                        if(result!='OK'){
-                            $('#modalInsert .modal-dialog .modal-content .modal-body h1').html('Não foi possível realizar alguma(s) reserva(s).');
-                            $('#modalInsert').modal('show');
+                        else {
+                            monthRepeat+=1;
                         }
-                        yearRepeat = parseInt(yearRepeat);
-                        monthRepeat = parseInt(monthRepeat);
-                        dayRepeat = parseInt(dayRepeat);
-                        monthRepeat++;
-                        break;
-                    case '365':
-                        yearRepeat = yearRepeat.toString();
-                        monthRepeat = monthRepeat.toString();
-                        dayRepeat = dayRepeat.toString();
-                        var url='http://localhost:9000/insert?Room='+room+'&Start='+$('#startMeeting').val()+'&End='+$('#endMeeting').val()+'&Date='+yearRepeat+monthRepeat+dayRepeat+'&Resp='+userName+'&Schedule='+$('#insertSchedule').val()+'&User='+userEmail;
-                        result = ajax(url, 'POST');
-                        if(result!='OK'){
-                            $('#modalInsert .modal-dialog .modal-content .modal-body h1').html('Não foi possível realizar alguma(s) reserva(s).');
-                            $('#modalInsert').modal('show');
-                        }
-                        yearRepeat = parseInt(yearRepeat);
-                        monthRepeat = parseInt(monthRepeat);
-                        dayRepeat = parseInt(dayRepeat);
-                        yearRepeat++;
-                        break;
-                }
+                    }
+                    yearRepeat = yearRepeat.toString();
+                    monthRepeat = monthRepeat.toString();
+                    dayRepeat = dayRepeat.toString();
+                    if(monthRepeat.length==1){
+                        monthRepeat = '0' + monthRepeat;
+                    }
+                    if(dayRepeat.length==1){
+                        dayRepeat = '0' + dayRepeat;
+                    }
+                    var url='http://localhost:9000/insert?Room='+room+'&Start='+$('#startMeeting').val()+'&End='+$('#endMeeting').val()+'&Date='+yearRepeat+monthRepeat+dayRepeat+'&Resp='+userName+'&Schedule='+$('#insertSchedule').val()+'&User='+userEmail;
+                    result = ajax(url, 'POST');
+                    if(result!='OK'){
+                        $('#modalInsert .modal-dialog .modal-content .modal-body h1').html('Não foi possível realizar alguma(s) reserva(s).');
+                        $('#modalInsert').modal('show');
+                    }
+                    yearRepeat = parseInt(yearRepeat);
+                    monthRepeat = parseInt(monthRepeat);
+                    dayRepeat = parseInt(dayRepeat);
+                    dayRepeat+=7;
+                    break;
+                case '30':
+                    if(monthRepeat+1>12){
+                        monthRepeat = 1;
+                    }
+                    yearRepeat = yearRepeat.toString();
+                    monthRepeat = monthRepeat.toString();
+                    dayRepeat = dayRepeat.toString();
+                    if(monthRepeat.length==1){
+                        monthRepeat = '0' + monthRepeat;
+                    }
+                    if(dayRepeat.length==1){
+                        dayRepeat = '0' + dayRepeat;
+                    }
+                    var url='http://localhost:9000/insert?Room='+room+'&Start='+$('#startMeeting').val()+'&End='+$('#endMeeting').val()+'&Date='+yearRepeat+monthRepeat+dayRepeat+'&Resp='+userName+'&Schedule='+$('#insertSchedule').val()+'&User='+userEmail;
+                    result = ajax(url, 'POST');
+                    if(result!='OK'){
+                        $('#modalInsert .modal-dialog .modal-content .modal-body h1').html('Não foi possível realizar alguma(s) reserva(s).');
+                        $('#modalInsert').modal('show');
+                    }
+                    yearRepeat = parseInt(yearRepeat);
+                    monthRepeat = parseInt(monthRepeat);
+                    dayRepeat = parseInt(dayRepeat);
+                    monthRepeat++;
+                    break;
+                case '365':
+                    yearRepeat = yearRepeat.toString();
+                    monthRepeat = monthRepeat.toString();
+                    dayRepeat = dayRepeat.toString();
+                    var url='http://localhost:9000/insert?Room='+room+'&Start='+$('#startMeeting').val()+'&End='+$('#endMeeting').val()+'&Date='+yearRepeat+monthRepeat+dayRepeat+'&Resp='+userName+'&Schedule='+$('#insertSchedule').val()+'&User='+userEmail;
+                    result = ajax(url, 'POST');
+                    if(result!='OK'){
+                        $('#modalInsert .modal-dialog .modal-content .modal-body h1').html('Não foi possível realizar alguma(s) reserva(s).');
+                        $('#modalInsert').modal('show');
+                    }
+                    yearRepeat = parseInt(yearRepeat);
+                    monthRepeat = parseInt(monthRepeat);
+                    dayRepeat = parseInt(dayRepeat);
+                    yearRepeat++;
+                    break;
             }
         }
     }
@@ -587,63 +446,15 @@ function buildSelectYear (){
 function buildSelectDay (monthSelected){
     $('#day').show();
     var list = '<option value="00">Todos</option>';
-    switch (monthSelected){
-        case '01':
-        case '03':
-        case '05':
-        case '07':
-        case '08':
-        case '10':
-        case '12':
-            for (var x=1;x<32;x++){
-                if(x<10){
-                    list += '<option value="0' + x + '">' + x + '</option>';
-                }
-                else {
-                    list += '<option value="' + x + '">' + x + '</option>';
-                }
-            }
-            $('#day').html(list);
-            break;
-        case '04':
-        case '06':
-        case '09':
-        case '11':
-            for (var x=1;x<31;x++){
-                if(x<10){
-                    list += '<option value="0' + x + '">' + x + '</option>';
-                }
-                else {
-                    list += '<option value="' + x + '">' + x + '</option>';
-                }
-            }
-            $('#day').html(list);
-            break;
-        case '02':
-            resto = $('#year').val()%4;
-            if (resto == 0){
-                for (var x=1;x<30;x++){
-                    if(x<10){
-                        list += '<option value="0' + x + '">' + x + '</option>';
-                    }
-                    else {
-                        list += '<option value="' + x + '">' + x + '</option>';
-                    }
-                }
-            }
-            else {
-                for (var x=1;x<29;x++){
-                    if(x<10){
-                        list += '<option value="0' + x + '">' + x + '</option>';
-                    }
-                    else {
-                        list += '<option value="' + x + '">' + x + '</option>';
-                    }
-                }
-            }        
-            $('#day').html(list);
-            break;
+    for (var x=1;x<getDaysInMonth(parseInt(monthSelected), $('#year').val()) + 1;x++){
+        if(x<10){
+            list += '<option value="0' + x + '">' + x + '</option>';
+        }
+        else {
+            list += '<option value="' + x + '">' + x + '</option>';
+        }
     }
+    $('#day').html(list);
 }
 
 function cleanTable (){
@@ -724,11 +535,6 @@ function ajax(url, type){
         }
     });
     return result;
-}
-
-function insert(){
-    $("#pagesAndTable").hide();
-    cleanTable ();
 }
 
 function onSignIn(googleUser) {

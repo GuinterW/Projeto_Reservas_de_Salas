@@ -2246,7 +2246,7 @@ th {
   background-color: #f9f9f9; }
 
 .table-hover > tbody > tr:hover {
-  background-color: #f5f5f5; }
+  background-color: #e6e6e6; }
 
 table col[class*="col-"] {
   position: static;
@@ -2269,11 +2269,11 @@ table th[class*="col-"] {
 .table > tfoot > tr > th.active,
 .table > tfoot > tr.active > td,
 .table > tfoot > tr.active > th {
-  background-color: #f5f5f5; }
+  background-color: #e6e6e6; }
 
 .table-hover > tbody > tr > td.active:hover,
 .table-hover > tbody > tr > th.active:hover, .table-hover > tbody > tr.active:hover > td, .table-hover > tbody > tr:hover > .active, .table-hover > tbody > tr.active:hover > th {
-  background-color: #e8e8e8; }
+  background-color: #d9d9d9; }
 
 .table > thead > tr > td.success,
 .table > thead > tr > th.success, .table > thead > tr.success > td, .table > thead > tr.success > th,
@@ -7845,7 +7845,8 @@ button.close {
 
 #mainTitle {
   color: #337ab7;
-  margin-top: 45px; }
+  height: 96px;
+  padding-top: 27px; }
 
 #table {
   margin-top: -6px; }
@@ -7853,11 +7854,30 @@ button.close {
 #repeatLabel {
   text-align: left; }
 
+#user {
+  height: 96px; }
+
+#user:hover {
+  cursor: pointer;
+  background: #e6e6e6;
+  border-radius: 100px; }
+
+#userImage {
+  border-radius: 100px;
+  height: 96px; }
+
+.pointer {
+  cursor: pointer; }
+
 .pages {
   margin-left: 2%; }
 
 .modal-body {
   height: 100%; }
+
+.tableRowHover {
+  cursor: pointer;
+  background: #e0e0d1; }
 
 select {
   display: inline;

@@ -98,9 +98,9 @@
                         <label class="col-sm-2 control-label">Sala</label>
                         <div class="col-sm-10">
                             <select class="form-control" id="insertRoom">
-                                <option>Sala 1</option>
-                                <option>Sala 2</option>
-                                <option>Sala 3</option>
+                                <option value=1>Sala 1</option>
+                                <option value=2>Sala 2</option>
+                                <option value=3>Sala 3</option>
                             </select>
                         </div>
                     </div>
@@ -173,9 +173,6 @@
         <!-- Pages and table -->
         <div id="pagesAndTable">
             <ul class="pagination">
-                <li class="active activeRoom" value="1"><a href="#table" id="room1" class="room">Sala 1</a></li>
-                <li value="2"><a href="#table" id="room2" class="room">Sala 2</a></li>
-                <li value="3"><a href="#table" id="room3" class="room">Sala 3</a></li>
             </ul>
             <div id="table"></div>
         </div>
@@ -195,10 +192,11 @@
                             <label class="col-sm-4 control-label">Frequência: </label>
                             <div class="col-sm-6">
                                 <select class="form-control" id="repeatType">
-                                    <option>Diariamente</option>
-                                    <option>Semanalmente (2ª a 6ª)</option>
-                                    <option>Mensalmente</option>
-                                    <option>Anualmente</option>
+                                    <option value="00">Ajustável</option>
+                                    <option value=1 selected>Diariamente</option>
+                                    <option value=7>Semanalmente</option>
+                                    <option value=30>Mensalmente</option>
+                                    <option value=365>Anualmente</option>
                                 </select>
                             </div>
                         </div>
@@ -206,11 +204,11 @@
                             <label class="col-sm-4 control-label">Intervalo: </label>
                             <label class="col-sm-2 control-label"> A cada </label>
                             <div class="col-sm-2">
-                                <select class="form-control" id="repeatFrequency">
-                                    <option>1</option>
-                                    <option>2</option>
-                                    <option>3</option>
-                                    <option>30</option>
+                                <select class="form-control" id="repeatFrequency" disabled>
+                                    <option value=1>1</option>
+                                    <option value=2>2</option>
+                                    <option value=3>3</option>
+                                    <option value=30>30</option>
                                 </select>
                             </div>
                             <label class="col-sm-1 control-label"> dias </label>
@@ -245,10 +243,10 @@
                         <div class="form-group">
                             <label class="col-sm-4 control-label">Resumo: </label>
                             <div class="col-sm-6">
-                                <label id="abstract">A cada <span id="nFrequency">1</span> dias, <span id="nRepeats">x</span> vezes</label>
+                                <label id="abstract">A cada <span id="nFrequency">1 dias</span>, <span id="nRepeats">x</span> vezes</label>
                             </div>
                         </div>
-                        <button type="button" class="btn btn-default">Concluir</button>
+                        <button type="button" class="btn btn-default" id="buttomRepeat">Concluir</button>
                         <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
                     </form>
                 </div>
@@ -277,6 +275,17 @@
                 <h1>Você deseja apagar esta reserva?</h1>
                 <button type="button" class="btn btn-danger" id="delete">Sim</button>
                 <button type="button" class="btn btn-default" data-dismiss="modal">Não</button>
+            </div>
+          </div>  
+        </div>
+    </div>
+    <div class="modal fade" id="modalInsert" role="dialog">
+        <div class="modal-dialog">
+          <!-- Modal content-->
+          <div class="modal-content">
+            <div class="modal-body">
+                <h1>Reserva realizada</h1>
+                <button type="button" class="btn btn-default" data-dismiss="modal">Fechar</button>
             </div>
           </div>  
         </div>
@@ -322,4 +331,5 @@
     <!-- endbuild -->
     <script src="https://apis.google.com/js/platform.js" async defer></script>
 </body>
+
 </html>

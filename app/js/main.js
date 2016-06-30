@@ -75,7 +75,7 @@ $(document).ready(function(){
     $('#day').change(function(){
         checkTab(1);
     });
-    $('#user').on('click', '#userImage', function(){
+    $('#user').click(function(){
         $("#modalLogIn").modal('show');
     });
     $('#repeatFrequency').change(function(){

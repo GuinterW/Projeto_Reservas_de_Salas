@@ -123,7 +123,229 @@ $(document).ready(function(){
         $('#endMeeting').val('09:00:00');
         $('#insertSchedule').val('');
     });
+    $('#buttomRepeat').click(function(){
+        repeatInsert();
+    });
+    $('#repeatType').change(function(){
+        if(this.val()!='00'){
+            $('#repeatFrequency').prop('disabled', true);
+        }
+        else {
+            $('#repeatFrequency').prop('disabled', false);
+        }
+    });
 });
+
+function getDaysInMonth(monthRepeat, yearRepeat){
+    switch(monthRepeat){
+        case 2:
+            if(yearRepeat%4==0){
+                return 29;
+            }
+            else {
+                return 28;
+            }
+            break;
+        case 1:
+        case 3:
+        case 5:
+        case 7:
+        case 8:
+        case 10:
+        case 12:
+            return 31;
+            break;
+        case 4:
+        case 6:
+        case 9:
+        case 11:
+            return 30;
+            break;
+    }
+}
+
+function getRepeats(dayRepeat, monthRepeat, yearRepeat){
+    var startDays = dayRepeat;
+    var endDays;
+    var endDate = $('#dateEndRepeat').val().toString();
+    var endDay = parseInt(endDate.substring(0,2));
+    var endMonth = parseInt(endDate.substring(3,5));
+    var endYear = parseInt(endDate.substring(4,8));
+    var result;
+    for(var x=1;x<monthRepeat;x++){
+        startDays+=30;
+    }
+    if(endYear=yearRepeat){
+        endDays = endDay;
+        for(var x=1;x<monthRepeat;x++){
+            endDays+=30;
+        }
+    }
+    else if(endYear>yearRepeat){
+        endDays = 30 - dayRepeat;
+        for(var x=monthRepeat;x<12;x++){
+            endDays+=30;
+        }
+        for(var x=1;x<endMonth;x++){
+            endDays+=30;   
+        }
+        endDays+=endDay;
+    }
+    if($('#repeatType').val()!='00'){
+        result = (startDays - endDays)/$('#repeatFrequency').val();
+    }
+    else {
+        result = (startDays - endDays)/$('#repeatType').val();
+    }
+    return result;
+}
+
+function repeatInsert(){
+    var dateRepeat = $('#calendar').val().toString();
+    var dayRepeat = parseInt(dateRepeat.substring(0,2));
+    var monthRepeat = parseInt(dateRepeat.substring(3,5));
+    var yearRepeat = parseInt(dateRepeat.substring(4,8));
+    var daysInMonth = getDaysInMonth(monthRepeat, yearRepeat);
+    if($('#endRepeat').val()>0){
+        for(var x=0;x<$('#endRepeat').val();x++){
+            if($('#repeatType').val()!='00'){
+                daysInMonth = getDaysInMonth(monthRepeat, yearRepeat);
+                if(dayRepeat+$('#repeatFrequency').val()>daysInMonth){
+                    dayRepeat = $('#repeatFrequency').val() - daysInMonth - dayRepeat;
+                    if(monthRepeat+1>12){
+                        monthRepeat = 1;
+                        yearRepeat+=1;
+                    }
+                    else {
+                        monthRepeat+=1;
+                    }
+                }
+                var url='http://localhost:9000/insert?Room='+room.substring(5,6)+'&Start='+$('#startMeeting').val()+'&End='+$('#endMeeting').val()+'&Date='+yearRepeat+monthRepeat+dayRepeat+'&Resp='+userName+'&Schedule='+$('#insertSchedule').val()+'&User='+userEmail;
+                ajax(url, 'GET');
+                dayRepeat+=$('#repeatFrequency').val();
+            }
+            else {
+                switch($('#repeatType').val()){
+                    case 1:
+                        daysInMonth = getDaysInMonth(monthRepeat, yearRepeat);
+                        if(dayRepeat+1>daysInMonth){
+                            dayRepeat = 1;
+                            if(monthRepeat+1>12){
+                                monthRepeat = 1;
+                                yearRepeat+=1;
+                            }
+                            else {
+                                monthRepeat+=1;
+                            }
+                        }
+                        var url='http://localhost:9000/insert?Room='+room.substring(5,6)+'&Start='+$('#startMeeting').val()+'&End='+$('#endMeeting').val()+'&Date='+yearRepeat+monthRepeat+dayRepeat+'&Resp='+userName+'&Schedule='+$('#insertSchedule').val()+'&User='+userEmail;
+                        ajax(url, 'GET');
+                        dayRepeat++;
+                        break;
+                    case 7:
+                        daysInMonth = getDaysInMonth(monthRepeat, yearRepeat);
+                        if(dayRepeat+7>daysInMonth){
+                            dayRepeat = 7 - daysInMonth - dayRepeat;
+                            if(monthRepeat+1>12){
+                                monthRepeat = 1;
+                                yearRepeat+=1;
+                            }
+                            else {
+                                monthRepeat+=1;
+                            }
+                        }
+                        var url='http://localhost:9000/insert?Room='+room.substring(5,6)+'&Start='+$('#startMeeting').val()+'&End='+$('#endMeeting').val()+'&Date='+yearRepeat+monthRepeat+dayRepeat+'&Resp='+userName+'&Schedule='+$('#insertSchedule').val()+'&User='+userEmail;
+                        ajax(url, 'GET');
+                        dayRepeat+=7;
+                        break;
+                    case 30:
+                        if(monthRepeat+1>12){
+                            monthRepeat = 1;
+                        }
+                        var url='http://localhost:9000/insert?Room='+room.substring(5,6)+'&Start='+$('#startMeeting').val()+'&End='+$('#endMeeting').val()+'&Date='+yearRepeat+monthRepeat+dayRepeat+'&Resp='+userName+'&Schedule='+$('#insertSchedule').val()+'&User='+userEmail;
+                        ajax(url, 'GET');
+                        monthRepeat++;
+                        break;
+                    case 365:
+                        var url='http://localhost:9000/insert?Room='+room.substring(5,6)+'&Start='+$('#startMeeting').val()+'&End='+$('#endMeeting').val()+'&Date='+yearRepeat+monthRepeat+dayRepeat+'&Resp='+userName+'&Schedule='+$('#insertSchedule').val()+'&User='+userEmail;
+                        ajax(url, 'GET');
+                        yearRepeat++;
+                        break;
+                }
+            }
+        }
+    }
+    else if($('#dateEndRepeat').val()>0){
+        var timesToRepeat = getRepeats(dayRepeat, monthRepeat, yearRepeat);
+        for(var x=0;x<timesToRepeat;x++){
+            if($('#repeatType').val()!='00'){
+                daysInMonth = getDaysInMonth(monthRepeat, yearRepeat);
+                if(dayRepeat+$('#repeatFrequency').val()>daysInMonth){
+                    dayRepeat = $('#repeatFrequency').val() - daysInMonth - dayRepeat;
+                    if(monthRepeat+1>12){
+                        monthRepeat = 1;
+                        yearRepeat+=1;
+                    }
+                    else {
+                        monthRepeat+=1;
+                    }
+                }
+                var url='http://localhost:9000/insert?Room='+room.substring(5,6)+'&Start='+$('#startMeeting').val()+'&End='+$('#endMeeting').val()+'&Date='+yearRepeat+monthRepeat+dayRepeat+'&Resp='+userName+'&Schedule='+$('#insertSchedule').val()+'&User='+userEmail;
+                ajax(url, 'GET');
+                dayRepeat+=$('#repeatFrequency').val();
+            }
+            else {
+                switch($('#repeatType').val()){
+                    case 1:
+                        daysInMonth = getDaysInMonth(monthRepeat, yearRepeat);
+                        if(dayRepeat+1>daysInMonth){
+                            dayRepeat = 1;
+                            if(monthRepeat+1>12){
+                                monthRepeat = 1;
+                                yearRepeat+=1;
+                            }
+                            else {
+                                monthRepeat+=1;
+                            }
+                        }
+                        var url='http://localhost:9000/insert?Room='+room.substring(5,6)+'&Start='+$('#startMeeting').val()+'&End='+$('#endMeeting').val()+'&Date='+yearRepeat+monthRepeat+dayRepeat+'&Resp='+userName+'&Schedule='+$('#insertSchedule').val()+'&User='+userEmail;
+                        ajax(url, 'GET');
+                        dayRepeat++;
+                        break;
+                    case 7:
+                        daysInMonth = getDaysInMonth(monthRepeat, yearRepeat);
+                        if(dayRepeat+7>daysInMonth){
+                            dayRepeat = 7 - daysInMonth - dayRepeat;
+                            if(monthRepeat+1>12){
+                                monthRepeat = 1;
+                                yearRepeat+=1;
+                            }
+                            else {
+                                monthRepeat+=1;
+                            }
+                        }
+                        var url='http://localhost:9000/insert?Room='+room.substring(5,6)+'&Start='+$('#startMeeting').val()+'&End='+$('#endMeeting').val()+'&Date='+yearRepeat+monthRepeat+dayRepeat+'&Resp='+userName+'&Schedule='+$('#insertSchedule').val()+'&User='+userEmail;
+                        ajax(url, 'GET');
+                        dayRepeat+=7;
+                        break;
+                    case 30:
+                        if(monthRepeat+1>12){
+                            monthRepeat = 1;
+                        }
+                        var url='http://localhost:9000/insert?Room='+room.substring(5,6)+'&Start='+$('#startMeeting').val()+'&End='+$('#endMeeting').val()+'&Date='+yearRepeat+monthRepeat+dayRepeat+'&Resp='+userName+'&Schedule='+$('#insertSchedule').val()+'&User='+userEmail;
+                        ajax(url, 'GET');
+                        monthRepeat++;
+                        break;
+                    case 365:
+                        var url='http://localhost:9000/insert?Room='+room.substring(5,6)+'&Start='+$('#startMeeting').val()+'&End='+$('#endMeeting').val()+'&Date='+yearRepeat+monthRepeat+dayRepeat+'&Resp='+userName+'&Schedule='+$('#insertSchedule').val()+'&User='+userEmail;
+                        ajax(url, 'GET');
+                        yearRepeat++;
+                        break;
+                }
+            }
+        }
+    }
+}
 
 function checkUser(){
     x++;
@@ -351,7 +573,8 @@ function signOut() {
         userName = '';
         userImage = '';
         userEmail = '';
-        window.location.replace('http://localhost:9000');       
+        //window.location.replace('http://localhost:9000');
+        document.location.href = "https://www.google.com/accounts/Logout?continue=https://appengine.google.com/_ah/logout?continue=http://localhost:9000";
     });
     $("#modalLogIn").modal('hide');
 }

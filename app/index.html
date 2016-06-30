@@ -192,10 +192,11 @@
                             <label class="col-sm-4 control-label">Frequência: </label>
                             <div class="col-sm-6">
                                 <select class="form-control" id="repeatType">
-                                    <option>Diariamente</option>
-                                    <option>Semanalmente (2ª a 6ª)</option>
-                                    <option>Mensalmente</option>
-                                    <option>Anualmente</option>
+                                    <option value="00">Ajustável</option>
+                                    <option value=1 selected>Diariamente</option>
+                                    <option value=7>Semanalmente (2ª a 6ª)</option>
+                                    <option value=30>Mensalmente</option>
+                                    <option value=365>Anualmente</option>
                                 </select>
                             </div>
                         </div>
@@ -204,10 +205,10 @@
                             <label class="col-sm-2 control-label"> A cada </label>
                             <div class="col-sm-2">
                                 <select class="form-control" id="repeatFrequency">
-                                    <option>1</option>
-                                    <option>2</option>
-                                    <option>3</option>
-                                    <option>30</option>
+                                    <option value=1>1</option>
+                                    <option value=2>2</option>
+                                    <option value=3>3</option>
+                                    <option value=30>30</option>
                                 </select>
                             </div>
                             <label class="col-sm-1 control-label"> dias </label>
@@ -245,7 +246,7 @@
                                 <label id="abstract">A cada <span id="nFrequency">1</span> dias, <span id="nRepeats">x</span> vezes</label>
                             </div>
                         </div>
-                        <button type="button" class="btn btn-default">Concluir</button>
+                        <button type="button" class="btn btn-default" id="buttomRepeat">Concluir</button>
                         <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
                     </form>
                 </div>

@@ -6,12 +6,12 @@
 #mainTitle {color: #337ab7; margin-top: 45px;}
 #table {margin-top: -6px;}
 #repeatLabel {text-align: left;}
-#user:hover {cursor:pointer; background:#e0e0d1; border-radius: 100px;}
+#user:hover {cursor:pointer; background:#337ab7; border-radius: 100px;}
 #userImage {border-radius: 100px;}
 
 .pages {margin-left: 2%;}
 .modal-body {height: 100%;}
-
+.tableRowHover {cursor:pointer; background:#e0e0d1;}
 
 select {display: inline; font-size: 100%;}
 i {color: #333333;}

@@ -16,7 +16,8 @@ var x = 0;
 
 var table = {
     forToday: '<table class="table table-bordered table-striped"><thead><tr><th>Início</th><th>Término</th><th>Responsável</th><th>Pauta</th></tr></thead><tbody class="newLine"></tbody></table>',
-    complete: '<table class="table table-bordered table-striped"><thead><tr><th>Data</th><th>Início</th><th>Término</th><th>Responsável</th><th>Pauta</th></tr></thead><tbody class="newLine"></tbody></table>'
+    complete: '<table class="table table-bordered table-striped"><thead><tr><th>Data</th><th>Início</th><th>Término</th><th>Responsável</th><th>Pauta</th></tr></thead><tbody class="newLine"></tbody></table>',
+    my: '<table class="table table-bordered table-striped table-hover"><thead><tr><th>Data</th><th>Início</th><th>Término</th><th>Responsável</th><th>Pauta</th></tr></thead><tbody class="newLine"></tbody></table>'
 }
 
 $(document).ready(function(){
@@ -73,7 +74,28 @@ $(document).ready(function(){
         $("#modalLogIn").modal('show');
     });
     $('#repeatFrequency').change(function(){
-        $('#nFrequency').html($('#repeatFrequency').val());
+        $('#nFrequency').html($('#repeatFrequency').val()+' dias');
+    });
+    $('#repeatType').change(function(){
+        var result ='';
+        switch($('#repeatType').val()){
+            case '00':
+                $('#nFrequency').html($('#repeatFrequency').val()+' dias');
+            break;
+            case '1':
+                $('#nFrequency').html('diariamente');
+            break;
+            case '7':
+                $('#nFrequency').html('semanalmente');
+            break;
+            case '30':
+                $('#nFrequency').html('mensalmente');
+            break;
+            case '365':
+                $('#nFrequency').html('anualmente');
+            break;
+        }
+        $('#nFrequency').html(result);
     });
     $('#endRepeat').change(function(){
         $('#nRepeats').html($('#endRepeat').val());
@@ -502,7 +524,7 @@ function repeatInsert(){
 
 function checkUser(){
     x++;
-    if(x<3){
+    if(x<5){
         setTimeout(function(){
             $.ajax({
                 type: 'GET',
@@ -516,7 +538,7 @@ function checkUser(){
                     checkUser();
                 }
             });
-        }, 2000);
+        }, 1000);
     }
     else {
         var auth2 = gapi.auth2.getAuthInstance();
@@ -551,7 +573,7 @@ function buildRooms(){
 
 function buildSelectYear (){
     var list='';
-    for (var x=2007;x<year + 2;x++){
+    for (var x=2007;x<year + 6;x++){
         if(x==year){
             list += "<option value=" + x + ' selected=true>' + x + '</option>';
         }
@@ -665,14 +687,14 @@ function checkTab (sala){
         $('#listMeetings').show();
         if($('#month').val()=='00'){
             $('#day').hide();
-            buildTable(sala, '/' + $('#year').val() + '?myMeetings=true&', table.complete);
+            buildTable(sala, '/' + $('#year').val() + '?myMeetings=true&', table.my);
         }
         else {
             if($('#day').val()=='00'){
-                buildTable(sala, '/' + $('#year').val() + '/' + $('#month').val() + '?myMeetings=true&', table.complete);
+                buildTable(sala, '/' + $('#year').val() + '/' + $('#month').val() + '?myMeetings=true&', table.my);
             }
             else {
-                buildTable(sala, '/' +  $("#year").val() + '/' + $('#month').val() + '/' + $('#day').val() + '?myMeetings=true&', table.complete);
+                buildTable(sala, '/' +  $("#year").val() + '/' + $('#month').val() + '/' + $('#day').val() + '?myMeetings=true&', table.my);
             }
         }
     }
@@ -726,7 +748,6 @@ function signOut() {
         userName = '';
         userImage = '';
         userEmail = '';
-        //window.location.replace('http://localhost:9000');
         document.location.href = "https://www.google.com/accounts/Logout?continue=https://appengine.google.com/_ah/logout?continue=http://localhost:9000";
     });
     $("#modalLogIn").modal('hide');

@@ -3,11 +3,13 @@
 #formInsert {margin: 0 auto; width: 50%; background-color: #e6e6e6; padding: 5%; margin-bottom: 10px;}
 #header {margin-top: 3%;}
 #pagesAndTable {width: 90%; margin-left: 2%;}
-#mainTitle {color: #337ab7; margin-top: 45px;}
+#mainTitle {color: #337ab7; height: 96px; padding-top: 27px;}
 #table {margin-top: -6px;}
 #repeatLabel {text-align: left;}
-#user:hover {cursor:pointer; background:#337ab7; border-radius: 100px;}
-#userImage {border-radius: 100px;}
+#user { height: 96px;}
+#user:hover {cursor:pointer; background:#e6e6e6; border-radius: 100px;}
+#userImage {border-radius: 100px; height: 96px;}
+.pointer {cursor:pointer;}
 
 .pages {margin-left: 2%;}
 .modal-body {height: 100%;}

@@ -42,12 +42,6 @@ $(document).ready(function(){
         $("#modalRepeat").modal();
         $('#startRepeat').val($('#calendar').val());
     });
-    $('#buttomClear').click(function(){
-        $('#calendar').val('');
-        $('#startMeeting').val('08:30:00');
-        $('#endMeeting').val('09:00:00');
-        $('#insertSchedule').val('');
-    });
     $('#calendar').datepicker({
         format: "dd/mm/yyyy",
         language: "pt-br",
@@ -719,7 +713,7 @@ function buildTable(sala, url, table){
     $('.newLine').append(result);
 }
 
-function ajax(url,type){
+function ajax(url, type){
     var result = '';
     $.ajax({
         type: type,

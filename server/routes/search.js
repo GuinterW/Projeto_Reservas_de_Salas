@@ -1,6 +1,6 @@
 var express = require('express');
 var Search = express.Router();
-var validation = require('./validation');
+var validation = require('../validations/validation');
 var Command;
 
 //CONEXAO SERVER.
@@ -38,6 +38,7 @@ Search.get('/:Room/:Year', function(req, res){
     if(req.query.hasOwnProperty('myMeetings') && req.query.myMeetings == 'true'){
         Command += ' AND User = ?';
     }
+    Command += ' ORDER BY Date Asc';
     checkValidations(req,res,[parseInt(req.params.Room, 10), parseInt(req.params.Year, 10), req.query.User]);
 });
 
@@ -46,6 +47,7 @@ Search.get('/:Room/:Year/:Month', function(req, res){
     if(req.query.hasOwnProperty('myMeetings') && req.query.myMeetings == 'true'){
         Command += ' AND User = ?';
     }
+    Command += ' ORDER BY Date Asc';
     checkValidations(req,res,[parseInt(req.params.Room, 10), parseInt(req.params.Year, 10), parseInt(req.params.Month), req.query.User]);   
 });
 
@@ -55,6 +57,7 @@ Search.get('/:Room/:Year/:Month/:Day', function(req, res) {
     if(req.query.hasOwnProperty('myMeetings') && req.query.myMeetings == 'true'){
         Command += ' AND User = ?';
     }
+    Command += ' ORDER BY Date Asc';
     checkValidations(req,res,[parseInt(req.params.Room, 10), parseInt(date, 10), req.query.User]);   
 });
 

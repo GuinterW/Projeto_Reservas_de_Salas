@@ -6,8 +6,8 @@
 #mainTitle {color: #337ab7; height: 96px; padding-top: 27px;}
 #table {margin-top: -6px;}
 #repeatLabel {text-align: left;}
-#user { height: 96px;}
-#user:hover {cursor:pointer; background:#e6e6e6; border-radius: 100px;}
+#user {height: 96px; width:65%}
+#user:hover {cursor:pointer; background:#e6e6e6; border-radius: 100px;overflow:auto;}
 #userImage {border-radius: 100px; height: 96px;}
 .pointer {cursor:pointer;}
 

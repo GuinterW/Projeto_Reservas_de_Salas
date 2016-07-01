@@ -125,6 +125,7 @@ $(document).ready(function(){
             var user = userEmail;
             var room = $("li[class='active activeRoom']").val();
             urlDelete = 'http://localhost:9000/delete?Room=' + room + '&Start=' + start + '&End=' + end + '&Date=' + date + '&User=' + user;
+            urlUpdate = 'http://localhost:9000/insert?Room=' + room + '&Start=' + start + '&End=' + end + '&Date=' + date + '&User=' + user;
             $('#modalDelete').modal('show');
         }
     });
@@ -132,6 +133,12 @@ $(document).ready(function(){
         ajax(urlDelete, 'DELETE');
         $('#modalDelete').modal('hide');
         checkTab($("li[class='active activeRoom']").val());
+    });
+    $('#buttonEdit').click(function(){
+    //  ajax(urlUpdate, 'PUT');
+        $('#modalDelete').modal('hide');
+        $('#modalUpdate').modal('show');
+
     });
     $('#buttomClear').click(function(){
         $('#calendar').val('');

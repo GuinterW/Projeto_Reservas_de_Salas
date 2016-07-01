@@ -7855,7 +7855,8 @@ button.close {
   text-align: left; }
 
 #user {
-  height: 96px; }
+  height: 96px;
+  width: 65%; }
 
 #user:hover {
   cursor: pointer;

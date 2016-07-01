@@ -1,7 +1,7 @@
 var express = require('express');
 var Delete = express.Router();
 var mysql = require('mysql');
-var validation = require('./validation');
+var validation = require('../validations/validation');
 var connection = mysql.createConnection({
     host     : '192.168.1.117',
     user     : 'me',

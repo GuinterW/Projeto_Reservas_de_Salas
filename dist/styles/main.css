@@ -7855,7 +7855,8 @@ button.close {
   text-align: left; }
 
 #user {
-  height: 96px; }
+  height: 96px;
+  width: 65%; }
 
 #user:hover {
   cursor: pointer;
@@ -7959,14 +7960,6 @@ body {
   -moz-border-radius: 50%;
   -webkit-border-radius: 50%;
   border-radius: 50%; }
-
-#user:hover {
-  cursor: pointer;
-  background: #e0e0d1;
-  border-radius: 100px; }
-
-#userImage {
-  border-radius: 100px; }
 
 /*!
  * Datepicker for Bootstrap

@@ -81,7 +81,7 @@
                     <div class="form-group">
                         <label class="col-sm-2 control-label">Data: </label>
                         <div class="col-sm-10">
-                            <input class="form-control" id="calendar" type="text" placeholder="Clique para escolher uma data...">
+                            <input class="form-control calendar" type="text" placeholder="Clique para escolher uma data...">
                         </div>
                     </div>
                     <div class="form-group">
@@ -164,8 +164,8 @@
                             <input class="form-control" type="text" id="insertSchedule">
                         </div>
                     </div>
-                    <button type="button" class="btn btn-default" id="buttomInsert">Reservar</button>
-                    <button type="button" class="btn btn-default" id="buttomClear">Limpar</button>
+                    <button type="button" class="btn btn-default" id="buttonInsert">Reservar</button>
+                    <button type="button" class="btn btn-default" id="buttonClear">Limpar</button>
                 </form>
             </div>
         </div>
@@ -224,7 +224,7 @@
                             <div class="col-sm-6">
                                 <div class="radio">
                                     <label>
-                                        <input type="radio" name="radioEnd" checked>
+                                        <input type="radio" name="radioEnd" value="numberOfTimes" checked>
                                         Após 
                                         <input id="endRepeat" type="text" placeholder="ex: 2">
                                         ocorrência(s)
@@ -234,7 +234,7 @@
                             <div class="col-sm-offset-4 col-sm-6">
                                 <div class="radio">
                                   <label>
-                                    <input type="radio" name="radioEnd">Em
+                                    <input type="radio" name="radioEnd" value="date">Em
                                     <input id="dateEndRepeat" type="text" placeholder="Digite uma data...">
                                   </label>
                                 </div>
@@ -243,10 +243,10 @@
                         <div class="form-group">
                             <label class="col-sm-4 control-label">Resumo: </label>
                             <div class="col-sm-6">
-                                <label id="abstract">A cada <span id="nFrequency">1 dias</span>, <span id="nRepeats">x</span> vezes</label>
+                                <label id="abstract"><span id="nFrequency">Diariamente</span>, termina em <span id="nRepeats">x  vezes</span></label>
                             </div>
                         </div>
-                        <button type="button" class="btn btn-default" id="buttomRepeat">Concluir</button>
+                        <button type="button" class="btn btn-default" id="buttonRepeat">Concluir</button>
                         <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
                     </form>
                 </div>
@@ -255,7 +255,7 @@
         </div>
     </div>
 
-    <div class="modal fade" id="modalLogIn" role="dialog">
+    <div class="modal fade" id="modalLogOut" role="dialog">
         <div class="modal-dialog">
           <!-- Modal content-->
           <div class="modal-content">
@@ -267,27 +267,120 @@
           </div>  
         </div>
     </div>
-    <div class="modal fade" id="modalDelete" role="dialog">
+    <div class="modal fade" id="modalOptions" role="dialog">
         <div class="modal-dialog">
           <!-- Modal content-->
           <div class="modal-content">
             <div class="modal-body">
-                <h1>Você deseja apagar esta reserva?</h1>
-                <button type="button" class="btn btn-danger" id="delete">Sim</button>
-                <button type="button" class="btn btn-default" data-dismiss="modal">Não</button>
+                <h1>O que você deseja fazer?</h1>
+                <button type="button" class="btn btn-danger" id="buttonDelete">Deletar</button>
+                <button type="button" class="btn btn-success" id="buttonEdit">Editar</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">Nada ¯\_(ツ)_/¯</button>
             </div>
           </div>  
         </div>
     </div>
-    <div class="modal fade" id="modalInsert" role="dialog">
+    <div class="modal fade" id="modalMessages" role="dialog">
         <div class="modal-dialog">
           <!-- Modal content-->
           <div class="modal-content">
             <div class="modal-body">
-                <h1>Reserva realizada</h1>
+                <h1></h1>
                 <button type="button" class="btn btn-default" data-dismiss="modal">Fechar</button>
             </div>
           </div>  
+        </div>
+    </div>
+
+    <div class="modal fade" id="modalUpdate" role="dialog">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-body">
+                    <div id="" class="">
+                        <h2><i class="fa fa-calendar-plus-o" aria-hidden="true"></i> Editar</h2>
+                        <form class="form-horizontal" role="form">
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">Data: </label>
+                                <div class="col-sm-10">
+                                    <input class="form-control calendar" type="text" placeholder="Clique para escolher uma data...">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">Sala</label>
+                                <div class="col-sm-10">
+                                    <select class="form-control" id="updateRoom">
+                                        <option value=1>Sala 1</option>
+                                        <option value=2>Sala 2</option>
+                                        <option value=3>Sala 3</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">Início</label>
+                                <div class="col-sm-10">
+                                    <select class="form-control" id="updateStartMeeting">
+                                        <option value="08:30:00">08:30</option>
+                                        <option value="09:00:00">09:00</option>
+                                        <option value="09:30:00">09:30</option>
+                                        <option value="10:00:00">10:00</option>
+                                        <option value="10:30:00">10:30</option>
+                                        <option value="11:00:00">11:00</option>
+                                        <option value="11:30:00">11:30</option>
+                                        <option value="12:00:00">12:00</option>
+                                        <option value="12:30:00">12:30</option>
+                                        <option value="13:00:00">13:00</option>
+                                        <option value="13:30:00">13:30</option>
+                                        <option value="14:00:00">14:00</option>
+                                        <option value="14:30:00">14:30</option>
+                                        <option value="15:00:00">15:00</option>
+                                        <option value="15:30:00">15:30</option>
+                                        <option value="16:00:00">16:00</option>
+                                        <option value="16:30:00">16:30</option>
+                                        <option value="17:00:00">17:00</option>
+                                        <option value="17:30:00">17:30</option>
+                                        <option value="18:00:00">18:00</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">Término</label>
+                                <div class="col-sm-10">
+                                    <select class="form-control" id="updateEndMeeting">
+                                        <option value="09:00:00">09:00</option>
+                                        <option value="09:30:00">09:30</option>
+                                        <option value="10:00:00">10:00</option>
+                                        <option value="10:30:00">10:30</option>
+                                        <option value="11:00:00">11:00</option>
+                                        <option value="11:30:00">11:30</option>
+                                        <option value="12:00:00">12:00</option>
+                                        <option value="12:30:00">12:30</option>
+                                        <option value="13:00:00">13:00</option>
+                                        <option value="13:30:00">13:30</option>
+                                        <option value="14:00:00">14:00</option>
+                                        <option value="14:30:00">14:30</option>
+                                        <option value="15:00:00">15:00</option>
+                                        <option value="15:30:00">15:30</option>
+                                        <option value="16:00:00">16:00</option>
+                                        <option value="16:30:00">16:30</option>
+                                        <option value="17:00:00">17:00</option>
+                                        <option value="17:30:00">17:30</option>
+                                        <option value="18:00:00">18:00</option>
+                                        <option value="18:30:00">18:30</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">Pauta: </label>
+                                <div class="col-sm-10">
+                                    <input class="form-control" type="text" id="updateSchedule">
+                                </div>
+                            </div>
+                            <button type="button" class="btn btn-default" id="buttonUpdate">Editar</button>
+                            <button type="button" class="btn btn-default" id="buttonClearUpdate">Limpar</button>
+                        </form>
+                    </div>
+                </div>
+            </div>  
         </div>
     </div>
 

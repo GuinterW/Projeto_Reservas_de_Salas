@@ -1,9 +1,9 @@
 var server = 'http://localhost:9000/';
 
-var date = new Date();
-var day  = date.getDate();
-var month  = date.getMonth() + 1;
-var year  = date.getFullYear();
+var today = new Date();
+var day  = today.getDate();
+var month  = today.getMonth() + 1;
+var year  = today.getFullYear();
 var userName = '';
 var userImage = '';
 var userEmail = '';
@@ -22,11 +22,13 @@ var messages = {
     insertFailed: 'Não foi possível realizar a reserva.',
     deleteFailed: 'Não foi possível apagar a reserva.',
     deleteSuccess: 'Reserva apagada.',
-    insertsFailed: 'Não foi possível realizar alguma(s) reserva(s).'
+    insertsFailed: 'Não foi possível realizar alguma(s) reserva(s).',
+    editFailed: 'Não foi possível editar a reserva.'
 }
 
 $(document).ready(function(){
     checkUser();
+    $("#endRepeat").keypress(onlyIntegers);
     $('.links').click(function(){
         $("li[class='active activeRoom']").removeClass("active activeRoom");
         $("li a[id='room1']").parent().addClass("active activeRoom");
@@ -44,11 +46,6 @@ $(document).ready(function(){
         checkRoom(page);
     });
     $('.calendar').datepicker({
-        format: "dd/mm/yyyy",
-        language: "pt-br",
-        autoclose: true
-    });
-    $('#dateEndRepeat').datepicker({
         format: "dd/mm/yyyy",
         language: "pt-br",
         autoclose: true
@@ -91,9 +88,11 @@ $(document).ready(function(){
             var date = $(this).children('td[data-name="date"]').data('date');
             var start = $(this).children('td[data-name="start"]').data('start');
             var end = $(this).children('td[data-name="end"]').data('end');
+            var schedule = $(this).children('td[data-name="schedule"]').data('schedule');
             var user = userEmail;
             var room = $("li[class='active activeRoom']").val();
-            IDUpdate = $(this).data('ID');
+            IDUpdate = $(this).data('id');
+            setModalUpdateValues(date, start, end, room, schedule);
             urlDelete = server + 'delete?Room=' + room + '&Start=' + start + '&End=' + end + '&Date=' + date + '&User=' + user;
             $('#modalOptions').modal('show');
         }
@@ -107,17 +106,17 @@ $(document).ready(function(){
         $('#modalUpdate').modal('show');
     });
     $('#buttonClear').click(function(){
-        $('.calendar').val('');
-        $('#startMeeting').val('08:30:00');
-        $('#endMeeting').val('09:00:00');
-        $('#insertSchedule').val('');
+        clearInsertValues('.calendar', '#startMeeting', '#endMeeting', '#insertSchedule');
+    });
+    $('#buttonClearUpdate').click(function(){
+        clearInsertValues('.calendar', '#updateStartMeeting', '#updateEndMeeting', '#updateSchedule');
     });
     $('#buttonRepeat').click(function(){
         setRepeatInsert();
         $('#modalRepeat').modal('hide');
     });
     $("#buttonInsert").click(function(){
-        var calendar = $('.calendar').val();
+        var calendar = $('#calendarInsert').val();
         var room = $('#insertRoom').val();
         var url=server+'insert?Room='+room+'&Start='+$('#startMeeting').val()+'&End='+$('#endMeeting').val()+'&Date='+calendar.substring(6,10)+calendar.substring(3,5)+calendar.substring(0,2)+'&Resp='+userName+'&Schedule='+$('#insertSchedule').val()+'&User='+userEmail;
         var result = ajax(url, 'POST');
@@ -127,6 +126,14 @@ $(document).ready(function(){
         result = ajax(urlDelete, 'DELETE');
         modalMessage(result, messages.deleteFailed, messages.deleteSuccess);
         $('#modalOptions').modal('hide');
+        checkTab($("li[class='active activeRoom']").val());
+    });
+    $('#buttonUpdate').click(function(){
+        var calendar = $('#calendarUpdate').val();
+        var url=server+'insert?Room='+$('#updateRoom').val()+'&Start='+$('#updateStartMeeting').val()+'&End='+$('#updateEndMeeting').val()+'&Date='+calendar.substring(6,10)+calendar.substring(3,5)+calendar.substring(0,2)+'&Resp='+userName+'&Schedule='+$('#updateSchedule').val()+'&ID='+IDUpdate+'&User='+userEmail;
+        var result = ajax(url, 'PUT');
+        $('#modalUpdate').modal('hide');
+        modalMessage(result, messages.editFailed, messages.insertSuccess);
         checkTab($("li[class='active activeRoom']").val());
     });
     $('#endRepeat').click(function(){
@@ -143,6 +150,13 @@ $(document).ready(function(){
     });
 });
 
+function clearInsertValues(calendar, start, end, schedule){
+    $(calendar).val('');
+    $(start).val('08:30:00');
+    $(end).val('09:00:00');
+    $(schedule).val('');
+}
+
 function modalMessage(result, fail, success){
     if(result != 'OK'){
         $('#modalMessages .modal-dialog .modal-content .modal-body h1').html(fail);
@@ -151,6 +165,15 @@ function modalMessage(result, fail, success){
         $('#modalMessages .modal-dialog .modal-content .modal-body h1').html(success);
     }
     $('#modalMessages').modal('show');
+}
+
+function setModalUpdateValues(dateUpdate, startUpdate, endUpdate, roomUpdate, scheduleUpdate){
+    $('.calendar').val(dateUpdate.toString().substring(6,8) + '/' + dateUpdate.toString().substring(4,6) + '/' + dateUpdate.toString().substring(0,4));
+    //$('.calendar').datepicker('setDate', new Date(2016, 7, 5));
+    $('#updateStartMeeting').val(startUpdate);
+    $('#updateEndMeeting').val(endUpdate);
+    $('#updateRoom').val(roomUpdate);
+    $('#updateSchedule').val(scheduleUpdate);
 }
 
 function setSummaryRepeat(radio){
@@ -352,6 +375,7 @@ function checkUser(){
                 success: function(data) {
                     start();
                     $('body').css('display', 'block');
+                    buildTable(1, '/' + year + '/' + month + '/' + day + '/?today=true&', table.forToday);
                 },
                 error: function(xhr, ajaxOptions, thrownError) {
                     checkUser();
@@ -505,4 +529,9 @@ function signOut() {
     auth2.signOut().then(function() {
         document.location.href = "https://www.google.com/accounts/Logout?continue=https://appengine.google.com/_ah/logout?continue=http://localhost:9000";
     });
+}
+
+function onlyIntegers(e){
+    if ( e.which == 8 || e.which == 0 ) return true;
+    if ( e.which < 48 || e.which > 57 ) return false;
 }

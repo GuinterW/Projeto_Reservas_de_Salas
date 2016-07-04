@@ -7865,7 +7865,8 @@ button.close {
 
 #userImage {
   border-radius: 100px;
-  height: 96px; }
+  height: 96px;
+  width: 96px; }
 
 .pointer {
   cursor: pointer; }
@@ -7976,6 +7977,8 @@ body {
   -moz-border-radius: 4px;
   border-radius: 4px;
   direction: ltr;
+  z-index: 9999 !important;
+  position: absolute;
   /*.dow {
 		border-top: 1px solid #ddd !important;
 	}*/ }
@@ -7991,7 +7994,9 @@ body {
 
 .datepicker-dropdown {
   top: 0;
-  left: 0; }
+  left: 0;
+  z-index: 9999 !important;
+  position: absolute; }
 
 .datepicker-dropdown:before {
   content: '';
